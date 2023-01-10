@@ -26,7 +26,7 @@ import java.util.*;
         board [5] = new boardSpace [2];
         board [6] = new boardSpace [7];
 
-        //Initializes each space
+        //Initializes each space in there
         for (int i = 0; i < board.length; i ++){
             for (int j = 0; j < board[i].length; j++){
                 board[i][j] = new boardSpace();
