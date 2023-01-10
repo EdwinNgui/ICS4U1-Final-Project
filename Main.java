@@ -82,7 +82,7 @@ import java.util.*;
 
         }
 
-//ISSUE: only 1 player atm
+//ISSUE: only 1 player atm m
 Player p1 = new Player();
 
         System.out.println("going to move player 1, 5 spaces along the board. ");
