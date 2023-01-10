@@ -14,7 +14,34 @@ import java.util.*;
         Scanner input = new Scanner(System.in);
         boolean invalidInput = false;
         int ans;
-        int [][] board = new int [7][7];
+        int num = 0;
+        //7 by 7 board, 2 layers, the top (1) is the player movement, the bottom (2) is where the properties are held
+        boardSpace [][] board = new boardSpace [7][];
+        //Makes 7x7 hollow
+        board [0] = new boardSpace [7];
+        board [1] = new boardSpace [2];
+        board [2] = new boardSpace [2];
+        board [3] = new boardSpace [2];
+        board [4] = new boardSpace [2];
+        board [5] = new boardSpace [2];
+        board [6] = new boardSpace [7];
+
+        //Initializes each space
+        for (int i = 0; i < board.length; i ++){
+            for (int j = 0; j < board[i].length; j++){
+                board[i][j] = new boardSpace();
+            }
+        }
+
+        //Position set for all spaces
+        for (int i = 0; i < board.length; i ++){
+            for (int j = 0; j < board[i].length; j++){
+                board[i][j].setPosition(num);
+                num ++;
+            }
+        }
+
+        int numOfPlayers;
 
 
         System.out.println("Welcome to the Monopoly!");
@@ -32,18 +59,50 @@ import java.util.*;
 		} while (ans != 1 && ans != 2);
 
         //New or load game
-        if (ans == 1){ //New game
-            //Setup variables intialized here
+        if (ans == 1){ //New game: Setup variables intialized here
+            clear();
+            //Sets number of players
+            System.out.println("How many players will be playing today?");
+            System.out.println("Input here: ");
+            numOfPlayers = input.nextInt();
 
+
+
+        //Position viewer for all spaces
+        for (int i = 0; i < board.length; i ++){
+            for (int j = 0; j < board[i].length; j++){
+                System.out.print(board[i][j].getPosition() + " ");
+            }
+            System.out.println("");
+        }
+
+            //ISSUE: Sets the properties to their respective locations
+            
         }else if (ans == 2){ //Load game (use file reading)
 
         }
 
+//ISSUE: only 1 player atm
+Player p1 = new Player();
 
-
+        System.out.println("going to move player 1, 5 spaces along the board. ");
+        System.out.println("they were at p1: " + p1.getPosition());
+        num = 5;
+       movePlayer(p1, board, num);
 
 
     }
+
+    /* Pre: Requires player to move, the current board, number of spaces to move
+     * Post: Returns the player with their updated position
+     * Desc: Moves the player along the board clockwise
+     */
+    public static void movePlayer(Player player, boardSpace [][]board, int moveSpaces){
+        
+
+
+    }
+
 
     /* Pre: Requires the menu number and if there's an invalid input
 	 * Post: Returns nothing to main

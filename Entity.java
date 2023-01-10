@@ -1,10 +1,31 @@
 public abstract class Entity {
-    String name;
-    int entity_value; //Used as balance for player, intial cost for property
+    public static String name;
 
-    public Entity(){
+    /*
+     * Pre: Requires nothing
+     * Post: Returns nothing
+     * Desc: Constructor for basic variables for a value and string name
+     */
+    public Entity() {
         name = "";
-        entity_value = 0;
+    }
+
+    /*
+     * Pre: Requires nothing
+     * Post: Returns nothing
+     * Desc: Sets the new name
+     */
+    public static void setName(String newName) {
+        name = newName;
+    }
+
+    /*
+     * Pre: Requires nothing
+     * Post: Returns string value of name
+     * Desc: Returns the name
+     */
+    public static String getName() {
+        return name;
     }
 
 }
