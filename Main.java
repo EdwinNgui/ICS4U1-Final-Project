@@ -47,7 +47,6 @@ import java.util.*;
         System.out.println("Welcome to the Monopoly!");
         System.out.println("When you see <continue> enter anything to continue");
         pause();
-
         //Displays new or load game
         do {
             displayMenu(1, invalidInput);
@@ -98,8 +97,16 @@ Player p1 = new Player();
      * Desc: Moves the player along the board clockwise
      */
     public static void movePlayer(Player player, boardSpace [][]board, int moveSpaces){
-        
+        //Go for the number of spaces the player should move
+        for (int i = 0; i < moveSpaces; i ++){
+            if(player.getPosition() >= 0 && player.getPosition() <= 5){ //Position 0-5 (6 is a corner)
+                player.setPosition(player.getPosition() + 1); //Increased by one
+            }else if(player.getPosition() >= 0 && player.getPosition() <= 5){ //Position 0-5 (6 is a corner)
+                player.setPosition(player.getPosition() + 1); //Increased by one
+            }else{
 
+            }
+        }
 
     }
 
