@@ -15,7 +15,7 @@ public abstract class Entity {
      * Post: Returns nothing
      * Desc: Sets the new name
      */
-    public static void setName(String newName) {
+    public void setName(String newName) {
         name = newName;
     }
 
@@ -24,7 +24,7 @@ public abstract class Entity {
      * Post: Returns string value of name
      * Desc: Returns the name
      */
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
