@@ -106,7 +106,16 @@ Player p1 = new Player();
             }else{
 
             }
+            
         }
+        
+        //player position should move to a new value, then it should search thru all board spaces until it finds its match and move there. or 
+        //or just code the player to have 2 values for position, then shift the values, accordingly
+
+        //writing a number for the physical space, players will imagine it
+
+
+        System.out.println(player.getPosition());
 
     }
 
