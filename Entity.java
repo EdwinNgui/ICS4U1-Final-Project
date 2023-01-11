@@ -1,5 +1,5 @@
 public abstract class Entity {
-    public static String name;
+    public String name;
 
     /*
      * Pre: Requires nothing

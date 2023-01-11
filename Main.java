@@ -80,18 +80,18 @@ public class Main {
         } while (numOfPlayers != 2 && numOfPlayers != 3 && numOfPlayers != 4);
 
         if (numOfPlayers >= 2) {
-            System.out.println("Enter name of Player 1: ");
+            System.out.print("Enter name of Player 1: ");
             stringAns = input.nextLine();
             p1.setName(stringAns);
-            System.out.println("Enter name of Player 2: ");
+            System.out.print("Enter name of Player 2: ");
             stringAns = input.nextLine();
             p2.setName(stringAns);
             if (numOfPlayers >= 3) {
-                System.out.println("Enter name of Player 3: ");
+                System.out.print("Enter name of Player 3: ");
                 stringAns = input.nextLine();
                 p3.setName(stringAns);
                 if (numOfPlayers >= 4) {
-                    System.out.println("Enter name of Player 4: ");
+                    System.out.print("Enter name of Player 4: ");
                     stringAns = input.nextLine();
                     p4.setName(stringAns);
                 }
@@ -102,60 +102,30 @@ public class Main {
 
         // }
 
-//START of turn
-//For loop runs for 5 turns per number of players
-playerTurn = p1; //Starts first move
-for (int k = 0; k < numOfPlayers*5; k ++){
+        // START of turn
+        // For loop runs for 5 turns per number of players
+        playerTurn = p1; // Starts first move
+        for (int k = 0; k < numOfPlayers * 5; k++) {
 
-        // Position viewer for all spaces
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j].getPosition() + " ");
-                // If on left side in middle
-                if ((board[i][j].getPosition() >= 7 && board[i][j].getPosition() <= 15)
-                        && ((board[i][j].getPosition() % 2) == 1)) {
-                    System.out.print("\t   ");
+            //Allow the turns to continue and move through
+            if (numOfPlayers >= 2) {
+                displayBoard(board);
+                playTurn(p1, board);
+                displayBoard(board);
+                playTurn(p2, board);
+                if (numOfPlayers >= 3) {
+                    displayBoard(board);
+                    playTurn(p3, board);
+                    if (numOfPlayers >= 4) {
+                        displayBoard(board);
+                        playTurn(p4, board);
+                    }
                 }
             }
-            System.out.println("");
+
+            // ISSUE: Sets the properties to their respective locations
         }
-
-        System.out.println(playerTurn.getName() + " is at " + playerTurn.getPosition());
-        System.out.println("insert roll dice button.");
-        System.out.println(playerTurn.getName() + " is now at " + playerTurn.getPosition());
-        pause();
-
-        //ISSUE: moves to next turn just fine but the player turn name never gets replaced or reset
-
-        //Move to next turn
-        if (playerTurn == p1){
-            playerTurn = p2;
-            System.out.println("ab");
-        }else if (playerTurn == p2){
-            //Checks to move next or reset cycle
-            System.out.println("abc");
-            if (numOfPlayers > 2){
-                playerTurn = p3;
-            }else{
-                playerTurn = p1;
-            }
-        }else if (playerTurn == p3){
-            System.out.println("dab");
-            //Checks to move next or reset cycle
-            if (numOfPlayers > 3){
-                playerTurn = p4;
-            }else{
-                playerTurn = p1;
-            }
-        }else if (playerTurn == p4){
-            playerTurn = p1;
-            System.out.println("abafsdfgeds");
-        }else{
-            System.err.println("uh oh issueuas");
-        }
-        // ISSUE: Sets the properties to their respective locations
-    }
-//END of turn
+        // END of turn
 
     }
 
@@ -265,6 +235,41 @@ for (int k = 0; k < numOfPlayers*5; k ++){
 
         return num;
 
+    }
+
+    /*
+     * Pre: Requires no variables
+     * Post: Returns nothing to main
+     * Desc: Takes the player at hand and allows them to start their turn
+     */
+    public static void playTurn(Player player, boardSpace [][] board){
+        int num = rollDice();
+        System.out.println(player.getName() + " is at: " + player.getPosition());
+        System.out.println("insert roll dice button."); //ISSUE
+        movePlayer(player, board, num);
+        System.out.println(player.getName() + " rolled a " + num + " and is now at: " + player.getPosition());
+        pause();
+        clear();
+    }
+
+    /*
+     * Pre: Requires no variables
+     * Post: Returns nothing to main
+     * Desc: Displays the board
+     */
+    public static void displayBoard(boardSpace[][] board) {
+        // Position viewer for all spaces
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                System.out.print(board[i][j].getPosition() + " ");
+                // If on left side in middle
+                if ((board[i][j].getPosition() >= 7 && board[i][j].getPosition() <= 15)
+                        && ((board[i][j].getPosition() % 2) == 1)) {
+                    System.out.print("\t   ");
+                }
+            }
+            System.out.println("");
+        }
     }
 
 }
