@@ -51,11 +51,33 @@ public class Main {
             }
         }
 
+        //CURRENT: make map and make player replacaable to icon
+        //Property lettering
+        board[6][6].setLetterPos("🅐");
+        board[6][5].setLetterPos("🅑");
+        board[6][4].setLetterPos("🅒");
+        board[6][3].setLetterPos("✦"); 
+        board[6][2].setLetterPos("🅓");
+        board[6][1].setLetterPos("🅔");    
+        board[6][0].setLetterPos("🅕");
+        // 🅖 🅗 🅘 🅙 🅚 🅛 🅜 🅝 🅞 🅟 🅠 🅡 🅢 🅣 🅤 🅥 🅦 🅧 🅨 🅩 alphabet is property
+        //chance to 20 [6][3], 11[3][0] , 3[0][3], 10[2][1] ✦
+
+
+        System.out.println(board[6][6].getLetterPos());
+        System.out.println(board[6][5].getLetterPos());
+        System.out.println(board[6][4].getLetterPos());
+        System.out.println(board[6][3].getLetterPos());
+        System.out.println(board[6][2].getLetterPos());
+        System.out.println(board[6][1].getLetterPos());
+        System.out.println(board[6][0].getLetterPos());
+
+        //ISSUE: make it so that when the player is on the spot, it will not print the spot and will instead put the player symbol
+        //CAN LET PLAYER CHOOSE SYMBOL at the start during setup; for now just keep it as preset symbols (note to self make a variable for the player
+
         // ISSUE: needs Property Info for all properties (corners and middles do not
         // have this
         // ISSUE: needs chance card spaces
-        // Current task: jail (or you got hacked and blackmailed; either roll a certain
-        // number or get out by paying up)
 
         // 0 sends you to jail at 6
 

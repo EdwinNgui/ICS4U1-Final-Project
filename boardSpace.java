@@ -3,6 +3,7 @@ public class boardSpace extends Entity{
     private int buyValue;
     private int sellValue;
     private int position;
+    private String letterPos;
 
     public boardSpace(){
         super(); //Name and entity value
@@ -10,6 +11,7 @@ public class boardSpace extends Entity{
         buyValue = 0;
         sellValue = 0;
         position = 0;
+        letterPos = "";
     }
 
     //Set/get name is already made in the entity
@@ -62,6 +64,21 @@ public class boardSpace extends Entity{
         return position;
     }
 
+        /* Pre: Requires string
+     * Post: Returns nothing
+     * Desc: Sets the new name for the letter pos
+     */
+    public void setLetterPos(String newLetterPos){
+        letterPos = newLetterPos;
+    }
+
+    /* Pre: Requires nothing
+     * Post: Returns String value
+     * Desc: Sets the new name of the position
+     */
+    public String getLetterPos(){
+        return letterPos;
+    }
 
 
     //board space = movement position space and then the head which holds a property
