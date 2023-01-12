@@ -51,7 +51,6 @@ public class Main {
             }
         }
 
-        //CURRENT: make map and make player replacaable to icon
         //Property lettering
         board[6][6].setLetterPos("🅐");
         board[6][5].setLetterPos("🅑");
@@ -89,9 +88,6 @@ public class Main {
         //chance to 20 [6][3], 11[3][0] , 3[0][3], 12[3][1] ✦
         //◈ in jail [0][6]
         //⏭ go to jail [0][0]
-
-        //ISSUE: make it so that when the player is on the spot, it will not print the spot and will instead put the player symbol
-        //CAN LET PLAYER CHOOSE SYMBOL at the start during setup; for now just keep it as preset symbols (note to self make a variable for the player
 
         // ISSUE: needs Property Info for all properties (corners and middles do not
         // have this
@@ -158,15 +154,15 @@ public class Main {
         for (int k = 0; k < 15; k++) {
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
-                displayBoard(board);
+                displayBoard(board, p1);
                 playTurn(p1, board);
-                displayBoard(board);
+                displayBoard(board, p2);
                 playTurn(p2, board);
                 if (numOfPlayers >= 3) {
-                    displayBoard(board);
+                    displayBoard(board, p3);
                     playTurn(p3, board);
                     if (numOfPlayers >= 4) {
-                        displayBoard(board);
+                        displayBoard(board, p4);
                         playTurn(p4, board);
                     }
                 }
@@ -355,6 +351,7 @@ public class Main {
                 player.setPosition(6); // Moves to jail space of 0
                 player.setJail(player.getJail() + 1); // Adds one day to jail
             }
+            //CURRENT: now check if chance card, and play the card
         }
 
         System.out.println("Balance: $" + player.getBalance());
@@ -367,15 +364,20 @@ public class Main {
     }
 
     /*
-     * Pre: Requires no variables
+     * Pre: Requires the board array and the player (to take location)
      * Post: Returns nothing to main
-     * Desc: Displays the board
+     * Desc: Displays the board with player location
      */
-    public static void displayBoard(boardSpace[][] board) {
+    public static void displayBoard(boardSpace[][] board, Player player) {
         // Position viewer for all spaces
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
+                if (player.getPosition() == board[i][j].getPosition()){
+                    System.out.print("# ");
+                    //ISSUE: let player choose their symbol (right now it's #, just add another string in the player and print that)
+                }else{
                 System.out.print(board[i][j].getLetterPos() + " ");
+                }
                 // If on left side in middle
                 if ((board[i][j].getPosition() >= 7 && board[i][j].getPosition() <= 15)
                         && ((board[i][j].getPosition() % 2) == 1)) {
