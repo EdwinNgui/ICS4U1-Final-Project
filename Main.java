@@ -60,17 +60,35 @@ public class Main {
         board[6][2].setLetterPos("🅓");
         board[6][1].setLetterPos("🅔");    
         board[6][0].setLetterPos("🅕");
-        // 🅖 🅗 🅘 🅙 🅚 🅛 🅜 🅝 🅞 🅟 🅠 🅡 🅢 🅣 🅤 🅥 🅦 🅧 🅨 🅩 alphabet is property
-        //chance to 20 [6][3], 11[3][0] , 3[0][3], 10[2][1] ✦
 
+        board[5][1].setLetterPos("🅡");    
+        board[5][0].setLetterPos("🅖");
 
-        System.out.println(board[6][6].getLetterPos());
-        System.out.println(board[6][5].getLetterPos());
-        System.out.println(board[6][4].getLetterPos());
-        System.out.println(board[6][3].getLetterPos());
-        System.out.println(board[6][2].getLetterPos());
-        System.out.println(board[6][1].getLetterPos());
-        System.out.println(board[6][0].getLetterPos());
+        board[4][1].setLetterPos("🅠");    
+        board[4][0].setLetterPos("🅗");
+        
+        board[3][1].setLetterPos("✦");    
+        board[3][0].setLetterPos("✦");
+
+        board[2][1].setLetterPos("🅟");    
+        board[2][0].setLetterPos("🅘");
+
+        board[1][1].setLetterPos("🅞");    
+        board[1][0].setLetterPos("🅙");
+        
+        board[0][0].setLetterPos("⏭");
+        board[0][1].setLetterPos("🅚");
+        board[0][2].setLetterPos("🅛");
+        board[0][3].setLetterPos("✦"); 
+        board[0][4].setLetterPos("🅜");
+        board[0][5].setLetterPos("🅝");    
+        board[0][6].setLetterPos("◈");
+
+        //Legend
+        //alphabet is property
+        //chance to 20 [6][3], 11[3][0] , 3[0][3], 12[3][1] ✦
+        //◈ in jail [0][6]
+        //⏭ go to jail [0][0]
 
         //ISSUE: make it so that when the player is on the spot, it will not print the spot and will instead put the player symbol
         //CAN LET PLAYER CHOOSE SYMBOL at the start during setup; for now just keep it as preset symbols (note to self make a variable for the player
@@ -357,11 +375,11 @@ public class Main {
         // Position viewer for all spaces
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j].getPosition() + " ");
+                System.out.print(board[i][j].getLetterPos() + " ");
                 // If on left side in middle
                 if ((board[i][j].getPosition() >= 7 && board[i][j].getPosition() <= 15)
                         && ((board[i][j].getPosition() % 2) == 1)) {
-                    System.out.print("\t   ");
+                    System.out.print("\t      ");
                 }
             }
             System.out.println("");
