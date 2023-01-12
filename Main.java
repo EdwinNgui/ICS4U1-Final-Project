@@ -51,6 +51,14 @@ public class Main {
             }
         }
 
+        // ISSUE: needs Property Info for all properties (corners and middles do not
+        // have this
+        // ISSUE: needs chance card spaces
+        // Current task: jail (or you got hacked and blackmailed; either roll a certain
+        // number or get out by paying up)
+
+        // 0 sends you to jail at 6
+
         System.out.println("Welcome to the Monopoly!");
         System.out.println("When you see <continue> enter anything to continue");
         pause();
@@ -102,12 +110,13 @@ public class Main {
 
         // }
 
-        // START of turn
-        // For loop runs for 5 turns per number of players
+        // For loop runs for n turns per number of players
         playerTurn = p1; // Starts first move
-        for (int k = 0; k < numOfPlayers * 5; k++) {
-
-            //Allow the turns to continue and move through
+        clear();
+        System.out.println(numOfPlayers);
+        // Allows player to use the turn-based cycle of the game
+        for (int k = 0; k < 15; k++) {
+            // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 displayBoard(board);
                 playTurn(p1, board);
@@ -122,11 +131,7 @@ public class Main {
                     }
                 }
             }
-
-            // ISSUE: Sets the properties to their respective locations
         }
-        // END of turn
-
     }
 
     /*
@@ -148,10 +153,12 @@ public class Main {
                 } else { // if odd
                     player.setPosition(player.getPosition() - 2);
                 }
-            } else if (player.getPosition() == 6) { // Position 6 (move to 8)
+            } else if (player.getPosition() == 6) { // Corner positions which need manual moving across board
                 player.setPosition(player.getPosition() + 2); // Increased by one
             } else if (player.getPosition() == 16) {
                 player.setPosition(player.getPosition() + 7);
+                // When players hit 23 (right here) they should recieve +200
+                player.modifyBalance(200);
             } else if (player.getPosition() == 17) {
                 player.setPosition(player.getPosition() - 2);
             } else if (player.getPosition() == 7) {
@@ -187,6 +194,9 @@ public class Main {
             System.out.println("(2) No");
         } else if (menuNum == 3) { // How many players
             System.out.println("How many players will be playing  (2-4)?");
+        } else if (menuNum == 4) {
+            System.out.println("(1) Roll Dice");
+            System.out.println("(2) Pay $300 to get out");
         }
 
         // If invalid input previously
@@ -242,13 +252,77 @@ public class Main {
      * Post: Returns nothing to main
      * Desc: Takes the player at hand and allows them to start their turn
      */
-    public static void playTurn(Player player, boardSpace [][] board){
+    public static void playTurn(Player player, boardSpace[][] board) {
         int num = rollDice();
+        boolean invalidInput;
+        int numAns;
+        Scanner input = new Scanner(System.in);
+        Random rand = new Random();
         System.out.println(player.getName() + " is at: " + player.getPosition());
-        System.out.println("insert roll dice button."); //ISSUE
-        movePlayer(player, board, num);
-        System.out.println(player.getName() + " rolled a " + num + " and is now at: " + player.getPosition());
+
+        // Jail (blackmail) check
+        if (player.getJail() >= 1) { // If they are in jail...
+
+            // Decision to roll or pay to get out of jail
+            invalidInput = false;
+            do {
+                displayMenu(4, invalidInput);
+                numAns = input.nextInt();
+                input.nextLine();
+                if (numAns != 1 || numAns != 2) {
+                    invalidInput = true;
+                }
+            } while (numAns != 1 && numAns != 2);
+
+            if (numAns == 1) { // Roll dice
+                // Dice rolling must equate to the perfect number.
+                int randNum = rand.nextInt(5) + 1; // 1-6
+                num = rollDice();
+                if (randNum == num) { // If same
+                    System.out.println(
+                            "Dice matched! You were able to contact customer support and get your account back.");
+                    player.setJail(0); // Jail is set to 0
+                } else { // Did not succeed in dice roll
+                    System.out.println("Bummer. Everything you did, and you still can't get your account.");
+                    player.setJail(player.getJail() + 1); // Adds a turn spent in jail
+                }
+            } else if (numAns == 2) { // Pay to get out of jail
+                // Checks if player can afford the $300
+                if (player.getBalance() >= 300) {
+                    player.modifyBalance(-300); // Deducts 300
+                    System.out.println(
+                            "After paying them back, they gave your login back to you. Better change your password now!");
+                    player.setJail(0); // Jail is set to 0
+                } else {
+                    System.out.println("You don't have enough funds to pay them! Wait why are they robbing you then?");
+                    player.setJail(player.getJail() + 1); // Adds a turn spent in jail
+                }
+            }
+
+            if (player.getJail() == 3) { // If they have waited their two turns and should be released next turn
+                System.out.println(
+                        "You have waited two turns and the hackers must have gotten bored. You will recieve your login next turn.");
+                player.setJail(0); // Adds a turn spent in jail
+            }
+        } else {
+            System.out.println(" > Roll Dice");
+            pause();
+            movePlayer(player, board, num);
+            System.out.println(player.getName() + " rolled a " + num + " and is now at: " + player.getPosition());
+            if (player.getPosition() == 0) { // Send to jail (location 6)
+                System.out.println("Uh Oh! You clicked on a suspicious email link and have become victim to phising!");
+                System.out.println("You have now been blackmailed for two turns.");
+                player.setPosition(6); // Moves to jail space of 0
+                player.setJail(player.getJail() + 1); // Adds one day to jail
+            }
+        }
+
+        System.out.println("Balance: $" + player.getBalance());
         pause();
+
+        // Actions go here; buy space, upgrade space (rent), trade?
+        // OR IF IN JAIL; pay/roll
+        // ISSUE: idk if trade stays
         clear();
     }
 
