@@ -51,8 +51,6 @@ public class Main {
             }
         }
 
-    System.out.println("🅐");
-
         //Property lettering
         board[6][6].setLetterPos("🅐");
         board[6][5].setLetterPos("🅑");
@@ -97,7 +95,7 @@ public class Main {
 
         // 0 sends you to jail at 6
 
-        System.out.println("Welcome to the Monopoly!");
+        System.out.println("Welcome to the 🅜onopoly!"); //Uses special character as early indicator that UTF-8 is or is not working
         System.out.println("When you see <continue> enter anything to continue");
         pause();
         // Displays new or load game
@@ -383,7 +381,7 @@ public class Main {
                 // If on left side in middle
                 if ((board[i][j].getPosition() >= 7 && board[i][j].getPosition() <= 15)
                         && ((board[i][j].getPosition() % 2) == 1)) {
-                    System.out.print("\t      ");
+                    System.out.print("\t        ");
                 }
             }
             System.out.println("");
