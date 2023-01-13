@@ -51,6 +51,8 @@ public class Main {
             }
         }
 
+    System.out.println("🅐");
+
         //Property lettering
         board[6][6].setLetterPos("🅐");
         board[6][5].setLetterPos("🅑");
