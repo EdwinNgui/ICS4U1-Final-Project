@@ -46,60 +46,42 @@ public class Main {
             }
         }
 
-        // CURRENT: set all info (including position) manually
-
-        // Properties (String newName, String newLetterPos, int newPosition, boolean
+        // Properties (String newName, String newLetterPos, int newPosition, int
+        // newVirusType, boolean
         // newOwnedStatus, int newBuyValue, int newSellValue , int newRentValue)
         // If the buyValue is 0, it is not a purchasable property
 
-        board[0][0].setInfo("", "⏭", 0, false, 0, 0, 0);
-        // board[0][1].setInfo();
-        // board[0][2].setInfo();
-        // board[0][3].setInfo();
-        // board[0][4].setInfo();
-        // board[0][5].setInfo();
-        // board[0][6].setInfo();
+        board[0][0].setInfo("", "⏭", 0, 0, 0, 0, 0, 0);
+        board[0][1].setInfo("Mesla", "🅚", 1, 3, 0, 180, 90, 90);
+        board[0][2].setInfo("Macrotough", "🅛", 2, 3, 0, 190, 95, 95);
+        board[0][3].setInfo("", "✦", 3, 0, 0, 0, 0, 0);
+        board[0][4].setInfo("Waterfox", "🅜", 4, 3, 0, 200, 100, 100);
+        board[0][5].setInfo("NoFlix", "🅝", 5, 3, 0, 210, 105, 110);
+        board[0][6].setInfo("", "◈", 6, 0, 0, 0, 0, 0);
 
-        board[0][0].setLetterPos("⏭");
-        board[0][1].setLetterPos("🅚");
-        board[0][2].setLetterPos("🅛");
-        board[0][3].setLetterPos("✦");
-        board[0][4].setLetterPos("🅜");
-        board[0][5].setLetterPos("🅝");
-        board[0][6].setLetterPos("◈");
+        board[1][0].setInfo("Samysung", "🅙", 7, 2, 0, 120, 60, 70);
+        board[1][1].setInfo("Joogle", "🅞", 8, 4, 0, 280, 140, 120);
 
-        // Position set for all spaces
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                board[i][j].setPosition(num);
-                num++;
-            }
-        }
+        board[2][0].setInfo("Bisco", "🅘", 9, 2, 0, 110, 55, 60);
+        board[2][1].setInfo("Pear", "🅟", 10, 4, 0, 290, 145, 140);
 
-        // Property lettering
-        board[6][6].setLetterPos("🅐");
-        board[6][5].setLetterPos("🅑");
-        board[6][4].setLetterPos("🅒");
-        board[6][3].setLetterPos("✦");
-        board[6][2].setLetterPos("🅓");
-        board[6][1].setLetterPos("🅔");
-        board[6][0].setLetterPos("🅕");
+        board[3][0].setInfo("", "✦", 11, 0, 0, 0, 0, 0);
+        board[3][1].setInfo("", "✦", 12, 0, 0, 0, 0, 0);
 
-        board[5][1].setLetterPos("🅡");
-        board[5][0].setLetterPos("🅖");
+        board[4][0].setInfo("Hoom", "🅗", 13, 2, 0, 100, 50, 40);
+        board[4][1].setInfo("River of Amazon", "🅠", 14, 5, 0, 340, 170, 180);
 
-        board[4][1].setLetterPos("🅠");
-        board[4][0].setLetterPos("🅗");
+        board[5][0].setInfo("Bazer", "🅖", 15, 2, 0, 90, 45, 30);
+        board[5][1].setInfo("Armbook", "🅡", 16, 5, 0, 350, 175, 200);
 
-        board[3][1].setLetterPos("✦");
-        board[3][0].setLetterPos("✦");
-
-        board[2][1].setLetterPos("🅟");
-        board[2][0].setLetterPos("🅘");
-
-        board[1][1].setLetterPos("🅞");
-        board[1][0].setLetterPos("🅙");
-
+        board[6][0].setInfo("Byzen", "🅕", 17, 2, 0, 80, 45, 25);
+        board[6][1].setInfo("Crintel", "🅔", 18, 1, 0, 70, 35, 20);
+        board[6][2].setInfo("Pacer", "🅓", 19, 1, 0, 60, 30, 15);
+        board[6][3].setInfo("", "✦", 20, 0, 0, 0, 0, 0);
+        board[6][4].setInfo("Esus", "🅒", 21, 1, 0, 60, 30, 15);
+        board[6][5].setInfo("Bogitech", "🅑", 22, 1, 0, 30, 15, 5);
+        board[6][6].setInfo("", "▶", 23, 0, 0, 0, 0, 0);
+        
         // Legend
         // alphabet is property
         // chance to 20 [6][3], 11[3][0] , 3[0][3], 12[3][1] ✦
@@ -160,17 +142,21 @@ public class Main {
             System.out.print("Enter name of Player 1: ");
             stringAns = input.nextLine();
             p1.setName(stringAns);
+            p1.setPlayerNum(1);
             System.out.print("Enter name of Player 2: ");
             stringAns = input.nextLine();
             p2.setName(stringAns);
+            p2.setPlayerNum(2);
             if (numOfPlayers >= 3) {
                 System.out.print("Enter name of Player 3: ");
                 stringAns = input.nextLine();
                 p3.setName(stringAns);
+                p3.setPlayerNum(3);
                 if (numOfPlayers >= 4) {
                     System.out.print("Enter name of Player 4: ");
                     stringAns = input.nextLine();
                     p4.setName(stringAns);
+                    p4.setPlayerNum(4);
                 }
             }
         }
@@ -183,7 +169,10 @@ public class Main {
         playerTurn = p1; // Starts first move
         clear();
         // Allows player to use the turn-based cycle of the game
-        for (int k = 0; k < 15; k++) {
+
+        //idea: put all players, and then in the code when need to award money to landowner; check each player until found then award
+
+        for (int k = 0; k < 15; k++) { //15 rounds
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 displayBoard(board, p1);
@@ -274,6 +263,9 @@ public class Main {
         } else if (menuNum == 7) {
             System.out.println("(1) Infect tons of computers for cryptobots to mine for money!");
             System.out.println("(2) Don't do it for now");
+        } else if (menuNum == 8) {
+            System.out.println("(1) Purchase");
+            System.out.println("(2) Pass");
         }
 
         // If invalid input previously
@@ -335,6 +327,7 @@ public class Main {
         int numAns;
         Scanner input = new Scanner(System.in);
         Random rand = new Random();
+
         System.out.println(player.getName() + " is at: " + player.getPosition());
 
         // Jail (blackmail) check
@@ -413,6 +406,8 @@ public class Main {
                 System.out.println("Chance Space!");
                 System.out.println("\nYou pull a chance card and you got...");
                 pause();
+                clear();
+                System.out.println("____________________________________________________________________\n");
                 // ISSUE: potential, is num used elsewhere?
                 num = rand.nextInt(8); // 0-7, 8 cases
                 // Pull a random chance card of 12 (obj) - name (entity), money effect, or
@@ -539,6 +534,89 @@ public class Main {
                         System.out.println("using code \"IHOPEYOUENJOYEDTHISCODE\"!");
                         break;
                 }
+            } else { // Normal Properties
+                System.out.print("\n\t\t\t< Scam Website");
+
+                // Find corresponding board space (by searching thru)
+                for (int i = 0; i < board.length; i++) {
+                    for (int j = 0; j < board[i].length; j++) {
+                        if (player.getPosition() == board[i][j].getPosition()) {
+
+                            // Checks if someone owns it
+                            if (board[i][j].getOwnedStatus() != 0) { // Owned (0 means no owner)
+                                System.out.println(" has stolen your money >");
+                            } else { // Not owned
+                                System.out.println(" available for purchase >");
+                            }
+
+                            // Displays the website details
+                            System.out.println("\"Company\" Name: " + board[i][j].getName());
+                            System.out.print("Virus Type: ");
+                            if (board[i][j].getVirusType() == 1) { // File-Infecting Virus
+                                System.out.println("File-Infecting Virus");
+                                System.out.println(
+                                        " > Attaches itself to executable programs (.exe) present on your website and overwrites host files");
+                            } else if (board[i][j].getVirusType() == 2) { // Web Scripting Virus
+                                System.out.println("Web Scripting Virus");
+                                System.out.println(
+                                        " > Disguises itself as images, links, and other media to trick users into downloading malicious files");
+                            } else if (board[i][j].getVirusType() == 3) { // Ransomware
+                                System.out.println("Ransomware");
+                                System.out.println(" > Blocks computer access of the user until money is paid");
+                            } else if (board[i][j].getVirusType() == 4) { // Resident Virus
+                                System.out.println("Resident Virus");
+                                System.out.println(
+                                        " > Stores itself onto computer’s memory and interupts operating system to cause program coruption");
+                            } else { // Metamorphic Virus
+                                System.out.println("Metamorphic Virus");
+                                System.out.println(
+                                        " > Repeatedly rewrites its appearance and code with each iteration whilst developing itself to reduce detectibility");
+                            }
+                            if (board[i][j].getOwnedStatus() == 0){ //If not owned, will display purchasing info
+                                System.out.println("Buy Cost: $" + board[i][j].getBuyValue());
+                                System.out.println("Sell Price: $" + board[i][j].getSellValue());
+                                System.out.println("Income from Scams: $" + board[i][j].getRentValue());
+                            }
+                            
+//ISSUE: make option to sell (when it can identify who owns the space
+                            // Action Menu
+                            if (board[i][j].getOwnedStatus() != 0) { // Owned
+                                System.out.println("$" + board[i][j].getRentValue()
+                                        + " has been stolen from visiting the malicious site.");
+                                player.modifyBalance(-1 * board[i][j].getRentValue());
+                                // ISSUE: make it so that it says who has been awarded the money?
+                                // ISSUE: or even JUST AWARD THE OWNER
+                            } else { // Not owned
+
+                                invalidInput = false;
+                                do {
+                                    displayMenu(8, invalidInput);
+                                    numAns = input.nextInt();
+                                    input.nextLine();
+                                    if (numAns != 1 || numAns != 2) {
+                                        invalidInput = true;
+                                    }
+                                } while (numAns != 1 && numAns != 2);
+
+                                if (numAns == 1 && player.getBalance() >= board[i][j].getBuyValue()) { // Want to buy
+                                                                                                       // and can afford
+                                    System.out.println(
+                                            "You have sucessfully bought and now run " + board[i][j].getName() +".");
+                                    player.modifyBalance(-1 * board[i][j].getBuyValue());
+                                    //CURRENT: need to award the other player
+                                    board[i][j].setOwnedStatus(player.getPlayerNum());
+                                } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
+                                    if (player.getBalance() >= board[i][j].getBuyValue() == false){
+                                        System.out.print("You were unable to afford it and passed on the offer ");
+                                    }else{
+                                        System.out.println("You passed on the offer");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
 
         }
@@ -560,13 +638,14 @@ public class Main {
      * Desc: Displays the board with player location
      */
     public static void displayBoard(boardSpace[][] board, Player player) {
+        String [] legend = {"_______________________________________", "|\t\tLegend                 |", "| {Letter} - Scam Website for Income   |", "| ⏭ - Get Blackmailed                  |", "| ◈ - Locked out of Login (Jail)       |", "| ▶ - Start: Collect $200              |", "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾"};
+
         // Position viewer for all spaces
         for (int i = 0; i < board.length; i++) {
+            // System.out.print("\t");
             for (int j = 0; j < board[i].length; j++) {
                 if (player.getPosition() == board[i][j].getPosition()) {
                     System.out.print("# ");
-                    // ISSUE: let player choose their symbol (right now it's #, just add another
-                    // string in the player and print that)
                 } else {
                     System.out.print(board[i][j].getLetterPos() + " ");
                 }
@@ -576,8 +655,9 @@ public class Main {
                     System.out.print("\t        ");
                 }
             }
-            System.out.println("");
+            System.out.println("\t" + legend[i]);
         }
+        System.out.println("____________________________________________________________________");
     }
 
 }

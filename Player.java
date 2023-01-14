@@ -6,6 +6,7 @@ public class Player extends Entity{
     private int balance;
     private int jailStatus;
     private int cryptoBot;
+    private int playerNum;
     //Has name and entity-value from entity abstract class
 
     /* Pre: Requires nothing
@@ -20,6 +21,7 @@ public class Player extends Entity{
         balance = 1500;
         jailStatus = 0;
         cryptoBot = 0;
+        playerNum = 0;
     }
 
     /* Pre: Requires new positions
@@ -84,6 +86,22 @@ public class Player extends Entity{
      */
     public int getCryptoBot(){
         return cryptoBot;
+    }
+
+    /* Pre: Requires nothing
+     * Post: Returns nothing
+     * Desc: Sets the user's player number
+     */
+    public void setPlayerNum(int newPlayerNum){
+        playerNum = newPlayerNum;
+    }
+
+    /* Pre: Requires nothing
+     * Post: Returns integer
+     * Desc: Returns user's player num
+     */
+    public int getPlayerNum(){
+        return playerNum;
     }
 
 

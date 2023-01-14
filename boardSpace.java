@@ -5,7 +5,8 @@ public class boardSpace extends Entity {
     private int position;
     private String letterPos;
     private int rentValue;
-    private boolean ownedStatus;
+    private int ownedStatus;
+    private int virusType;
 
     /*
      * Pre: Requires nothing
@@ -20,7 +21,8 @@ public class boardSpace extends Entity {
         position = 0;
         letterPos = "";
         rentValue = 0;
-        ownedStatus = false;
+        ownedStatus = 0;
+        virusType = 0;
     }
 
     /*
@@ -28,7 +30,7 @@ public class boardSpace extends Entity {
      * Post: Returns nothing
      * Desc: Sets info which requires all information to be preset
      */
-    public void setInfo(String newName, String newLetterPos, int newPosition, boolean newOwnedStatus, int newBuyValue, int newSellValue ,
+    public void setInfo(String newName, String newLetterPos, int newPosition, int newVirusType, int newOwnedStatus, int newBuyValue, int newSellValue ,
             int newRentValue) {
         name = newName;
         // Entity value will be movement position number
@@ -38,6 +40,7 @@ public class boardSpace extends Entity {
         letterPos = newLetterPos;
         rentValue = newRentValue;
         ownedStatus = newOwnedStatus;
+        virusType = newVirusType;
     }
 
     // Set/get name is already made in the entity
@@ -54,7 +57,7 @@ public class boardSpace extends Entity {
     /*
      * Pre: Requires nothing
      * Post: Returns the buy value value
-     * Desc: Sets the the new buy value
+     * Desc: Gets the the new buy value
      */
     public int getBuyValue() {
         return buyValue;
@@ -72,7 +75,7 @@ public class boardSpace extends Entity {
     /*
      * Pre: Requires nothing
      * Post: Returns the sell value value
-     * Desc: Sets the the new sell value
+     * Desc: Gets the the new sell value
      */
     public int getSellValue() {
         return sellValue;
@@ -90,7 +93,7 @@ public class boardSpace extends Entity {
     /*
      * Pre: Requires nothing
      * Post: Returns position value
-     * Desc: Sets the new position
+     * Desc: Gets the new position
      */
     public int getPosition() {
         return position;
@@ -108,7 +111,7 @@ public class boardSpace extends Entity {
     /*
      * Pre: Requires nothing
      * Post: Returns String value
-     * Desc: Sets the new name of the position
+     * Desc: Gets the new name of the position
      */
     public String getLetterPos() {
         return letterPos;
@@ -126,32 +129,46 @@ public class boardSpace extends Entity {
     /*
      * Pre: Requires nothing
      * Post: Returns int value
-     * Desc: Sets the amount of rent per space
+     * Desc: Gets the amount of rent per space
      */
     public int getRentValue() {
         return rentValue;
     }
 
     /*
-     * Pre: Requires boolean
+     * Pre: Requires int
      * Post: Returns nothing
      * Desc: Sets the status of ownership (true is owned, false is not owned)
      */
-    public void setOwnedStatus(boolean newOwnedStatus) {
+    public void setOwnedStatus(int newOwnedStatus) {
         ownedStatus = newOwnedStatus;
     }
 
     /*
      * Pre: Requires nothing
-     * Post: Returns boolean value
-     * Desc: Sets the amount of rent per space
+     * Post: Returns int value
+     * Desc: Gets the amount of rent per space
      */
-    public boolean getOwnedStatus() {
+    public int getOwnedStatus() {
         return ownedStatus;
     }
 
-    // board space = movement position space and then the head which holds a
-    // property
-    // potentially turn into nodes, and then have each space in board set to a node
+        /*
+     * Pre: Requires int
+     * Post: Returns nothing
+     * Desc: Sets the virus type number
+     */
+    public void setVirusType(int newVirusType) {
+        virusType = newVirusType;
+    }
+
+    /*
+     * Pre: Requires nothing
+     * Post: Returns int value
+     * Desc: Gets the virus type
+     */
+    public int getVirusType() {
+        return virusType;
+    }
 
 }
