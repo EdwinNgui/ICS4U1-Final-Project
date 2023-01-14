@@ -51,43 +51,43 @@ public class Main {
             }
         }
 
-        //Property lettering
+        // Property lettering
         board[6][6].setLetterPos("🅐");
         board[6][5].setLetterPos("🅑");
         board[6][4].setLetterPos("🅒");
-        board[6][3].setLetterPos("✦"); 
+        board[6][3].setLetterPos("✦");
         board[6][2].setLetterPos("🅓");
-        board[6][1].setLetterPos("🅔");    
+        board[6][1].setLetterPos("🅔");
         board[6][0].setLetterPos("🅕");
 
-        board[5][1].setLetterPos("🅡");    
+        board[5][1].setLetterPos("🅡");
         board[5][0].setLetterPos("🅖");
 
-        board[4][1].setLetterPos("🅠");    
+        board[4][1].setLetterPos("🅠");
         board[4][0].setLetterPos("🅗");
-        
-        board[3][1].setLetterPos("✦");    
+
+        board[3][1].setLetterPos("✦");
         board[3][0].setLetterPos("✦");
 
-        board[2][1].setLetterPos("🅟");    
+        board[2][1].setLetterPos("🅟");
         board[2][0].setLetterPos("🅘");
 
-        board[1][1].setLetterPos("🅞");    
+        board[1][1].setLetterPos("🅞");
         board[1][0].setLetterPos("🅙");
-        
+
         board[0][0].setLetterPos("⏭");
         board[0][1].setLetterPos("🅚");
         board[0][2].setLetterPos("🅛");
-        board[0][3].setLetterPos("✦"); 
+        board[0][3].setLetterPos("✦");
         board[0][4].setLetterPos("🅜");
-        board[0][5].setLetterPos("🅝");    
+        board[0][5].setLetterPos("🅝");
         board[0][6].setLetterPos("◈");
 
-        //Legend
-        //alphabet is property
-        //chance to 20 [6][3], 11[3][0] , 3[0][3], 12[3][1] ✦
-        //◈ in jail [0][6]
-        //⏭ go to jail [0][0]
+        // Legend
+        // alphabet is property
+        // chance to 20 [6][3], 11[3][0] , 3[0][3], 12[3][1] ✦
+        // ◈ in jail [0][6]
+        // ⏭ go to jail [0][0]
 
         // ISSUE: needs Property Info for all properties (corners and middles do not
         // have this
@@ -95,7 +95,8 @@ public class Main {
 
         // 0 sends you to jail at 6
 
-        System.out.println("Welcome to the 🅜onopoly!"); //Uses special character as early indicator that UTF-8 is or is not working
+        System.out.println("Welcome to the 🅜onopoly!"); // Uses special character as early indicator that UTF-8 is or
+                                                         // is not working
         System.out.println("When you see <continue> enter anything to continue");
         pause();
         // Displays new or load game
@@ -171,7 +172,7 @@ public class Main {
     }
 
     /*
-     * Pre: Requires player to move, the current board, number of spaces to move
+     * Pre: Requires player to move, the up-to-date board, number of spaces to move
      * Post: Returns the player with their updated position
      * Desc: Moves the player along the board clockwise
      */
@@ -233,6 +234,9 @@ public class Main {
         } else if (menuNum == 4) {
             System.out.println("(1) Roll Dice");
             System.out.println("(2) Pay $300 to get out");
+        } else if (menuNum == 5) {
+            System.out.println("(1) Hack the bank for money");
+            System.out.println("(2) Leave an anonymous note about their vulnerabilities");
         }
 
         // If invalid input previously
@@ -343,15 +347,88 @@ public class Main {
         } else {
             System.out.println(" > Roll Dice");
             pause();
+            clear();
             movePlayer(player, board, num);
+            displayBoard(board, player);
             System.out.println(player.getName() + " rolled a " + num + " and is now at: " + player.getPosition());
             if (player.getPosition() == 0) { // Send to jail (location 6)
-                System.out.println("Uh Oh! You clicked on a suspicious email link and have become victim to phising!");
+                System.out.println("Uh Oh! You clicked on a suspicious email link and have become victim to phishing!");
                 System.out.println("You have now been blackmailed for two turns.");
                 player.setPosition(6); // Moves to jail space of 0
                 player.setJail(player.getJail() + 1); // Adds one day to jail
+            } else if (player.getPosition() == 3 || player.getPosition() == 11 || player.getPosition() == 12
+                    || player.getPosition() == 20) { // If player lands on a chance space (11, 12, 20, 3)
+                System.out.println(player.getPosition());
+                        System.out.println("Chance Space!");
+                System.out.println("You pull a chance card and you got...");
+                // ISSUE: potential, is num used elsewhere?
+                num = rand.nextInt(8); // 0-7, 8 cases
+                // Pull a random chance card of 12 (obj) - name (entity), money effect, or
+                // player location effect (jail, collect 200)
+                switch (num) {
+                    case 0:
+                        System.out.println("\t\t\t<Chance Card 1>");
+                        System.out
+                                .println("You found a cute rainbow USB on the ground and plugged it into your laptop.");
+                        System.out.println(
+                                "UH OH!!! All your login information is compromised through a virus (don't do this again).");
+                        player.setPosition(6);
+                        player.setJail(player.getJail() + 1); // Adds one day to jail
+                        break;
+                    case 1:
+                        System.out.println("\t\t\t<Chance Card 2>");
+                        System.out.println("You just bought downloadable RAM off the internet!! What a deal!");
+                        System.out.println("Wait nevermind. You just put your credit card into a scam. ");
+                        System.out.println("You lost $200");
+                        player.modifyBalance(-200);
+                        break;
+                    case 2:
+                        System.out.println("\t\t\t<Chance Card 3>");
+                        System.out.println(
+                                "You have sucessfully broken into a bank with many vulnerabilities, what do you do?");
+
+                        invalidInput = false;
+                        int ans;
+                        do {
+                            displayMenu(5, invalidInput);
+                            ans = input.nextInt();
+                            input.nextLine();
+                            if (ans != 1 || ans != 2) {
+                                invalidInput = true;
+                            }
+                        } while (ans != 1 && ans != 2);
+
+                        if (ans == 1){ //Hack for money
+                            player.modifyBalance(400);
+                            System.out.println("You got $300 dollars!");
+                        }else if (ans == 2){ //Not hack for money, boosts ethic standing
+                            //ISSUE: add ethic standing here
+
+                        }
+                        break;
+                    case 3:
+                        System.out.println("\t\t\t<Chance Card 4>");
+                        break;
+                    case 4:
+                        System.out.println("\t\t\t<Chance Card 5>");
+                        break;
+                    case 5:
+                        System.out.println("\t\t\t<Chance Card 6>");
+                        break;
+                    case 6:
+                        System.out.println("\t\t\t<Chance Card 7>");
+                        break;
+                    case 7:
+                        System.out.println("\t\t\t<Chance Card 8>");
+                        break;
+                    case 8:
+                        System.out.println("\t\t\t<Chance Card 9>");
+                        break;
+                }
+
+                // CURRENT: now check if chance card, and play the card
             }
-            //CURRENT: now check if chance card, and play the card
+
         }
 
         System.out.println("Balance: $" + player.getBalance());
@@ -372,11 +449,12 @@ public class Main {
         // Position viewer for all spaces
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                if (player.getPosition() == board[i][j].getPosition()){
+                if (player.getPosition() == board[i][j].getPosition()) {
                     System.out.print("# ");
-                    //ISSUE: let player choose their symbol (right now it's #, just add another string in the player and print that)
-                }else{
-                System.out.print(board[i][j].getLetterPos() + " ");
+                    // ISSUE: let player choose their symbol (right now it's #, just add another
+                    // string in the player and print that)
+                } else {
+                    System.out.print(board[i][j].getLetterPos() + " ");
                 }
                 // If on left side in middle
                 if ((board[i][j].getPosition() >= 7 && board[i][j].getPosition() <= 15)
