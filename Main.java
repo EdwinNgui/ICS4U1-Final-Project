@@ -170,21 +170,19 @@ public class Main {
         clear();
         // Allows player to use the turn-based cycle of the game
 
-        //idea: put all players, and then in the code when need to award money to landowner; check each player until found then award
-
         for (int k = 0; k < 15; k++) { //15 rounds
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 displayBoard(board, p1);
-                playTurn(p1, board);
+                playTurn(p1, board, p2, p3, p4);
                 displayBoard(board, p2);
-                playTurn(p2, board);
+                playTurn(p2, board, p1, p3, p4);
                 if (numOfPlayers >= 3) {
                     displayBoard(board, p3);
-                    playTurn(p3, board);
+                    playTurn(p3, board, p1, p2, p4);
                     if (numOfPlayers >= 4) {
                         displayBoard(board, p4);
-                        playTurn(p4, board);
+                        playTurn(p4, board, p1, p2, p3);
                     }
                 }
             }
@@ -321,7 +319,7 @@ public class Main {
      * Post: Returns nothing to main
      * Desc: Takes the player at hand and allows them to start their turn
      */
-    public static void playTurn(Player player, boardSpace[][] board) {
+    public static void playTurn(Player player, boardSpace[][] board, Player playerA, Player playerB, Player playerC) {
         int num = rollDice();
         boolean invalidInput;
         int numAns;
@@ -584,8 +582,21 @@ public class Main {
                                 System.out.println("$" + board[i][j].getRentValue()
                                         + " has been stolen from visiting the malicious site.");
                                 player.modifyBalance(-1 * board[i][j].getRentValue());
-                                // ISSUE: make it so that it says who has been awarded the money?
-                                // ISSUE: or even JUST AWARD THE OWNER
+
+                                //Finds who it belongs to and awards the money
+                                if (playerA.getPlayerNum() == board[i][j].getOwnedStatus()){
+                                    playerA.modifyBalance(board[i][j].getRentValue());
+                                    System.out.println(playerA.getName() + " has been awarded $" + board[i][j].getRentValue() + ".");
+                                }else if (playerB.getPlayerNum() == board[i][j].getOwnedStatus()){
+                                    playerB.modifyBalance(board[i][j].getRentValue());
+                                    System.out.println(playerB.getName() + " has been awarded $" + board[i][j].getRentValue() + ".");
+                                }else if (playerC.getPlayerNum() == board[i][j].getOwnedStatus()){
+                                    playerC.modifyBalance(board[i][j].getRentValue());
+                                    System.out.println(playerC.getName() + " has been awarded $" + board[i][j].getRentValue() + ".");
+                                }
+
+                                board[i][j].setOwnedStatus(player.getPlayerNum());
+
                             } else { // Not owned
 
                                 invalidInput = false;
@@ -602,9 +613,8 @@ public class Main {
                                                                                                        // and can afford
                                     System.out.println(
                                             "You have sucessfully bought and now run " + board[i][j].getName() +".");
-                                    player.modifyBalance(-1 * board[i][j].getBuyValue());
-                                    //CURRENT: need to award the other player
-                                    board[i][j].setOwnedStatus(player.getPlayerNum());
+                                    player.modifyBalance(-1 * board[i][j].getBuyValue()); //Deducts money
+                                    board[i][j].setOwnedStatus(player.getPlayerNum());  //Sets property ownership to player
                                 } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
                                     if (player.getBalance() >= board[i][j].getBuyValue() == false){
                                         System.out.print("You were unable to afford it and passed on the offer ");
