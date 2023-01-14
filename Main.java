@@ -8,6 +8,8 @@
 
 import java.util.*;
 
+import javax.swing.event.SwingPropertyChangeSupport;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -237,6 +239,12 @@ public class Main {
         } else if (menuNum == 5) {
             System.out.println("(1) Hack the bank for money");
             System.out.println("(2) Leave an anonymous note about their vulnerabilities");
+        }else if (menuNum == 6) {
+            System.out.println("(1) Sell the stolen data on the black market");
+            System.out.println("(2) Delete all copies of it from your system and forget about it");
+        }else if (menuNum == 7) {
+            System.out.println("(1) Infect tons of computers for cryptobots to mine for money!");
+            System.out.println("(2) Don't do it for now");
         }
 
         // If invalid input previously
@@ -357,7 +365,7 @@ public class Main {
                 player.setPosition(6); // Moves to jail space of 0
                 player.setJail(player.getJail() + 1); // Adds one day to jail
             } else if (player.getPosition() == 3 || player.getPosition() == 11 || player.getPosition() == 12
-                    || player.getPosition() == 20) { // If player lands on a chance space (11, 12, 20, 3)
+                    || player.getPosition() == 20) { // If player lands on a chance space (11, 12, 20, 3), then pull a chance card
                 System.out.println(player.getPosition());
                         System.out.println("Chance Space!");
                 System.out.println("You pull a chance card and you got...");
@@ -388,48 +396,101 @@ public class Main {
                                 "You have sucessfully broken into a bank with many vulnerabilities, what do you do?");
 
                         invalidInput = false;
-                        int ans;
                         do {
                             displayMenu(5, invalidInput);
-                            ans = input.nextInt();
+                            numAns = input.nextInt();
                             input.nextLine();
-                            if (ans != 1 || ans != 2) {
+                            if (numAns != 1 || numAns != 2) {
                                 invalidInput = true;
                             }
-                        } while (ans != 1 && ans != 2);
+                        } while (numAns != 1 && numAns != 2);
 
-                        if (ans == 1){ //Hack for money
+                        if (numAns == 1){ //Hack for money
                             player.modifyBalance(400);
-                            System.out.println("You got $300 dollars!");
-                        }else if (ans == 2){ //Not hack for money, boosts ethic standing
-                            //ISSUE: add ethic standing here
-
+                            System.out.println("You got $300 dollars from the banking! A lot less than you expected...");
+                            //ISSUE: add ethnic standing here
+                        }else if (numAns == 2){ //Not hack for money, boosts ethic standing
+                            //ISSUE: add ethnic standing here
+                            System.out.println("You left the note...You feel good about yourself");
                         }
                         break;
                     case 3:
                         System.out.println("\t\t\t<Chance Card 4>");
+                        System.out.println("Your data got leaked in a data leak from an online you love shopping at!");
+                        System.out.println("Looks like you're a victim of \"Credential Reuse\" and a hacker realized you re-use passwords!");
+                        System.out.println("You lost $150 (use different and secure passwords!)");
+                        player.modifyBalance(-150);
                         break;
                     case 4:
                         System.out.println("\t\t\t<Chance Card 5>");
+                        System.out.println("When testing out your hacking skills for fun, you end up with stolen data after a long session...");
+
+                        invalidInput = false;
+                        do {
+                            displayMenu(6, invalidInput);
+                            numAns = input.nextInt();
+                            input.nextLine();
+                            if (numAns != 1 || numAns != 2) {
+                                invalidInput = true;
+                            }
+                        } while (numAns != 1 && numAns != 2);
+
+                        if (numAns == 1){ //Hack for money
+                            player.modifyBalance(400);
+                            System.out.println("You got $400 dollars for the stolen data!");
+                            //ISSUE: add ethnic standing here
+                        }else if (numAns == 2){ //Not hack for money, boosts ethic standing
+                            //ISSUE: add ethnic standing here
+                            System.out.println("You deleted the copies...CLICK! Maybe that was the right move?");
+                        }
+
                         break;
                     case 5:
                         System.out.println("\t\t\t<Chance Card 6>");
+                        System.out.println("You learned how to remotely infect other computers with malware and make them mine crypto!");
+                        System.out.println("You also learn it is illegal. What should we do now?");
+
+                        invalidInput = false;
+                        do {
+                            displayMenu(7, invalidInput);
+                            numAns = input.nextInt();
+                            input.nextLine();
+                            if (numAns != 1 || numAns != 2) {
+                                invalidInput = true;
+                            }
+                        } while (numAns != 1 && numAns != 2);
+
+                        if (numAns == 1){ //Hack for money
+                            player.modifyBalance(400);
+                            System.out.println("You have a crypto machine making you $50 a turn! (stackable)");
+                            //ISSUE: add ethnic standing here
+                        }else if (numAns == 2){ //Not hack for money, boosts ethic standing
+                            //ISSUE: add ethnic standing here
+                            System.out.println("You chose not to do that. Good on you, you're you'll find another way to find money.");
+                        }
+
+
                         break;
                     case 6:
                         System.out.println("\t\t\t<Chance Card 7>");
+                        System.out.println("You visited a funny looking link someone random sent you.");
+                        System.out.println("Ooops. Looks like the website link started with \"HTTP://\" instead of \"HTTPS://\"");
+                        System.out.println("There was no secure socket layer, and your cookies (login information) have been stolen.");
+                        System.out.println("You lost $200");
+                        player.modifyBalance(-200);
                         break;
                     case 7:
                         System.out.println("\t\t\t<Chance Card 8>");
-                        break;
-                    case 8:
-                        System.out.println("\t\t\t<Chance Card 9>");
+                        System.out.println("You connected to \"Pearson Airport's Free Wifi\" and notice you data has been compromised, almost....");
+                        System.out.println("Good thing you had NordVPN and got two free months on a one year subscription");
+                        System.out.println("using code \"IHOPEYOUENJOYEDTHISCODE\"!");
                         break;
                 }
-
-                // CURRENT: now check if chance card, and play the card
             }
 
         }
+
+        player.modifyBalance(player.getCryptoBot() * 50); //$50 per cryptobot user has
 
         System.out.println("Balance: $" + player.getBalance());
         pause();
