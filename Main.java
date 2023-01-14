@@ -8,11 +8,12 @@
 
 import java.util.*;
 
-import javax.swing.event.SwingPropertyChangeSupport;
-
 public class Main {
 
     public static void main(String[] args) {
+        // Setup
+        // Type "chcp 65001" if the characters appear as question marks
+
         Scanner input = new Scanner(System.in);
         boolean invalidInput = false;
         int ans;
@@ -44,6 +45,28 @@ public class Main {
                 board[i][j] = new boardSpace();
             }
         }
+
+        // CURRENT: set all info (including position) manually
+
+        // Properties (String newName, String newLetterPos, int newPosition, boolean
+        // newOwnedStatus, int newBuyValue, int newSellValue , int newRentValue)
+        // If the buyValue is 0, it is not a purchasable property
+
+        board[0][0].setInfo("", "⏭", 0, false, 0, 0, 0);
+        // board[0][1].setInfo();
+        // board[0][2].setInfo();
+        // board[0][3].setInfo();
+        // board[0][4].setInfo();
+        // board[0][5].setInfo();
+        // board[0][6].setInfo();
+
+        board[0][0].setLetterPos("⏭");
+        board[0][1].setLetterPos("🅚");
+        board[0][2].setLetterPos("🅛");
+        board[0][3].setLetterPos("✦");
+        board[0][4].setLetterPos("🅜");
+        board[0][5].setLetterPos("🅝");
+        board[0][6].setLetterPos("◈");
 
         // Position set for all spaces
         for (int i = 0; i < board.length; i++) {
@@ -77,14 +100,6 @@ public class Main {
         board[1][1].setLetterPos("🅞");
         board[1][0].setLetterPos("🅙");
 
-        board[0][0].setLetterPos("⏭");
-        board[0][1].setLetterPos("🅚");
-        board[0][2].setLetterPos("🅛");
-        board[0][3].setLetterPos("✦");
-        board[0][4].setLetterPos("🅜");
-        board[0][5].setLetterPos("🅝");
-        board[0][6].setLetterPos("◈");
-
         // Legend
         // alphabet is property
         // chance to 20 [6][3], 11[3][0] , 3[0][3], 12[3][1] ✦
@@ -93,14 +108,14 @@ public class Main {
 
         // ISSUE: needs Property Info for all properties (corners and middles do not
         // have this
-        // ISSUE: needs chance card spaces
 
         // 0 sends you to jail at 6
-
+        clear();
         System.out.println("Welcome to the 🅜onopoly!"); // Uses special character as early indicator that UTF-8 is or
                                                          // is not working
         System.out.println("When you see <continue> enter anything to continue");
         pause();
+        clear();
         // Displays new or load game
         invalidInput = false;
         do {
@@ -114,6 +129,21 @@ public class Main {
 
         // New or load (commentedOut)
         // if (ans == 1) { // New game: Setup variables intialized here
+        clear();
+        System.out.println("We live in a world where everyone has the potential to be a hacker; for good and bad.");
+        System.out
+                .println("Or perhaps you won't do anything? Yet we continue to live in a world where we need money...");
+        pause();
+        clear();
+        System.out.println(
+                "Each square may contain a purchasable scam website (generates income), chance card, or action space.");
+        System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\""); // ISSUE: add
+                                                                                                          // in the line
+                                                                                                          // about
+                                                                                                          // ethics
+                                                                                                          // standing
+        System.out.println("\t  < You will make choices. Your choices will impact your end result >");
+        pause();
         clear();
         // Sets number of players
         invalidInput = false;
@@ -152,7 +182,6 @@ public class Main {
         // For loop runs for n turns per number of players
         playerTurn = p1; // Starts first move
         clear();
-        System.out.println(numOfPlayers);
         // Allows player to use the turn-based cycle of the game
         for (int k = 0; k < 15; k++) {
             // Allow the turns to continue and move through
@@ -237,12 +266,12 @@ public class Main {
             System.out.println("(1) Roll Dice");
             System.out.println("(2) Pay $300 to get out");
         } else if (menuNum == 5) {
-            System.out.println("(1) Hack the bank for money");
+            System.out.println("(1) Execute a cloud-based cyberattack on a bank for money");
             System.out.println("(2) Leave an anonymous note about their vulnerabilities");
-        }else if (menuNum == 6) {
+        } else if (menuNum == 6) {
             System.out.println("(1) Sell the stolen data on the black market");
             System.out.println("(2) Delete all copies of it from your system and forget about it");
-        }else if (menuNum == 7) {
+        } else if (menuNum == 7) {
             System.out.println("(1) Infect tons of computers for cryptobots to mine for money!");
             System.out.println("(2) Don't do it for now");
         }
@@ -353,47 +382,63 @@ public class Main {
                 player.setJail(0); // Adds a turn spent in jail
             }
         } else {
+
+            // ISSUE: needs to check if player broke; if broke; instant option to sell; if
+            // still broke; force to forfeit
+
             System.out.println(" > Roll Dice");
             pause();
             clear();
             movePlayer(player, board, num);
             displayBoard(board, player);
-            System.out.println(player.getName() + " rolled a " + num + " and is now at: " + player.getPosition());
+
+            // Find corresponding board space (by searching thru)
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[i].length; j++) {
+                    if (player.getPosition() == board[i][j].getPosition()) {
+                        System.out.println(player.getName() + " rolled a " + num + " and is now at: "
+                                + board[i][j].getLetterPos());
+                    }
+                }
+            }
+
             if (player.getPosition() == 0) { // Send to jail (location 6)
                 System.out.println("Uh Oh! You clicked on a suspicious email link and have become victim to phishing!");
                 System.out.println("You have now been blackmailed for two turns.");
                 player.setPosition(6); // Moves to jail space of 0
                 player.setJail(player.getJail() + 1); // Adds one day to jail
             } else if (player.getPosition() == 3 || player.getPosition() == 11 || player.getPosition() == 12
-                    || player.getPosition() == 20) { // If player lands on a chance space (11, 12, 20, 3), then pull a chance card
-                System.out.println(player.getPosition());
-                        System.out.println("Chance Space!");
-                System.out.println("You pull a chance card and you got...");
+                    || player.getPosition() == 20) { // If player lands on a chance space (11, 12, 20, 3), then pull a
+                                                     // chance card
+                System.out.println("Chance Space!");
+                System.out.println("\nYou pull a chance card and you got...");
+                pause();
                 // ISSUE: potential, is num used elsewhere?
                 num = rand.nextInt(8); // 0-7, 8 cases
                 // Pull a random chance card of 12 (obj) - name (entity), money effect, or
                 // player location effect (jail, collect 200)
                 switch (num) {
                     case 0:
-                        System.out.println("\t\t\t<Chance Card 1>");
+                        System.out.println("\t\t\t< Chance Card 1 >");
                         System.out
                                 .println("You found a cute rainbow USB on the ground and plugged it into your laptop.");
                         System.out.println(
-                                "UH OH!!! All your login information is compromised through a virus (don't do this again).");
+                                "UH OH!!! All your login information has been compromised through a virus (don't do this again).");
+                        System.out.println("Now they're blackmailing you for it back");
                         player.setPosition(6);
                         player.setJail(player.getJail() + 1); // Adds one day to jail
                         break;
                     case 1:
-                        System.out.println("\t\t\t<Chance Card 2>");
+                        System.out.println("\t\t\t< Chance Card 2 >");
                         System.out.println("You just bought downloadable RAM off the internet!! What a deal!");
                         System.out.println("Wait nevermind. You just put your credit card into a scam. ");
-                        System.out.println("You lost $200");
+                        System.out.println("[You lost $200]");
                         player.modifyBalance(-200);
                         break;
                     case 2:
-                        System.out.println("\t\t\t<Chance Card 3>");
+                        System.out.println("\t\t\t< Chance Card 3 >");
                         System.out.println(
-                                "You have sucessfully broken into a bank with many vulnerabilities, what do you do?");
+                                "You have learned how to execute a cloud-based cyberattack, what do you do?");
 
                         invalidInput = false;
                         do {
@@ -405,25 +450,28 @@ public class Main {
                             }
                         } while (numAns != 1 && numAns != 2);
 
-                        if (numAns == 1){ //Hack for money
+                        if (numAns == 1) { // Hack for money
                             player.modifyBalance(400);
-                            System.out.println("You got $300 dollars from the banking! A lot less than you expected...");
-                            //ISSUE: add ethnic standing here
-                        }else if (numAns == 2){ //Not hack for money, boosts ethic standing
-                            //ISSUE: add ethnic standing here
+                            System.out.println("You got $300 dollars from the attack! A lot less than you expected...");
+                            // ISSUE: add ethnic standing here
+                        } else if (numAns == 2) { // Not hack for money, boosts ethic standing
+                            // ISSUE: add ethnic standing here
                             System.out.println("You left the note...You feel good about yourself");
                         }
                         break;
                     case 3:
-                        System.out.println("\t\t\t<Chance Card 4>");
-                        System.out.println("Your data got leaked in a data leak from an online you love shopping at!");
-                        System.out.println("Looks like you're a victim of \"Credential Reuse\" and a hacker realized you re-use passwords!");
+                        System.out.println("\t\t\t< Chance Card 4 >");
+                        System.out.println(
+                                "Your data got leaked in a data leak from an online store you love shopping at!");
+                        System.out.println(
+                                "Looks like you're a victim of \"Credential Reuse\" and a hacker realized you re-use passwords!");
                         System.out.println("You lost $150 (use different and secure passwords!)");
                         player.modifyBalance(-150);
                         break;
                     case 4:
-                        System.out.println("\t\t\t<Chance Card 5>");
-                        System.out.println("When testing out your hacking skills for fun, you end up with stolen data after a long session...");
+                        System.out.println("\t\t\t< Chance Card 5 >");
+                        System.out.println(
+                                "When testing out your hacking skills for fun, you end up with stolen data after a long session...");
 
                         invalidInput = false;
                         do {
@@ -435,19 +483,20 @@ public class Main {
                             }
                         } while (numAns != 1 && numAns != 2);
 
-                        if (numAns == 1){ //Hack for money
+                        if (numAns == 1) { // Hack for money
                             player.modifyBalance(400);
                             System.out.println("You got $400 dollars for the stolen data!");
-                            //ISSUE: add ethnic standing here
-                        }else if (numAns == 2){ //Not hack for money, boosts ethic standing
-                            //ISSUE: add ethnic standing here
+                            // ISSUE: add ethnic standing here
+                        } else if (numAns == 2) { // Not hack for money, boosts ethic standing
+                            // ISSUE: add ethnic standing here
                             System.out.println("You deleted the copies...CLICK! Maybe that was the right move?");
                         }
 
                         break;
                     case 5:
-                        System.out.println("\t\t\t<Chance Card 6>");
-                        System.out.println("You learned how to remotely infect other computers with malware and make them mine crypto!");
+                        System.out.println("\t\t\t< Chance Card 6 >");
+                        System.out.println(
+                                "You learned how to remotely infect other computers with malware and make them mine crypto!");
                         System.out.println("You also learn it is illegal. What should we do now?");
 
                         invalidInput = false;
@@ -460,29 +509,33 @@ public class Main {
                             }
                         } while (numAns != 1 && numAns != 2);
 
-                        if (numAns == 1){ //Hack for money
+                        if (numAns == 1) { // Hack for money
                             player.modifyBalance(400);
                             System.out.println("You have a crypto machine making you $50 a turn! (stackable)");
-                            //ISSUE: add ethnic standing here
-                        }else if (numAns == 2){ //Not hack for money, boosts ethic standing
-                            //ISSUE: add ethnic standing here
-                            System.out.println("You chose not to do that. Good on you, you're you'll find another way to find money.");
+                            // ISSUE: add ethnic standing here
+                        } else if (numAns == 2) { // Not hack for money, boosts ethic standing
+                            // ISSUE: add ethnic standing here
+                            System.out.println(
+                                    "You chose not to do that. Good on you, you're you'll find another way to find money.");
                         }
-
 
                         break;
                     case 6:
-                        System.out.println("\t\t\t<Chance Card 7>");
+                        System.out.println("\t\t\t< Chance Card 7 >");
                         System.out.println("You visited a funny looking link someone random sent you.");
-                        System.out.println("Ooops. Looks like the website link started with \"HTTP://\" instead of \"HTTPS://\"");
-                        System.out.println("There was no secure socket layer, and your cookies (login information) have been stolen.");
-                        System.out.println("You lost $200");
+                        System.out.println(
+                                "Ooops. Looks like the website link started with \"HTTP://\" instead of \"HTTPS://\"");
+                        System.out.println(
+                                "There was no secure socket layer, and your cookies (login information) have been\nused for fradulent purchases.");
+                        System.out.println("[You lost $200]");
                         player.modifyBalance(-200);
                         break;
                     case 7:
-                        System.out.println("\t\t\t<Chance Card 8>");
-                        System.out.println("You connected to \"Pearson Airport's Free Wifi\" and notice you data has been compromised, almost....");
-                        System.out.println("Good thing you had NordVPN and got two free months on a one year subscription");
+                        System.out.println("\t\t\t< Chance Card 8 >");
+                        System.out.println(
+                                "You connected to \"Pearson Airport's Free Wifi\" and notice you data has been compromised, almost....");
+                        System.out.println(
+                                "Good thing you had NordVPN and got two free months on a one year subscription");
                         System.out.println("using code \"IHOPEYOUENJOYEDTHISCODE\"!");
                         break;
                 }
@@ -490,7 +543,7 @@ public class Main {
 
         }
 
-        player.modifyBalance(player.getCryptoBot() * 50); //$50 per cryptobot user has
+        player.modifyBalance(player.getCryptoBot() * 50); // $50 per cryptobot user has
 
         System.out.println("Balance: $" + player.getBalance());
         pause();
