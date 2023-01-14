@@ -81,7 +81,7 @@ public class Main {
         board[6][4].setInfo("Esus", "🅒", 21, 1, 0, 60, 30, 15);
         board[6][5].setInfo("Bogitech", "🅑", 22, 1, 0, 30, 15, 5);
         board[6][6].setInfo("", "▶", 23, 0, 0, 0, 0, 0);
-        
+
         // Legend
         // alphabet is property
         // chance to 20 [6][3], 11[3][0] , 3[0][3], 12[3][1] ✦
@@ -170,7 +170,7 @@ public class Main {
         clear();
         // Allows player to use the turn-based cycle of the game
 
-        for (int k = 0; k < 15; k++) { //15 rounds
+        for (int k = 0; k < 15; k++) { // 15 rounds
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 displayBoard(board, p1);
@@ -263,6 +263,9 @@ public class Main {
             System.out.println("(2) Don't do it for now");
         } else if (menuNum == 8) {
             System.out.println("(1) Purchase");
+            System.out.println("(2) Pass");
+        } else if (menuNum == 9) {
+            System.out.println("(1) Sell Website");
             System.out.println("(2) Pass");
         }
 
@@ -538,10 +541,12 @@ public class Main {
                 // Find corresponding board space (by searching thru)
                 for (int i = 0; i < board.length; i++) {
                     for (int j = 0; j < board[i].length; j++) {
-                        if (player.getPosition() == board[i][j].getPosition()) {
+                        if (player.getPosition() == board[i][j].getPosition() && board[i][j].getName().equals("") == false) {
 
                             // Checks if someone owns it
-                            if (board[i][j].getOwnedStatus() != 0) { // Owned (0 means no owner)
+                            if (player.getPlayerNum() == board[i][j].getOwnedStatus()) { //The player owns it
+                                System.out.println(" seems to be yours >");
+                            } else if (board[i][j].getOwnedStatus() != 0){  // Owned (0 means no owner)
                                 System.out.println(" has stolen your money >");
                             } else { // Not owned
                                 System.out.println(" available for purchase >");
@@ -570,32 +575,58 @@ public class Main {
                                 System.out.println(
                                         " > Repeatedly rewrites its appearance and code with each iteration whilst developing itself to reduce detectibility");
                             }
-                            if (board[i][j].getOwnedStatus() == 0){ //If not owned, will display purchasing info
+                            if (board[i][j].getOwnedStatus() == 0) { // If not owned, will display purchasing info
                                 System.out.println("Buy Cost: $" + board[i][j].getBuyValue());
                                 System.out.println("Sell Price: $" + board[i][j].getSellValue());
                                 System.out.println("Income from Scams: $" + board[i][j].getRentValue());
                             }
+
                             
-//ISSUE: make option to sell (when it can identify who owns the space
                             // Action Menu
                             if (board[i][j].getOwnedStatus() != 0) { // Owned
-                                System.out.println("$" + board[i][j].getRentValue()
-                                        + " has been stolen from visiting the malicious site.");
-                                player.modifyBalance(-1 * board[i][j].getRentValue());
+                                // If player owns the property themself
+                                if (player.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                    // CURRENT: make option to sell (when it can identify who owns the space
 
-                                //Finds who it belongs to and awards the money
-                                if (playerA.getPlayerNum() == board[i][j].getOwnedStatus()){
-                                    playerA.modifyBalance(board[i][j].getRentValue());
-                                    System.out.println(playerA.getName() + " has been awarded $" + board[i][j].getRentValue() + ".");
-                                }else if (playerB.getPlayerNum() == board[i][j].getOwnedStatus()){
-                                    playerB.modifyBalance(board[i][j].getRentValue());
-                                    System.out.println(playerB.getName() + " has been awarded $" + board[i][j].getRentValue() + ".");
-                                }else if (playerC.getPlayerNum() == board[i][j].getOwnedStatus()){
-                                    playerC.modifyBalance(board[i][j].getRentValue());
-                                    System.out.println(playerC.getName() + " has been awarded $" + board[i][j].getRentValue() + ".");
+                                    invalidInput = false;
+                                do {
+                                    displayMenu(9, invalidInput);
+                                    numAns = input.nextInt();
+                                    input.nextLine();
+                                    if (numAns != 1 || numAns != 2) {
+                                        invalidInput = true;
+                                    }
+                                } while (numAns != 1 && numAns != 2);
+
+                                if (numAns == 1){ //sell website
+                                    System.out.println(board[i][j].getName() + " has been sold. You have regained $" + board[i][j].getSellValue());
+                                    player.modifyBalance(board[i][j].getSellValue()); //Awards money to person
+                                    board[i][j].setOwnedStatus(0);
+                                } else{ //option 2: pass
+                                    System.out.println("The website has not been sold and remains yours.");
                                 }
 
-                                board[i][j].setOwnedStatus(player.getPlayerNum());
+                                } else { // If player does not own property themself
+                                    System.out.println("$" + board[i][j].getRentValue()
+                                            + " has been stolen from visiting the malicious site.");
+                                    player.modifyBalance(-1 * board[i][j].getRentValue());
+
+                                    // Finds who it belongs to and awards the money
+                                    if (playerA.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                        playerA.modifyBalance(board[i][j].getRentValue());
+                                        System.out.println(playerA.getName() + " has been awarded $"
+                                                + board[i][j].getRentValue() + ".");
+                                    } else if (playerB.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                        playerB.modifyBalance(board[i][j].getRentValue());
+                                        System.out.println(playerB.getName() + " has been awarded $"
+                                                + board[i][j].getRentValue() + ".");
+                                    } else if (playerC.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                        playerC.modifyBalance(board[i][j].getRentValue());
+                                        System.out.println(playerC.getName() + " has been awarded $"
+                                                + board[i][j].getRentValue() + ".");
+                                    }
+                                    board[i][j].setOwnedStatus(player.getPlayerNum());
+                                }
 
                             } else { // Not owned
 
@@ -612,13 +643,14 @@ public class Main {
                                 if (numAns == 1 && player.getBalance() >= board[i][j].getBuyValue()) { // Want to buy
                                                                                                        // and can afford
                                     System.out.println(
-                                            "You have sucessfully bought and now run " + board[i][j].getName() +".");
-                                    player.modifyBalance(-1 * board[i][j].getBuyValue()); //Deducts money
-                                    board[i][j].setOwnedStatus(player.getPlayerNum());  //Sets property ownership to player
+                                            "You have sucessfully bought and now run " + board[i][j].getName() + ".");
+                                    player.modifyBalance(-1 * board[i][j].getBuyValue()); // Deducts money
+                                    board[i][j].setOwnedStatus(player.getPlayerNum()); // Sets property ownership to
+                                                                                       // player
                                 } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
-                                    if (player.getBalance() >= board[i][j].getBuyValue() == false){
+                                    if (player.getBalance() >= board[i][j].getBuyValue() == false) {
                                         System.out.print("You were unable to afford it and passed on the offer ");
-                                    }else{
+                                    } else {
                                         System.out.println("You passed on the offer");
                                     }
                                 }
@@ -648,7 +680,10 @@ public class Main {
      * Desc: Displays the board with player location
      */
     public static void displayBoard(boardSpace[][] board, Player player) {
-        String [] legend = {"_______________________________________", "|\t\tLegend                 |", "| {Letter} - Scam Website for Income   |", "| ⏭ - Get Blackmailed                  |", "| ◈ - Locked out of Login (Jail)       |", "| ▶ - Start: Collect $200              |", "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾"};
+        String[] legend = { "_______________________________________", "|\t\tLegend                 |",
+                "| {Letter} - Scam Website for Income   |", "| ⏭ - Get Blackmailed                  |",
+                "| ◈ - Locked out of Login (Jail)       |", "| ▶ - Start: Collect $200              |",
+                "| # - Your Player                      |" };
 
         // Position viewer for all spaces
         for (int i = 0; i < board.length; i++) {
