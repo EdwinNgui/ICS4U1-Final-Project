@@ -96,7 +96,7 @@ public class Main {
         board[6][2].setInfo("Pacer", "🅓", 19, 1, 0, 60, 30, 15);
         board[6][3].setInfo("", "✦", 20, 0, 0, 0, 0, 0);
         board[6][4].setInfo("Esus", "🅒", 21, 1, 0, 60, 30, 15);
-        board[6][5].setInfo("Bogitech", "🅑", 22, 1, 0, 30, 15, 5);
+        board[6][5].setInfo("Bogitek", "🅑", 22, 1, 0, 30, 15, 5);
         board[6][6].setInfo("", "▶", 23, 0, 0, 0, 0, 0);
 
         // Legend
@@ -281,10 +281,17 @@ public class Main {
         } else if (menuNum == 9) {
             System.out.println("(1) Sell Website");
             System.out.println("(2) Pass");
+        } else if (menuNum == 10) {
+            System.out.println("(1) View your inventory");
+            System.out.println("(2) Search for website ownership");
+            System.out.println("(3) Pass");
+        } else if (menuNum == 11) {
+            System.out.println("(#) Search who owns a website");
+            System.out.println("(0) Exit");
         }
 
         // If invalid input previously
-        System.out.print("Input number here");
+        System.out.print("Input corresponding number here");
         if (invalidInput) {
             System.out.print(" (previous input invalid): ");
         } else {
@@ -429,7 +436,8 @@ public class Main {
                 // Pulls number from front, uses it for switch, then dequeues array before
                 // enqueue the num to the back
                 num = chanceArr.front();
-                // System.out.println(chanceArr.toString());//USE THIS FOR TESTING QUEUE validity
+                // System.out.println(chanceArr.toString());//USE THIS FOR TESTING QUEUE
+                // validity
 
                 // Pull a random chance card of 12 (obj) - name (entity), money effect, or
                 // player location effect (jail, collect 200)
@@ -555,10 +563,12 @@ public class Main {
                         System.out.println("using code \"IHOPEYOUENJOYEDTHISCODE\"!");
                         break;
                 }
+                pause();
                 chanceArr.dequeue();
                 chanceArr.enqueue(num);
             } else { // Normal Properties
-                if (player.getPosition() != 6 && player.getPosition() != 23) { // Lands on the jail but not in jail AND not on collect 200
+                if (player.getPosition() != 6 && player.getPosition() != 23) { // Lands on the jail but not in jail AND
+                                                                               // not on collect 200
                     System.out.print("\n\t\t\t< Scam Website");
                     // Find corresponding board space (by searching thru)
                     for (int i = 0; i < board.length; i++) {
@@ -599,9 +609,9 @@ public class Main {
                                             " > Repeatedly rewrites its appearance and code with each iteration whilst developing itself to reduce detectibility");
                                 }
                                 if (board[i][j].getOwnedStatus() == 0) { // If not owned, will display purchasing info
-                                    System.out.println("Buy Cost: $" + board[i][j].getBuyValue());
-                                    System.out.println("Sell Price: $" + board[i][j].getSellValue());
-                                    System.out.println("Income from Scams: $" + board[i][j].getRentValue());
+                                    System.out.println("   ○ Buy Cost: $" + board[i][j].getBuyValue());
+                                    System.out.println("   ○ Sell Price: $" + board[i][j].getSellValue());
+                                    System.out.println("   ○ Income from Scams: $" + board[i][j].getRentValue());
                                 }
 
                                 // Action Menu
@@ -623,7 +633,9 @@ public class Main {
                                                     board[i][j].getName() + " has been sold. You have regained $"
                                                             + board[i][j].getSellValue());
                                             player.modifyBalance(board[i][j].getSellValue()); // Awards money to person
-                                            player.removeOwnedSpace(board[i][j].getPosition()); //The player will lose the marker from inventory
+                                            player.removeOwnedSpace(board[i][j].getPosition()); // The player will lose
+                                                                                                // the marker from
+                                                                                                // inventory
                                             board[i][j].setOwnedStatus(0);
                                         } else { // option 2: pass
                                             System.out.println("The website has not been sold and remains yours.");
@@ -673,7 +685,8 @@ public class Main {
                                         player.modifyBalance(-1 * board[i][j].getBuyValue()); // Deducts money
                                         board[i][j].setOwnedStatus(player.getPlayerNum()); // Sets property ownership to
                                                                                            // player
-                                        player.addOwnedSpace(board[i][j].getPosition()); //Gives player the owned status
+                                        player.addOwnedSpace(board[i][j].getPosition()); // Gives player the owned
+                                                                                         // status
                                     } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
                                         if (player.getBalance() >= board[i][j].getBuyValue() == false) {
                                             System.out.print("You were unable to afford it and passed on the offer ");
@@ -685,48 +698,117 @@ public class Main {
                             }
                         }
                     }
-                } else if (player.getPosition() == 6){
+                } else if (player.getPosition() == 6) {
                     System.out.println("\n\t\t\t< You visited the jail, say \"Hi\" to your friends! >\n");
-                }else{ // Collect 200 on 23
-                    System.out.println("\n\t\t\t< You receieved $200 from your day job. >");
+                } else { // Collect 200 on 23
+                    System.out.println("\n\t\t\t< You received $200 from your day job. >");
                 }
-
             }
-
         }
 
         player.modifyBalance(player.getCryptoBot() * 50); // $50 per cryptobot user has
 
         System.out.println("Balance: $" + player.getBalance());
+        System.out.println("_______________________________________");
+        invalidInput = false;
+        pause();
+        clear();
 
-        System.out.println("TEMP: see your own inventory");
-        int [] tempArr = player.getOwnedSpace();
-        for (int k = 0; k < tempArr.length; k ++){
-            if (tempArr[k] != -1){
-                
-                for (int i = 0; i < board.length; i++) {
-                    for (int j = 0; j < board[i].length; j++) {
-                        if (tempArr[k] == board[i][j].getPosition()) {
-                            System.out.println(board[i][j].getLetterPos() + " : " + board[i][j].getName());
-                            // j = board[i].length; //Ends this for loop to return
+        do {
+            displayBoard(board, player);
+            System.out.println(player.getName() + "'s Post-Roll Actions Menu");
+            displayMenu(10, invalidInput);
+            numAns = input.nextInt();
+            input.nextLine();
+            if (numAns != 1 && numAns != 2 && numAns != 3) {
+                invalidInput = true;
+            }
+
+            if (numAns == 1) { // See own inventory
+                clear();
+                displayBoard(board, player);
+                System.out.println(player.getName() + "'s Owned Websites");
+                int[] tempArr = player.getOwnedSpace();
+                for (int k = 0; k < tempArr.length; k++) {
+                    if (tempArr[k] != -1) {
+
+                        for (int i = 0; i < board.length; i++) {
+                            for (int j = 0; j < board[i].length; j++) {
+                                if (tempArr[k] == board[i][j].getPosition()) {
+                                    System.out.println(board[i][j].getLetterPos() + " : " + board[i][j].getName());
+                                    // j = board[i].length; //Ends this for loop to return
+                                }
+                            }
                         }
+
                     }
                 }
+                pause();
+                clear();
+            } else if (numAns == 2) { // Search for a specific property
+                clear();
+
+                invalidInput = false;
+                do {
+
+                    displayBoard(board, player);
+                    System.out.println("\n\t\t\t< Domain Directory >");
+                    System.out.println("\t(1) " + board[6][5].getLetterPos() + " : " + board[6][5].getName()
+                            + "\t|\t(10) " + board[0][1].getLetterPos() + " : " + board[0][1].getName());
+                    System.out.println("\t(2) " + board[6][4].getLetterPos() + " : " + board[6][4].getName()
+                            + "\t\t|\t(11) " + board[0][2].getLetterPos() + " : " + board[0][2].getName());
+                    System.out.println("\t(3) " + board[6][2].getLetterPos() + " : " + board[6][2].getName()
+                            + "\t\t|\t(12) " + board[0][4].getLetterPos() + " : " + board[0][4].getName());
+                    System.out.println("\t(4) " + board[6][1].getLetterPos() + " : " + board[6][1].getName()
+                            + "\t|\t(13) " + board[0][5].getLetterPos() + " : " + board[0][5].getName());
+                    System.out.println("\t(5) " + board[6][0].getLetterPos() + " : " + board[6][0].getName()
+                            + "\t\t|\t(14) " + board[1][1].getLetterPos() + " : " + board[1][1].getName());
+                    System.out.println("\t(6) " + board[5][0].getLetterPos() + " : " + board[5][0].getName()
+                            + "\t\t|\t(15) " + board[2][1].getLetterPos() + " : " + board[2][1].getName());
+                    System.out.println("\t(7) " + board[4][0].getLetterPos() + " : " + board[4][0].getName()
+                            + "\t\t|\t(16) " + board[4][1].getLetterPos() + " : " + board[4][1].getName());
+                    System.out.println("\t(8) " + board[2][0].getLetterPos() + " : " + board[2][0].getName()
+                            + "\t\t|\t(17) " + board[5][1].getLetterPos() + " : " + board[5][1].getName());
+                    System.out.println("\t(9) " + board[1][0].getLetterPos() + " : " + board[1][0].getName());
 
 
+
+
+                    // CURRENT ISSUE: does not search correctly (adding properties adds not same number
+                    
+
+
+                    displayMenu(11, invalidInput);
+                    numAns = input.nextInt();
+                    input.nextLine();
+                    if (numAns < 0 || numAns > 18) { // Checks if it's invalid number
+                        invalidInput = true;
+                    } else if (numAns != 0) { // Valid num and not -1; search players
+                        // Searches all players
+                        // Searches for numAns, starts search at 0
+                        if (player.searchOwnedSpace(numAns, 0)) {
+                            ; // With self
+                            System.out.println("\t> " + player.getName() + " is the owner of this domain <");
+                        } else if (playerA.searchOwnedSpace(numAns, 0)) {
+                            System.out.println("\t> " + playerA.getName() + " is the owner of this domain <");
+                        } else if (playerB.searchOwnedSpace(numAns, 0)) {
+                            System.out.println("\t> " + playerB.getName() + " is the owner of this domain <");
+                        } else if (playerC.searchOwnedSpace(numAns, 0)) {
+                            System.out.println("\t> " + playerC.getName() + " is the owner of this domain <");
+                        } else {
+                            System.out.println("\t> No one owns this domain as of right now <");
+                        }
+                        pause();
+                        clear();
+
+                    }
+
+                } while (numAns != 0);
+                clear();
             }
-        }
 
-        //Need to see player inventory (displayed with icon and board pos name)
-        //i have an array of ints that only displayed owned
-        //when on a non -1, find it in the board and display it.
+        } while (numAns != 3);
 
-        System.out.println("TEMP: search for a specific space amongst all players...");
-
-
-        
-
-        pause();
         clear();
     }
 

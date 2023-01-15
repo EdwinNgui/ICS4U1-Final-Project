@@ -173,7 +173,7 @@ public class Player extends Entity {
         if (ownedSpace[start] == n) {
             return true;
         } else {
-            if (start == 17) { // If it reaches the end
+            if (start == 16) { // If it reaches the end; index 16 is the 17th space bc it starts 0
                 return false;
             } else {
                 return searchOwnedSpace(n, start + 1);
