@@ -105,9 +105,6 @@ public class Main {
         // ◈ in jail [0][6]
         // ⏭ go to jail [0][0]
 
-        // ISSUE: needs Property Info for all properties (corners and middles do not
-        // have this
-
         // 0 sends you to jail at 6
         clear();
         System.out.println("Welcome to the 🅜onopoly!"); // Uses special character as early indicator that UTF-8 is or
@@ -561,7 +558,7 @@ public class Main {
                 chanceArr.dequeue();
                 chanceArr.enqueue(num);
             } else { // Normal Properties
-                if (player.getPosition() != 6) { // Lands on the jail but not in jail
+                if (player.getPosition() != 6 && player.getPosition() != 23) { // Lands on the jail but not in jail AND not on collect 200
                     System.out.print("\n\t\t\t< Scam Website");
                     // Find corresponding board space (by searching thru)
                     for (int i = 0; i < board.length; i++) {
@@ -611,8 +608,6 @@ public class Main {
                                 if (board[i][j].getOwnedStatus() != 0) { // Owned
                                     // If player owns the property themself
                                     if (player.getPlayerNum() == board[i][j].getOwnedStatus()) {
-                                        // CURRENT: make option to sell (when it can identify who owns the space
-
                                         invalidInput = false;
                                         do {
                                             displayMenu(9, invalidInput);
@@ -628,6 +623,7 @@ public class Main {
                                                     board[i][j].getName() + " has been sold. You have regained $"
                                                             + board[i][j].getSellValue());
                                             player.modifyBalance(board[i][j].getSellValue()); // Awards money to person
+                                            player.removeOwnedSpace(board[i][j].getPosition()); //The player will lose the marker from inventory
                                             board[i][j].setOwnedStatus(0);
                                         } else { // option 2: pass
                                             System.out.println("The website has not been sold and remains yours.");
@@ -677,6 +673,7 @@ public class Main {
                                         player.modifyBalance(-1 * board[i][j].getBuyValue()); // Deducts money
                                         board[i][j].setOwnedStatus(player.getPlayerNum()); // Sets property ownership to
                                                                                            // player
+                                        player.addOwnedSpace(board[i][j].getPosition()); //Gives player the owned status
                                     } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
                                         if (player.getBalance() >= board[i][j].getBuyValue() == false) {
                                             System.out.print("You were unable to afford it and passed on the offer ");
@@ -688,8 +685,10 @@ public class Main {
                             }
                         }
                     }
-                } else {
+                } else if (player.getPosition() == 6){
                     System.out.println("\n\t\t\t< You visited the jail, say \"Hi\" to your friends! >\n");
+                }else{ // Collect 200 on 23
+                    System.out.println("\n\t\t\t< You receieved $200 from your day job. >");
                 }
 
             }
@@ -699,11 +698,35 @@ public class Main {
         player.modifyBalance(player.getCryptoBot() * 50); // $50 per cryptobot user has
 
         System.out.println("Balance: $" + player.getBalance());
-        pause();
 
-        // Actions go here; buy space, upgrade space (rent), trade?
-        // OR IF IN JAIL; pay/roll
-        // ISSUE: idk if trade stays
+        System.out.println("TEMP: see your own inventory");
+        int [] tempArr = player.getOwnedSpace();
+        for (int k = 0; k < tempArr.length; k ++){
+            if (tempArr[k] != -1){
+                
+                for (int i = 0; i < board.length; i++) {
+                    for (int j = 0; j < board[i].length; j++) {
+                        if (tempArr[k] == board[i][j].getPosition()) {
+                            System.out.println(board[i][j].getLetterPos() + " : " + board[i][j].getName());
+                            // j = board[i].length; //Ends this for loop to return
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+        //Need to see player inventory (displayed with icon and board pos name)
+        //i have an array of ints that only displayed owned
+        //when on a non -1, find it in the board and display it.
+
+        System.out.println("TEMP: search for a specific space amongst all players...");
+
+
+        
+
+        pause();
         clear();
     }
 
