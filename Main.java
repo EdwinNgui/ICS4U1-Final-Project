@@ -15,6 +15,7 @@ public class Main {
         // Type "chcp 65001" if the characters appear as question marks
 
         Scanner input = new Scanner(System.in);
+        Random rand = new Random();
         boolean invalidInput = false;
         int ans;
         String stringAns; // For names
@@ -26,6 +27,22 @@ public class Main {
         Player p2 = new Player();
         Player p3 = new Player();
         Player p4 = new Player();
+
+        // Chance Cards
+        Queue chanceArr = new Queue(8); // Array with 8 values
+        int[] chanceArrFill = { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+        // Shuffles order using random in preparation for queue usage
+        for (int i = 0; i < chanceArrFill.length; i++) {
+            // swap two numbers (i marker and random)
+            int pick = rand.nextInt(8); // Picks random point to swap with
+            int temp = chanceArrFill[pick]; // Temp variable holds random number from array
+            chanceArrFill[pick] = chanceArrFill[i];
+            chanceArrFill[i] = temp;
+        }
+        for (int i = 0; i < chanceArrFill.length; i++) {
+            chanceArr.enqueue(chanceArrFill[i]);
+        }
 
         // 7 by 7 board, 2 layers, the top (1) is the player movement, the bottom (2) is
         // where the properties are held
@@ -174,15 +191,15 @@ public class Main {
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 displayBoard(board, p1);
-                playTurn(p1, board, p2, p3, p4);
+                playTurn(p1, board, p2, p3, p4, chanceArr);
                 displayBoard(board, p2);
-                playTurn(p2, board, p1, p3, p4);
+                playTurn(p2, board, p1, p3, p4, chanceArr);
                 if (numOfPlayers >= 3) {
                     displayBoard(board, p3);
-                    playTurn(p3, board, p1, p2, p4);
+                    playTurn(p3, board, p1, p2, p4, chanceArr);
                     if (numOfPlayers >= 4) {
                         displayBoard(board, p4);
-                        playTurn(p4, board, p1, p2, p3);
+                        playTurn(p4, board, p1, p2, p3, chanceArr);
                     }
                 }
             }
@@ -318,11 +335,13 @@ public class Main {
     }
 
     /*
-     * Pre: Requires no variables
+     * Pre: Requires player on the turn, 2D array of the map board, the other
+     * players, and the chance array
      * Post: Returns nothing to main
      * Desc: Takes the player at hand and allows them to start their turn
      */
-    public static void playTurn(Player player, boardSpace[][] board, Player playerA, Player playerB, Player playerC) {
+    public static void playTurn(Player player, boardSpace[][] board, Player playerA, Player playerB, Player playerC,
+            Queue chanceArr) {
         int num = rollDice();
         boolean invalidInput;
         int numAns;
@@ -409,8 +428,12 @@ public class Main {
                 pause();
                 clear();
                 System.out.println("____________________________________________________________________\n");
-                // ISSUE: potential, is num used elsewhere?
-                num = rand.nextInt(8); // 0-7, 8 cases
+
+                // Pulls number from front, uses it for switch, then dequeues array before
+                // enqueue the num to the back
+                num = chanceArr.front();
+                // System.out.println(chanceArr.toString());//USE THIS FOR TESTING QUEUE validity
+
                 // Pull a random chance card of 12 (obj) - name (entity), money effect, or
                 // player location effect (jail, collect 200)
                 switch (num) {
@@ -535,128 +558,138 @@ public class Main {
                         System.out.println("using code \"IHOPEYOUENJOYEDTHISCODE\"!");
                         break;
                 }
+                chanceArr.dequeue();
+                chanceArr.enqueue(num);
             } else { // Normal Properties
-                System.out.print("\n\t\t\t< Scam Website");
+                if (player.getPosition() != 6) { // Lands on the jail but not in jail
+                    System.out.print("\n\t\t\t< Scam Website");
+                    // Find corresponding board space (by searching thru)
+                    for (int i = 0; i < board.length; i++) {
+                        for (int j = 0; j < board[i].length; j++) {
+                            if (player.getPosition() == board[i][j].getPosition()
+                                    && board[i][j].getName().equals("") == false) {
 
-                // Find corresponding board space (by searching thru)
-                for (int i = 0; i < board.length; i++) {
-                    for (int j = 0; j < board[i].length; j++) {
-                        if (player.getPosition() == board[i][j].getPosition() && board[i][j].getName().equals("") == false) {
+                                // Checks if someone owns it
+                                if (player.getPlayerNum() == board[i][j].getOwnedStatus()) { // The player owns it
+                                    System.out.println(" seems to be yours >");
+                                } else if (board[i][j].getOwnedStatus() != 0) { // Owned (0 means no owner)
+                                    System.out.println(" has stolen your money >");
+                                } else { // Not owned
+                                    System.out.println(" available for purchase >");
+                                }
 
-                            // Checks if someone owns it
-                            if (player.getPlayerNum() == board[i][j].getOwnedStatus()) { //The player owns it
-                                System.out.println(" seems to be yours >");
-                            } else if (board[i][j].getOwnedStatus() != 0){  // Owned (0 means no owner)
-                                System.out.println(" has stolen your money >");
-                            } else { // Not owned
-                                System.out.println(" available for purchase >");
-                            }
+                                // Displays the website details
+                                System.out.println("\"Company\" Name: " + board[i][j].getName());
+                                System.out.print("Virus Type: ");
+                                if (board[i][j].getVirusType() == 1) { // File-Infecting Virus
+                                    System.out.println("File-Infecting Virus");
+                                    System.out.println(
+                                            " > Attaches itself to executable programs (.exe) present on your website and overwrites host files");
+                                } else if (board[i][j].getVirusType() == 2) { // Web Scripting Virus
+                                    System.out.println("Web Scripting Virus");
+                                    System.out.println(
+                                            " > Disguises itself as images, links, and other media to trick users into downloading malicious files");
+                                } else if (board[i][j].getVirusType() == 3) { // Ransomware
+                                    System.out.println("Ransomware");
+                                    System.out.println(" > Blocks computer access of the user until money is paid");
+                                } else if (board[i][j].getVirusType() == 4) { // Resident Virus
+                                    System.out.println("Resident Virus");
+                                    System.out.println(
+                                            " > Stores itself onto computer’s memory and interupts operating system to cause program coruption");
+                                } else { // Metamorphic Virus
+                                    System.out.println("Metamorphic Virus");
+                                    System.out.println(
+                                            " > Repeatedly rewrites its appearance and code with each iteration whilst developing itself to reduce detectibility");
+                                }
+                                if (board[i][j].getOwnedStatus() == 0) { // If not owned, will display purchasing info
+                                    System.out.println("Buy Cost: $" + board[i][j].getBuyValue());
+                                    System.out.println("Sell Price: $" + board[i][j].getSellValue());
+                                    System.out.println("Income from Scams: $" + board[i][j].getRentValue());
+                                }
 
-                            // Displays the website details
-                            System.out.println("\"Company\" Name: " + board[i][j].getName());
-                            System.out.print("Virus Type: ");
-                            if (board[i][j].getVirusType() == 1) { // File-Infecting Virus
-                                System.out.println("File-Infecting Virus");
-                                System.out.println(
-                                        " > Attaches itself to executable programs (.exe) present on your website and overwrites host files");
-                            } else if (board[i][j].getVirusType() == 2) { // Web Scripting Virus
-                                System.out.println("Web Scripting Virus");
-                                System.out.println(
-                                        " > Disguises itself as images, links, and other media to trick users into downloading malicious files");
-                            } else if (board[i][j].getVirusType() == 3) { // Ransomware
-                                System.out.println("Ransomware");
-                                System.out.println(" > Blocks computer access of the user until money is paid");
-                            } else if (board[i][j].getVirusType() == 4) { // Resident Virus
-                                System.out.println("Resident Virus");
-                                System.out.println(
-                                        " > Stores itself onto computer’s memory and interupts operating system to cause program coruption");
-                            } else { // Metamorphic Virus
-                                System.out.println("Metamorphic Virus");
-                                System.out.println(
-                                        " > Repeatedly rewrites its appearance and code with each iteration whilst developing itself to reduce detectibility");
-                            }
-                            if (board[i][j].getOwnedStatus() == 0) { // If not owned, will display purchasing info
-                                System.out.println("Buy Cost: $" + board[i][j].getBuyValue());
-                                System.out.println("Sell Price: $" + board[i][j].getSellValue());
-                                System.out.println("Income from Scams: $" + board[i][j].getRentValue());
-                            }
+                                // Action Menu
+                                if (board[i][j].getOwnedStatus() != 0) { // Owned
+                                    // If player owns the property themself
+                                    if (player.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                        // CURRENT: make option to sell (when it can identify who owns the space
 
-                            
-                            // Action Menu
-                            if (board[i][j].getOwnedStatus() != 0) { // Owned
-                                // If player owns the property themself
-                                if (player.getPlayerNum() == board[i][j].getOwnedStatus()) {
-                                    // CURRENT: make option to sell (when it can identify who owns the space
+                                        invalidInput = false;
+                                        do {
+                                            displayMenu(9, invalidInput);
+                                            numAns = input.nextInt();
+                                            input.nextLine();
+                                            if (numAns != 1 || numAns != 2) {
+                                                invalidInput = true;
+                                            }
+                                        } while (numAns != 1 && numAns != 2);
+
+                                        if (numAns == 1) { // sell website
+                                            System.out.println(
+                                                    board[i][j].getName() + " has been sold. You have regained $"
+                                                            + board[i][j].getSellValue());
+                                            player.modifyBalance(board[i][j].getSellValue()); // Awards money to person
+                                            board[i][j].setOwnedStatus(0);
+                                        } else { // option 2: pass
+                                            System.out.println("The website has not been sold and remains yours.");
+                                        }
+
+                                    } else { // If player does not own property themself
+                                        System.out.println("$" + board[i][j].getRentValue()
+                                                + " has been stolen from visiting the malicious site.");
+                                        player.modifyBalance(-1 * board[i][j].getRentValue());
+
+                                        // Finds who it belongs to and awards the money
+                                        if (playerA.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                            playerA.modifyBalance(board[i][j].getRentValue());
+                                            System.out.println(playerA.getName() + " has been awarded $"
+                                                    + board[i][j].getRentValue() + ".");
+                                        } else if (playerB.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                            playerB.modifyBalance(board[i][j].getRentValue());
+                                            System.out.println(playerB.getName() + " has been awarded $"
+                                                    + board[i][j].getRentValue() + ".");
+                                        } else if (playerC.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                            playerC.modifyBalance(board[i][j].getRentValue());
+                                            System.out.println(playerC.getName() + " has been awarded $"
+                                                    + board[i][j].getRentValue() + ".");
+                                        }
+                                        board[i][j].setOwnedStatus(player.getPlayerNum());
+                                    }
+
+                                } else { // Not owned
 
                                     invalidInput = false;
-                                do {
-                                    displayMenu(9, invalidInput);
-                                    numAns = input.nextInt();
-                                    input.nextLine();
-                                    if (numAns != 1 || numAns != 2) {
-                                        invalidInput = true;
-                                    }
-                                } while (numAns != 1 && numAns != 2);
+                                    do {
+                                        displayMenu(8, invalidInput);
+                                        numAns = input.nextInt();
+                                        input.nextLine();
+                                        if (numAns != 1 || numAns != 2) {
+                                            invalidInput = true;
+                                        }
+                                    } while (numAns != 1 && numAns != 2);
 
-                                if (numAns == 1){ //sell website
-                                    System.out.println(board[i][j].getName() + " has been sold. You have regained $" + board[i][j].getSellValue());
-                                    player.modifyBalance(board[i][j].getSellValue()); //Awards money to person
-                                    board[i][j].setOwnedStatus(0);
-                                } else{ //option 2: pass
-                                    System.out.println("The website has not been sold and remains yours.");
-                                }
-
-                                } else { // If player does not own property themself
-                                    System.out.println("$" + board[i][j].getRentValue()
-                                            + " has been stolen from visiting the malicious site.");
-                                    player.modifyBalance(-1 * board[i][j].getRentValue());
-
-                                    // Finds who it belongs to and awards the money
-                                    if (playerA.getPlayerNum() == board[i][j].getOwnedStatus()) {
-                                        playerA.modifyBalance(board[i][j].getRentValue());
-                                        System.out.println(playerA.getName() + " has been awarded $"
-                                                + board[i][j].getRentValue() + ".");
-                                    } else if (playerB.getPlayerNum() == board[i][j].getOwnedStatus()) {
-                                        playerB.modifyBalance(board[i][j].getRentValue());
-                                        System.out.println(playerB.getName() + " has been awarded $"
-                                                + board[i][j].getRentValue() + ".");
-                                    } else if (playerC.getPlayerNum() == board[i][j].getOwnedStatus()) {
-                                        playerC.modifyBalance(board[i][j].getRentValue());
-                                        System.out.println(playerC.getName() + " has been awarded $"
-                                                + board[i][j].getRentValue() + ".");
-                                    }
-                                    board[i][j].setOwnedStatus(player.getPlayerNum());
-                                }
-
-                            } else { // Not owned
-
-                                invalidInput = false;
-                                do {
-                                    displayMenu(8, invalidInput);
-                                    numAns = input.nextInt();
-                                    input.nextLine();
-                                    if (numAns != 1 || numAns != 2) {
-                                        invalidInput = true;
-                                    }
-                                } while (numAns != 1 && numAns != 2);
-
-                                if (numAns == 1 && player.getBalance() >= board[i][j].getBuyValue()) { // Want to buy
-                                                                                                       // and can afford
-                                    System.out.println(
-                                            "You have sucessfully bought and now run " + board[i][j].getName() + ".");
-                                    player.modifyBalance(-1 * board[i][j].getBuyValue()); // Deducts money
-                                    board[i][j].setOwnedStatus(player.getPlayerNum()); // Sets property ownership to
-                                                                                       // player
-                                } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
-                                    if (player.getBalance() >= board[i][j].getBuyValue() == false) {
-                                        System.out.print("You were unable to afford it and passed on the offer ");
-                                    } else {
-                                        System.out.println("You passed on the offer");
+                                    if (numAns == 1 && player.getBalance() >= board[i][j].getBuyValue()) { // Want to
+                                                                                                           // buy
+                                                                                                           // and can
+                                                                                                           // afford
+                                        System.out.println(
+                                                "You have sucessfully bought and now run " + board[i][j].getName()
+                                                        + ".");
+                                        player.modifyBalance(-1 * board[i][j].getBuyValue()); // Deducts money
+                                        board[i][j].setOwnedStatus(player.getPlayerNum()); // Sets property ownership to
+                                                                                           // player
+                                    } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
+                                        if (player.getBalance() >= board[i][j].getBuyValue() == false) {
+                                            System.out.print("You were unable to afford it and passed on the offer ");
+                                        } else {
+                                            System.out.println("You passed on the offer");
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                } else {
+                    System.out.println("\n\t\t\t< You visited the jail, say \"Hi\" to your friends! >\n");
                 }
 
             }
