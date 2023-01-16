@@ -190,4 +190,33 @@ public class Player extends Entity {
         return ownedSpace;
     }
 
+
+    /*
+     * Pre: Requires the array (int) and the array size
+     * Post: Returns nothing
+     * Desc: Recursively bubble sorts the player's inventory to reduce searching times in the recursive linear search
+     */
+    public void sortOwnedSpace(int [] arr, int arrSize){
+        //Uses player's array; ownedSpace
+
+        //Finished passing sufficiently
+        if (arrSize == 1){
+            return;
+        }
+
+        //Run thru each index and do the swaps needed
+        for (int i = 0; i < (arrSize - 1); i ++){
+            if (arr[i] > arr[i + 1]){ //If left bigger than right, swap
+                int temp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = temp;
+            }
+        }
+
+        //When pass done, go check again
+        sortOwnedSpace(arr, arrSize -1);
+    }
+
+
+
 }

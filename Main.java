@@ -189,14 +189,19 @@ public class Main {
             if (numOfPlayers >= 2) {
                 displayBoard(board, p1);
                 playTurn(p1, board, p2, p3, p4, chanceArr);
+                //Sort requires player's array and array size
+                p1.sortOwnedSpace(p1.getOwnedSpace(), p1.getOwnedSpace().length);
                 displayBoard(board, p2);
                 playTurn(p2, board, p1, p3, p4, chanceArr);
+                p2.sortOwnedSpace(p2.getOwnedSpace(), p2.getOwnedSpace().length);
                 if (numOfPlayers >= 3) {
                     displayBoard(board, p3);
                     playTurn(p3, board, p1, p2, p4, chanceArr);
+                    p3.sortOwnedSpace(p3.getOwnedSpace(), p3.getOwnedSpace().length);
                     if (numOfPlayers >= 4) {
                         displayBoard(board, p4);
                         playTurn(p4, board, p1, p2, p3, chanceArr);
+                        p4.sortOwnedSpace(p4.getOwnedSpace(), p4.getOwnedSpace().length);
                     }
                 }
             }
