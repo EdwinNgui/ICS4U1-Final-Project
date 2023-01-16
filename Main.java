@@ -109,10 +109,13 @@
          // 0 sends you to jail at 
          //Introduction
          clear();
-         System.out.println("Welcome to...");
+         System.out.println("__________________________________________________________________________________________\n\n\n\n\n\n");
+         System.out.println("Welcome to...\n\n\n\n");
          slowText("\t█░█ ▄▀█ █▀▀ █▄▀ █▀▀ █▀█ ▀ █▀   █░█░█ █▀█ █▀█ █░░ █▀▄\n");
          slowText("\t█▀█ █▀█ █▄▄ █░█ ██▄ █▀▄ ░ ▄█   ▀▄▀▄▀ █▄█ █▀▄ █▄▄ █▄▀");
-         System.out.println("\nWhen you see <continue> enter anything to continue");
+         System.out.println("\n\n\n\n\n\nExpand the console until you can see both horizontal lines above and below the start menu");
+         System.out.println("When you see <continue> enter anything to continue");
+         System.out.println("__________________________________________________________________________________________");
          pause();
          clear();
          // Displays new or load game
@@ -285,7 +288,7 @@
          }
  
          // Prints results
-         System.out.println("\t\t\t\t   < Results >");
+         slowText("\n\t\t\t\t   < Results >\n");
          sleep(sleepTimer);
          System.out.println("\tMost Money: " + moneyStandings[0].getName() + " ($" + moneyStandings[0].getBalance() + ")"
                  + "\t\t|\t Highest Ethical Standing: " + ethicalStandings[0].getName() + " ("
@@ -309,6 +312,7 @@
                  }
              }
          }
+         slowText("\n\n");
      }
  
      /*
@@ -1003,8 +1007,9 @@
                  "\t| # - Your Player                      |" };
  
          // Position viewer for all spaces
+         clear();
          for (int i = 0; i < board.length; i++) {
-             // System.out.print("\t");
+             System.out.print("\t");
              for (int j = 0; j < board[i].length; j++) {
                  if (player.getPosition() == board[i][j].getPosition()) {
                      System.out.print("# ");
@@ -1014,12 +1019,12 @@
                  // If on left side in middle
                  if ((board[i][j].getPosition() >= 7 && board[i][j].getPosition() <= 15)
                          && ((board[i][j].getPosition() % 2) == 1)) {
-                     System.out.print("\t        ");
+                     System.out.print("\t    ");
                  }
              }
              System.out.println("\t" + legend[i]);
          }
-         System.out.println("____________________________________________________________________");
+         System.out.println("_______________________________________________________________________________");
      }
  
      /*
