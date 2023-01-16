@@ -698,7 +698,7 @@
                      if (player.getPosition() != 6 && player.getPosition() != 23) { // Lands on the jail but not in jail
                                                                                     // AND
                                                                                     // not on collect 200
-                         System.out.print("\n\t\t\t< Scam Website");
+                         System.out.print("\n\t    < Scam Website");
                          // Find corresponding board space (by searching thru)
                          for (int i = 0; i < board.length; i++) {
                              for (int j = 0; j < board[i].length; j++) {
@@ -720,22 +720,22 @@
                                      if (board[i][j].getVirusType() == 1) { // File-Infecting Virus
                                          System.out.println("File-Infecting Virus");
                                          System.out.println(
-                                                 " > Attaches itself to executable programs (.exe) present on your website and overwrites host files");
+                                                 " > Attaches itself to executable programs (.exe) present on your\n   website and overwrites host files");
                                      } else if (board[i][j].getVirusType() == 2) { // Web Scripting Virus
                                          System.out.println("Web Scripting Virus");
                                          System.out.println(
-                                                 " > Disguises itself as images, links, and other media to trick users into downloading malicious files");
+                                                 " > Disguises itself as images, links, and other media to trick\n   users into downloading malicious files");
                                      } else if (board[i][j].getVirusType() == 3) { // Ransomware
                                          System.out.println("Ransomware");
                                          System.out.println(" > Blocks computer access of the user until money is paid");
                                      } else if (board[i][j].getVirusType() == 4) { // Resident Virus
                                          System.out.println("Resident Virus");
                                          System.out.println(
-                                                 " > Stores itself onto computer’s memory and interupts operating system to cause program coruption");
+                                                 " > Stores itself onto computer’s memory and interupts operating\n   system to cause program coruption");
                                      } else { // Metamorphic Virus
                                          System.out.println("Metamorphic Virus");
                                          System.out.println(
-                                                 " > Repeatedly rewrites its appearance and code with each iteration whilst developing itself to reduce detectibility");
+                                                 " > Repeatedly rewrites its appearance and code with each iteration\n   whilst developing itself to reduce detectibility");
                                      }
                                      if (board[i][j].getOwnedStatus() == 0) { // If not owned, will display purchasing
                                                                               // info
@@ -939,7 +939,7 @@
       */
      public static void displayBoard(boardSpace[][] board, Player player) {
          
-         String [] legend = {"\t_______________________________________", "\t|\t\t  Legend               |","\t| {Letter} - Scam Website for Income   |", "\t| ⏭ - Get Blackmailed       \t       |", "\t| ◈ - Locked out of Login (Jail)       |", "\t| ▶ - Start: Collect $200              |", "\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾"};
+         String [] legend = {"\t_______________________________________", "\t|\t\t  Legend               |","\t| {Letter} - Scam Website for Income   |", "\t| ⏭ - Get Blackmailed       \t       |", "\t| ◈ - Locked out of Login (Jail)       |", "\t| ▶ - Start: Collect $200              |", "\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾"};
          
          clear();
          // Position viewer for all spaces
