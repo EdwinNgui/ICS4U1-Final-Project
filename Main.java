@@ -771,12 +771,8 @@ public class Main {
                             + "\t\t|\t(17) " + board[5][1].getLetterPos() + " : " + board[5][1].getName());
                     System.out.println("\t(9) " + board[1][0].getLetterPos() + " : " + board[1][0].getName());
 
-
-
-
-                    // CURRENT ISSUE: does not search correctly (adding properties adds not same number
-                    
-
+                    // CURRENT ISSUE: does not search correctly (adding properties adds not same
+                    // number
 
                     displayMenu(11, invalidInput);
                     numAns = input.nextInt();
@@ -784,6 +780,62 @@ public class Main {
                     if (numAns < 0 || numAns > 18) { // Checks if it's invalid number
                         invalidInput = true;
                     } else if (numAns != 0) { // Valid num and not -1; search players
+
+                        //Reassigns numbering locations to match; since the legend and the board spaces have inconsistent numberings (since board used irregular array and this counts by alphabet)
+                        switch (numAns) {
+                            case 1:
+                                numAns = 22;
+                                break;
+                            case 2:
+                            numAns = 21;
+                                break;
+                            case 3:
+                            numAns = 19;
+                                break;
+                            case 4:
+                            numAns = 18;
+                                break;
+                            case 5:
+                            numAns = 17;
+                                break;
+                            case 6:
+                            numAns = 15;
+                                break;
+                            case 7:
+                            numAns = 13;
+                                break;
+                            case 8:
+                            numAns = 9;
+                                break;
+                            case 9:
+                            numAns = 7;
+                                break;
+                            case 10:
+                            numAns = 1;
+                                break;
+                            case 11:
+                            numAns = 2;
+                                break;
+                            case 12:
+                            numAns = 4;
+                                break;
+                            case 13:
+                            numAns = 5;
+                                break;
+                            case 14:
+                            numAns = 8;
+                                break;
+                            case 15:
+                            numAns = 10;
+                                break;
+                            case 16:
+                            numAns = 14;
+                                break;
+                            case 17:
+                            numAns = 16;
+                                break;
+                        }
+
                         // Searches all players
                         // Searches for numAns, starts search at 0
                         if (player.searchOwnedSpace(numAns, 0)) {
