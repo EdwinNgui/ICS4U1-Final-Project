@@ -9,10 +9,7 @@ public class Player extends Entity {
     private int cryptoBot;
     private int playerNum;
     private int[] ownedSpace = new int[17];
-
-    // CURRENT: each player has an array of 17 spaces total (prefilled with -1)
-    // will display only non -1, letterpos + company name
-    // when owned, will look to write as early as possible (but skip the non -1)
+    private int ethicalRating;
 
     // Has name and entity-value from entity abstract class
 
@@ -30,6 +27,7 @@ public class Player extends Entity {
         jailStatus = 0;
         cryptoBot = 0;
         playerNum = 0;
+        ethicalRating = 0;
 
         // Presets all spaces to -1 (means non existent)
         for (int i = 0; i < ownedSpace.length; i++) {
@@ -215,6 +213,25 @@ public class Player extends Entity {
 
         //When pass done, go check again
         sortOwnedSpace(arr, arrSize -1);
+    }
+
+
+    /*
+     * Pre: Requires integer
+     * Post: Returns nothing
+     * Desc: Modifies the user's ethical rating
+     */
+    public void modifyEthicalRating(int newEthicalRating) {
+        ethicalRating += newEthicalRating;
+    }
+
+    /*
+     * Pre: Requires nothing
+     * Post: Returns integer
+     * Desc: Returns user's ethical rating
+     */
+    public int getEthicalRating() {
+        return ethicalRating;
     }
 
 

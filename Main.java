@@ -133,11 +133,9 @@ public class Main {
         clear();
         System.out.println(
                 "Each square may contain a purchasable scam website (generates income), chance card, or action space.");
-        System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\""); // ISSUE: add
-                                                                                                          // in the line
-                                                                                                          // about
-                                                                                                          // ethics
-                                                                                                          // standing
+        System.out.println(
+                "The game ends when all players are out of money or the fixed number of turns finish and the game ends on its own.");
+        System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\"");
         System.out.println("\t  < You will make choices. Your choices will impact your end result >");
         pause();
         clear();
@@ -184,12 +182,13 @@ public class Main {
         clear();
         // Allows player to use the turn-based cycle of the game
 
-        for (int k = 0; k < 15; k++) { // 15 rounds
+        // ISSUE put this back to 10; it was for testing earlier
+        for (int k = 0; k < 1; k++) { // 15 rounds
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 displayBoard(board, p1);
                 playTurn(p1, board, p2, p3, p4, chanceArr);
-                //Sort requires player's array and array size
+                // Sort requires player's array and array size
                 p1.sortOwnedSpace(p1.getOwnedSpace(), p1.getOwnedSpace().length);
                 displayBoard(board, p2);
                 playTurn(p2, board, p1, p3, p4, chanceArr);
@@ -206,6 +205,88 @@ public class Main {
                 }
             }
         }
+
+        // ISSUE: if player is forfeited, must skip turn
+        // ISSUE: if all players except one has forfeited; game ends
+
+        // Game Ending...
+        clear();
+        // CURRENT
+
+        System.out.println("____________________________________________________");
+        System.out.println("The winners...");
+
+        // ISSUE: use sleep function to make it fun to watch
+
+        // Sells all properties
+        if (numOfPlayers >= 2) {
+            sellAll(board, p1);
+            sellAll(board, p2);
+            if (numOfPlayers >= 3) {
+                sellAll(board, p3);
+                if (numOfPlayers >= 4) {
+                    sellAll(board, p4);
+                }
+            }
+        }
+
+        //Left-Right, is loser to winner
+        Player [] moneyStandings = new Player[numOfPlayers];
+        Player [] ethicalStandings = new Player[numOfPlayers];
+
+        //Fills both arrays with the players
+        if (numOfPlayers >= 2) {
+            moneyStandings[0] = p1;
+            moneyStandings[1] = p2;
+            ethicalStandings[0] = p1;
+            ethicalStandings[1] = p2;
+            if (numOfPlayers >= 3) {
+                moneyStandings[2] = p3;
+                ethicalStandings[2] = p3;
+                if (numOfPlayers >= 4) {
+                    moneyStandings[3] = p4;
+                    ethicalStandings[3] = p4;
+                }
+            }
+        }
+
+        //Sorts money array
+        num = moneyStandings.length;
+        for (int i = 0; i < (num - 1); i ++){ //Anchors at start
+            for (int j = 0; j < (num - i - 1); j ++){ //The running sort
+                if (moneyStandings[j].getBalance() > moneyStandings[j + 1].getBalance()){ //If left player has greater balance, swap
+                    Player temp = moneyStandings[j];
+                    moneyStandings[j] = moneyStandings[j + 1];
+                    moneyStandings[j + 1] = temp;
+                }
+            }
+        }
+
+        //Sorts ethical array
+        num = ethicalStandings.length;
+        for (int i = 0; i < (num - 1); i ++){ //Anchors at start
+            for (int j = 0; j < (num - i - 1); j ++){ //The running sort
+                if (ethicalStandings[j].getEthicalRating() < ethicalStandings[j + 1].getEthicalRating()){ //If left player has greater balance, swap
+                    Player temp = ethicalStandings[j];
+                    ethicalStandings[j] = ethicalStandings[j + 1];
+                    ethicalStandings[j + 1] = temp;
+                }
+            }
+        }
+        
+        //Prints results
+        clear();
+        System.out.println("\t\t\t\t   < Results >");
+        System.out.println("\tMost Money: " + moneyStandings[0].getName() + " ($" + moneyStandings[0].getBalance() +")"+ "\t\t|\t Highest Ethical Standing: " + ethicalStandings[0].getName()  + " (" + ethicalStandings[0].getEthicalRating() +")");
+        if (numOfPlayers >= 2) {
+            System.out.println("\t(2nd) " + moneyStandings[1].getName() + " ($" + moneyStandings[1].getBalance() +")" + "\t\t|\t (2nd) " + ethicalStandings[1].getName()  + " (" + ethicalStandings[1].getEthicalRating() +")");
+            if (numOfPlayers >= 3) {
+                System.out.println("\t(3rd) " + moneyStandings[2].getName() + " ($" + moneyStandings[2].getBalance() +")" + "\t\t|\t (3rd) " + ethicalStandings[2].getName()  + " (" + ethicalStandings[2].getEthicalRating() +")");
+                if (numOfPlayers >= 4) {
+                    System.out.println("\t(4th) " + moneyStandings[3].getName() + " ($" + moneyStandings[3].getBalance() +")" + "\t\t|\t (4th) " + ethicalStandings[3].getName()  + " (" + ethicalStandings[3].getEthicalRating() +")");
+                }
+            }
+        }        
     }
 
     /*
@@ -405,9 +486,6 @@ public class Main {
             }
         } else {
 
-            // ISSUE: needs to check if player broke; if broke; instant option to sell; if
-            // still broke; force to forfeit
-
             System.out.println(" > Roll Dice");
             pause();
             clear();
@@ -482,9 +560,9 @@ public class Main {
                         if (numAns == 1) { // Hack for money
                             player.modifyBalance(400);
                             System.out.println("You got $300 dollars from the attack! A lot less than you expected...");
-                            // ISSUE: add ethnic standing here
+                            player.modifyEthicalRating(-30);
                         } else if (numAns == 2) { // Not hack for money, boosts ethic standing
-                            // ISSUE: add ethnic standing here
+                            player.modifyEthicalRating(80);
                             System.out.println("You left the note...You feel good about yourself");
                         }
                         break;
@@ -515,9 +593,9 @@ public class Main {
                         if (numAns == 1) { // Hack for money
                             player.modifyBalance(400);
                             System.out.println("You got $400 dollars for the stolen data!");
-                            // ISSUE: add ethnic standing here
+                            player.modifyEthicalRating(-40);
                         } else if (numAns == 2) { // Not hack for money, boosts ethic standing
-                            // ISSUE: add ethnic standing here
+                            player.modifyEthicalRating(85);
                             System.out.println("You deleted the copies...CLICK! Maybe that was the right move?");
                         }
 
@@ -541,9 +619,9 @@ public class Main {
                         if (numAns == 1) { // Hack for money
                             player.modifyBalance(400);
                             System.out.println("You have a crypto machine making you $50 a turn! (stackable)");
-                            // ISSUE: add ethnic standing here
+                            player.modifyEthicalRating(-50);
                         } else if (numAns == 2) { // Not hack for money, boosts ethic standing
-                            // ISSUE: add ethnic standing here
+                            player.modifyEthicalRating(110);
                             System.out.println(
                                     "You chose not to do that. Good on you, you're you'll find another way to find money.");
                         }
@@ -692,6 +770,8 @@ public class Main {
                                                                                            // player
                                         player.addOwnedSpace(board[i][j].getPosition()); // Gives player the owned
                                                                                          // status
+                                        player.modifyEthicalRating(-30);
+                                        //current
                                     } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
                                         if (player.getBalance() >= board[i][j].getBuyValue() == false) {
                                             System.out.print("You were unable to afford it and passed on the offer ");
@@ -776,9 +856,6 @@ public class Main {
                             + "\t\t|\t(17) " + board[5][1].getLetterPos() + " : " + board[5][1].getName());
                     System.out.println("\t(9) " + board[1][0].getLetterPos() + " : " + board[1][0].getName());
 
-                    // CURRENT ISSUE: does not search correctly (adding properties adds not same
-                    // number
-
                     displayMenu(11, invalidInput);
                     numAns = input.nextInt();
                     input.nextLine();
@@ -786,58 +863,60 @@ public class Main {
                         invalidInput = true;
                     } else if (numAns != 0) { // Valid num and not -1; search players
 
-                        //Reassigns numbering locations to match; since the legend and the board spaces have inconsistent numberings (since board used irregular array and this counts by alphabet)
+                        // Reassigns numbering locations to match; since the legend and the board spaces
+                        // have inconsistent numberings (since board used irregular array and this
+                        // counts by alphabet)
                         switch (numAns) {
                             case 1:
                                 numAns = 22;
                                 break;
                             case 2:
-                            numAns = 21;
+                                numAns = 21;
                                 break;
                             case 3:
-                            numAns = 19;
+                                numAns = 19;
                                 break;
                             case 4:
-                            numAns = 18;
+                                numAns = 18;
                                 break;
                             case 5:
-                            numAns = 17;
+                                numAns = 17;
                                 break;
                             case 6:
-                            numAns = 15;
+                                numAns = 15;
                                 break;
                             case 7:
-                            numAns = 13;
+                                numAns = 13;
                                 break;
                             case 8:
-                            numAns = 9;
+                                numAns = 9;
                                 break;
                             case 9:
-                            numAns = 7;
+                                numAns = 7;
                                 break;
                             case 10:
-                            numAns = 1;
+                                numAns = 1;
                                 break;
                             case 11:
-                            numAns = 2;
+                                numAns = 2;
                                 break;
                             case 12:
-                            numAns = 4;
+                                numAns = 4;
                                 break;
                             case 13:
-                            numAns = 5;
+                                numAns = 5;
                                 break;
                             case 14:
-                            numAns = 8;
+                                numAns = 8;
                                 break;
                             case 15:
-                            numAns = 10;
+                                numAns = 10;
                                 break;
                             case 16:
-                            numAns = 14;
+                                numAns = 14;
                                 break;
                             case 17:
-                            numAns = 16;
+                                numAns = 16;
                                 break;
                         }
 
@@ -865,6 +944,8 @@ public class Main {
             }
 
         } while (numAns != 3);
+
+        // ISSUE: Broke check; if broke must give menu to sell or forfeit
 
         clear();
     }
@@ -900,4 +981,27 @@ public class Main {
         System.out.println("____________________________________________________________________");
     }
 
+    /*
+     * Pre: Requires the board array and the player (to take location)
+     * Post: Returns nothing to main
+     * Desc: Sells all properties of the player, used in the ending
+     */
+    public static void sellAll(boardSpace[][] board, Player player){
+        int[] tempArr = player.getOwnedSpace();
+            //Cycles thru all indexes of player's owned spaces
+            for (int k = 0; k < tempArr.length; k ++){
+                if (tempArr[k] != -1){ //Real property and not a blank space (-1)
+                    //Cycles thru board
+                    for (int i = 0; i < board.length; i++) {
+                        for (int j = 0; j < board[i].length; j++) {
+                            //If the owned number is same as board position
+                            if (tempArr[k] == board[i][j].getPosition()){
+                                //Award the money to player and sell
+                                player.modifyBalance(board[i][j].getSellValue());
+                            }
+                        }
+                    }
+                }
+            }
+    }
 }
