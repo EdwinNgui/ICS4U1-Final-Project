@@ -1,3 +1,11 @@
+/* Name: Edwin Ngui
+ * Course: ICS4U1
+ * Instructor: E, Katsman
+ * Date Started: Jan/9/2023
+ * Date Due: Jan/23/2023
+ * Desc: Object class which allows each space in the board to hold information on it's domain attributes
+ */
+
 public class boardSpace extends Entity {
     // Board space includes the movement number and property
     private int buyValue;

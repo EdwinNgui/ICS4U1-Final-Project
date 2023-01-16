@@ -1,3 +1,10 @@
+/* Name: Edwin Ngui
+ * Course: ICS4U1
+ * Instructor: E, Katsman
+ * Date Started: Jan/9/2023
+ * Date Due: Jan/23/2023
+ * Desc: Player object class to create an instance of a player inside the game. Holds numerous pieces of information including position.
+ */
 
 import java.util.*;
 

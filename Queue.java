@@ -1,3 +1,10 @@
+/* Name: Edwin Ngui
+ * Course: ICS4U1
+ * Instructor: E, Katsman
+ * Date Started: Jan/9/2023
+ * Date Due: Jan/23/2023
+ * Desc: Queue class which allows for an instance of a queue to occur (first in, first out). Used for the chance cards
+ */
 public class Queue {
 
     private int[] data;

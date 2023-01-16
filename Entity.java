@@ -1,3 +1,11 @@
+/* Name: Edwin Ngui
+ * Course: ICS4U1
+ * Instructor: E, Katsman
+ * Date Started: Jan/9/2023
+ * Date Due: Jan/23/2023
+ * Desc: Entity class which allows the board space and player object classes to inherit from. Provides the basis for any object in the game
+ */
+
 public abstract class Entity {
     public String name;
 
