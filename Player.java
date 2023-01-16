@@ -10,6 +10,7 @@ public class Player extends Entity {
     private int playerNum;
     private int[] ownedSpace = new int[17];
     private int ethicalRating;
+    private boolean inGame;
 
     // Has name and entity-value from entity abstract class
 
@@ -28,6 +29,7 @@ public class Player extends Entity {
         cryptoBot = 0;
         playerNum = 0;
         ethicalRating = 0;
+        inGame = true;
 
         // Presets all spaces to -1 (means non existent)
         for (int i = 0; i < ownedSpace.length; i++) {
@@ -234,6 +236,23 @@ public class Player extends Entity {
         return ethicalRating;
     }
 
+        /*
+     * Pre: Requires the boolean status
+     * Post: Returns nothing
+     * Desc: Sets if user is in game or not
+     */
+    public void setInGame(boolean newInGame) {
+        inGame = newInGame;
+    }
+
+    /*
+     * Pre: Requires nothing
+     * Post: Returns boolean
+     * Desc: Returns if user is in game or not
+     */
+    public boolean getInGame() {
+        return inGame;
+    }
 
 
 }

@@ -138,7 +138,7 @@ public class boardSpace extends Entity {
     /*
      * Pre: Requires int
      * Post: Returns nothing
-     * Desc: Sets the status of ownership (true is owned, false is not owned)
+     * Desc: Sets the status of ownership (non 0 is owned, 0 is not owned)
      */
     public void setOwnedStatus(int newOwnedStatus) {
         ownedStatus = newOwnedStatus;
