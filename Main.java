@@ -116,11 +116,13 @@ public class Main {
         slowText("\t█▀█ █▀█ █▄▄ █░█ ██▄ █▀▄ ░ ▄█   ▀▄▀▄▀ █▄█ █▀▄ █▄▄ █▄▀");
         System.out.println(
                 "\n\n\n\n\n\nExpand the console until you can see both horizontal lines above and below the start menu");
-        System.out.println("When you see <continue> enter anything to continue");
+        System.out.println("When you see <continue> click \"enter\" to continue");
         System.out
                 .println("__________________________________________________________________________________________");
         pause();
         clear();
+
+
         // Displays new or load game
         invalidInput = false;
         do {
@@ -193,8 +195,7 @@ public class Main {
         clear();
         // Allows player to use the turn-based cycle of the game
 
-        // ISSUE put this back to 10; it was for testing earlier
-        for (int k = 0; k < 2; k++) { // 15 rounds
+        for (int k = 0; k < 10; k++) { // 15 rounds
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 if (playersAvailable != 1) {
@@ -370,6 +371,7 @@ public class Main {
      */
     public static void displayMenu(int menuNum, boolean invalidInput) {
         if (menuNum == 1) {
+            clear();
             System.out.println("\t...Main Menu...");
             System.out.println("(1) New Game");
             System.out.println("(2) Load Game");
@@ -377,6 +379,7 @@ public class Main {
             System.out.println("(1) Yes");
             System.out.println("(2) No");
         } else if (menuNum == 3) { // How many players
+            clear();
             System.out.println("How many players will be playing  (2-4)?");
         } else if (menuNum == 4) {
             System.out.println("(1) Roll Dice");
@@ -708,7 +711,7 @@ public class Main {
                                     } else if (board[i][j].getOwnedStatus() != 0) { // Owned (0 means no owner)
                                         System.out.println(" has stolen your money >");
                                     } else { // Not owned
-                                        System.out.println(" available for purchase >");
+                                        System.out.println(" available for purchase (Balance: $" + player.getBalance() + ") >");
                                     }
 
                                     // Displays the website details
@@ -869,24 +872,7 @@ public class Main {
                     do {
 
                         displayBoard(board, player);
-                        System.out.println("\n\t\t\t< Domain Directory >");
-                        System.out.println("\t(1) " + board[6][5].getLetterPos() + " : " + board[6][5].getName()
-                                + "\t|\t(10) " + board[0][1].getLetterPos() + " : " + board[0][1].getName());
-                        System.out.println("\t(2) " + board[6][4].getLetterPos() + " : " + board[6][4].getName()
-                                + "\t\t|\t(11) " + board[0][2].getLetterPos() + " : " + board[0][2].getName());
-                        System.out.println("\t(3) " + board[6][2].getLetterPos() + " : " + board[6][2].getName()
-                                + "\t\t|\t(12) " + board[0][4].getLetterPos() + " : " + board[0][4].getName());
-                        System.out.println("\t(4) " + board[6][1].getLetterPos() + " : " + board[6][1].getName()
-                                + "\t|\t(13) " + board[0][5].getLetterPos() + " : " + board[0][5].getName());
-                        System.out.println("\t(5) " + board[6][0].getLetterPos() + " : " + board[6][0].getName()
-                                + "\t\t|\t(14) " + board[1][1].getLetterPos() + " : " + board[1][1].getName());
-                        System.out.println("\t(6) " + board[5][0].getLetterPos() + " : " + board[5][0].getName()
-                                + "\t\t|\t(15) " + board[2][1].getLetterPos() + " : " + board[2][1].getName());
-                        System.out.println("\t(7) " + board[4][0].getLetterPos() + " : " + board[4][0].getName()
-                                + "\t\t|\t(16) " + board[4][1].getLetterPos() + " : " + board[4][1].getName());
-                        System.out.println("\t(8) " + board[2][0].getLetterPos() + " : " + board[2][0].getName()
-                                + "\t\t|\t(17) " + board[5][1].getLetterPos() + " : " + board[5][1].getName());
-                        System.out.println("\t(9) " + board[1][0].getLetterPos() + " : " + board[1][0].getName());
+                        displayDirectory(board);
 
                         displayMenu(11, invalidInput);
                         numAns = input.nextInt();
@@ -898,59 +884,7 @@ public class Main {
                             // Reassigns numbering locations to match; since the legend and the board spaces
                             // have inconsistent numberings (since board used irregular array and this
                             // counts by alphabet)
-                            switch (numAns) {
-                                case 1:
-                                    numAns = 22;
-                                    break;
-                                case 2:
-                                    numAns = 21;
-                                    break;
-                                case 3:
-                                    numAns = 19;
-                                    break;
-                                case 4:
-                                    numAns = 18;
-                                    break;
-                                case 5:
-                                    numAns = 17;
-                                    break;
-                                case 6:
-                                    numAns = 15;
-                                    break;
-                                case 7:
-                                    numAns = 13;
-                                    break;
-                                case 8:
-                                    numAns = 9;
-                                    break;
-                                case 9:
-                                    numAns = 7;
-                                    break;
-                                case 10:
-                                    numAns = 1;
-                                    break;
-                                case 11:
-                                    numAns = 2;
-                                    break;
-                                case 12:
-                                    numAns = 4;
-                                    break;
-                                case 13:
-                                    numAns = 5;
-                                    break;
-                                case 14:
-                                    numAns = 8;
-                                    break;
-                                case 15:
-                                    numAns = 10;
-                                    break;
-                                case 16:
-                                    numAns = 14;
-                                    break;
-                                case 17:
-                                    numAns = 16;
-                                    break;
-                            }
+                            numAns = cipher(numAns);
 
                             // Searches all players
                             // Searches for numAns, starts search at 0
@@ -1129,7 +1063,7 @@ public class Main {
      * Post: Returns nothing to main
      * Desc: Forces the program to wait time before the next line to run
      */
-    private static void sleep(long millis) {
+    public static void sleep(long millis) {
         try { // Try and Catch; (Try - tries to use the block of code and checks for errors,
               // if there is an error. Then catch will ensure there are no breaks.
             Thread.sleep(millis);
@@ -1144,12 +1078,102 @@ public class Main {
      * Desc: Given text, it will print it out slowly; generally for human spoken
      * dialogue
      */
-    private static void slowText(String text) {
+    public static void slowText(String text) {
         char[] slowTextArray = text.toCharArray();
         for (int i = 0; i < slowTextArray.length; i++) {
             System.out.print(slowTextArray[i]);
             sleep(40);
         }
+    }
+
+     /*
+     * Pre: Requires the num to be ciphered (int)
+     * Post: Returns nothing to main
+     * Desc: Ciphers the number from the menu map into the real location points of the map
+     * dialogue
+     */ 
+    public static int cipher(int numAns){
+        switch (numAns) {
+            case 1:
+                numAns = 22;
+                break;
+            case 2:
+                numAns = 21;
+                break;
+            case 3:
+                numAns = 19;
+                break;
+            case 4:
+                numAns = 18;
+                break;
+            case 5:
+                numAns = 17;
+                break;
+            case 6:
+                numAns = 15;
+                break;
+            case 7:
+                numAns = 13;
+                break;
+            case 8:
+                numAns = 9;
+                break;
+            case 9:
+                numAns = 7;
+                break;
+            case 10:
+                numAns = 1;
+                break;
+            case 11:
+                numAns = 2;
+                break;
+            case 12:
+                numAns = 4;
+                break;
+            case 13:
+                numAns = 5;
+                break;
+            case 14:
+                numAns = 8;
+                break;
+            case 15:
+                numAns = 10;
+                break;
+            case 16:
+                numAns = 14;
+                break;
+            case 17:
+                numAns = 16;
+                break;
+        }
+        return numAns;
+    }
+
+         /*
+     * Pre: Requires nothing
+     * Post: Returns nothing to main
+     * Desc: Displays the directory of all properties
+     */ 
+    public static void displayDirectory(boardSpace [][] board){
+        System.out.println("\n\t\t\t< Domain Directory >");
+        System.out.println("\t(1) " + board[6][5].getLetterPos() + " : " + board[6][5].getName()
+                + "\t|\t(10) " + board[0][1].getLetterPos() + " : " + board[0][1].getName());
+        System.out.println("\t(2) " + board[6][4].getLetterPos() + " : " + board[6][4].getName()
+                + "\t\t|\t(11) " + board[0][2].getLetterPos() + " : " + board[0][2].getName());
+        System.out.println("\t(3) " + board[6][2].getLetterPos() + " : " + board[6][2].getName()
+                + "\t\t|\t(12) " + board[0][4].getLetterPos() + " : " + board[0][4].getName());
+        System.out.println("\t(4) " + board[6][1].getLetterPos() + " : " + board[6][1].getName()
+                + "\t|\t(13) " + board[0][5].getLetterPos() + " : " + board[0][5].getName());
+        System.out.println("\t(5) " + board[6][0].getLetterPos() + " : " + board[6][0].getName()
+                + "\t\t|\t(14) " + board[1][1].getLetterPos() + " : " + board[1][1].getName());
+        System.out.println("\t(6) " + board[5][0].getLetterPos() + " : " + board[5][0].getName()
+                + "\t\t|\t(15) " + board[2][1].getLetterPos() + " : " + board[2][1].getName());
+        System.out.println("\t(7) " + board[4][0].getLetterPos() + " : " + board[4][0].getName()
+                + "\t\t|\t(16) " + board[4][1].getLetterPos() + " : " + board[4][1].getName());
+        System.out.println("\t(8) " + board[2][0].getLetterPos() + " : " + board[2][0].getName()
+                + "\t\t|\t(17) " + board[5][1].getLetterPos() + " : " + board[5][1].getName());
+        System.out.println("\t(9) " + board[1][0].getLetterPos() + " : " + board[1][0].getName());
+    
     }
 
 }
