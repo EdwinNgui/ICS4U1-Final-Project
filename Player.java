@@ -28,8 +28,6 @@ public class Player extends Entity {
      */
     public Player() {
         super(); // Name
-        // ISSUE: Needs inventory of stuff
-
         position = 23; // Starting point for all
         balance = 1500;
         jailStatus = 0;
@@ -42,6 +40,24 @@ public class Player extends Entity {
         for (int i = 0; i < ownedSpace.length; i++) {
             ownedSpace[i] = -1;
         }
+    }
+
+        /*
+     * Pre: Requires all variables of user
+     * Post: Returns nothing
+     * Desc: Constructor for a player with known information
+     */
+    public Player(String newName, int newPosition, int newBalance, int newJailStatus, int newCryptoBot, int newPlayerNum, int newEthicalRating, boolean newInGame, int [] newOwnedSpace) {
+        super(); // Name
+        super.setName(newName);
+        position = newPosition;
+        balance = newBalance;
+        jailStatus = newJailStatus;
+        cryptoBot = newCryptoBot;
+        playerNum = newPlayerNum;
+        ethicalRating = newEthicalRating;
+        inGame = newInGame;
+        ownedSpace = newOwnedSpace;
     }
 
     /*
@@ -261,5 +277,20 @@ public class Player extends Entity {
         return inGame;
     }
 
+    /*
+     * Pre: Requires nothing
+     * Post: Returns string
+     * Desc: Prints out all user information as a string, mainly for the saving
+     */
+    public String toString(){
+        String info = "";
+        info += (name + "," + position + "," + jailStatus + "," + cryptoBot + "," + playerNum + "," + ethicalRating + "," + inGame + "/");
+        
+        for (int i = 0; i < ownedSpace.length; i ++){
+            info += (ownedSpace[i] + ",");
+        }   
+
+        return info;
+    }
 
 }
