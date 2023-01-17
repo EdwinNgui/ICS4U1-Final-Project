@@ -80,7 +80,7 @@ public class Main {
         } while (ans != 1 && ans != 2);
 
         // New or load
-        if (ans == 1) { // New game: Setup variables intialized here //ISSUE
+        if (ans == 1) { // New game: Setup variables intialized here
             // General Setup variables
             roundNum = 0;
             clear();
@@ -414,6 +414,7 @@ public class Main {
             }
         }
         slowText("\n\n");
+        System.out.println("\t\tTo play again, relaunch the code.");
 
         // Could make this entire larger thing a do-while with the last menu at the
         // bottom of play again or quit
