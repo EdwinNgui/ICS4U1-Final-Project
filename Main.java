@@ -17,10 +17,6 @@ public class Main {
         // For ReadWrite
         String fileDirectory = "C:\\Users\\moonb\\VSCode\\ICS4U1-FINAL-PROJECT\\GameSave.txt"; // CHANGE THIS for each
                                                                                                // new PC
-        File textFile = new File(fileDirectory);
-        FileReader in;
-        BufferedReader readFile;
-        String line;
 
         Scanner input = new Scanner(System.in);
         Random rand = new Random();
@@ -30,7 +26,6 @@ public class Main {
         int num = 0;
         int numOfPlayers;
         int roundNum;
-        int gamesPlayed;
         Player playerTurn = new Player();
         // Supports up to 4 players,
         Player p1 = new Player();
@@ -59,13 +54,7 @@ public class Main {
         // where the properties are held
         boardSpace[][] board = new boardSpace[7][];
         // Makes 7x7 hollow
-        board[0] = new boardSpace[7];
-        board[1] = new boardSpace[2];
-        board[2] = new boardSpace[2];
-        board[3] = new boardSpace[2];
-        board[4] = new boardSpace[2];
-        board[5] = new boardSpace[2];
-        board[6] = new boardSpace[7];
+        setup(0, board);
 
         // Initializes each space there
         for (int i = 0; i < board.length; i++) {
@@ -74,49 +63,7 @@ public class Main {
             }
         }
 
-        // Properties (String newName, String newLetterPos, int newPosition, int
-        // newVirusType, boolean
-        // newOwnedStatus, int newBuyValue, int newSellValue , int newRentValue)
-        // If the buyValue is 0, it is not a purchasable property
-
-        board[0][0].setInfo("", "【⏭】", 0, 0, 0, 0, 0, 0);
-        board[0][1].setInfo("Mesla", "【K】", 1, 3, 0, 180, 90, 90);
-        board[0][2].setInfo("Macrotough", "【L】", 2, 3, 0, 190, 95, 95);
-        board[0][3].setInfo("", "【✦】", 3, 0, 0, 0, 0, 0);
-        board[0][4].setInfo("Waterfox", "【M】", 4, 3, 0, 200, 100, 100);
-        board[0][5].setInfo("NoFlix", "【N】", 5, 3, 0, 210, 105, 110);
-        board[0][6].setInfo("", "【◈】", 6, 0, 0, 0, 0, 0);
-
-        board[1][0].setInfo("Samysung", "【J】", 7, 2, 0, 120, 60, 70);
-        board[1][1].setInfo("Joogle", "【O】", 8, 4, 0, 280, 140, 120);
-
-        board[2][0].setInfo("Bisco", "【I】", 9, 2, 0, 110, 55, 60);
-        board[2][1].setInfo("Pear", "【P】", 10, 4, 0, 290, 145, 140);
-
-        board[3][0].setInfo("", "【✦】", 11, 0, 0, 0, 0, 0);
-        board[3][1].setInfo("", "【✦】", 12, 0, 0, 0, 0, 0);
-
-        board[4][0].setInfo("Hoom", "【H】", 13, 2, 0, 100, 50, 40);
-        board[4][1].setInfo("River of Amazon", "【Q】", 14, 5, 0, 340, 170, 180);
-
-        board[5][0].setInfo("Bazer", "【G】", 15, 2, 0, 90, 45, 30);
-        board[5][1].setInfo("Armbook", "【R】", 16, 5, 0, 350, 175, 200);
-
-        board[6][0].setInfo("Byzen", "【F】", 17, 2, 0, 80, 45, 25);
-        board[6][1].setInfo("Crintel", "【E】", 18, 1, 0, 70, 35, 20);
-        board[6][2].setInfo("Pacer", "【D】", 19, 1, 0, 60, 30, 15);
-        board[6][3].setInfo("", "【✦】", 20, 0, 0, 0, 0, 0);
-        board[6][4].setInfo("Esus", "【C】", 21, 1, 0, 60, 30, 15);
-        board[6][5].setInfo("Bogitek", "【B】", 22, 1, 0, 30, 15, 5);
-        board[6][6].setInfo("", "【▶】", 23, 0, 0, 0, 0, 0);
-
-        // Legend
-        // alphabet is property
-        // chance to 20 [6][3], 11[3][0] , 3[0][3], 12[3][1] ✦
-        // ◈ in jail [0][6]
-        // ⏭ go to jail [0][0]
-
-        // 0 sends you to jail at
+        setup(1, board);
         // Introduction
         clear();
         System.out.println(
@@ -147,7 +94,6 @@ public class Main {
         if (ans == 1) { // New game: Setup variables intialized here //ISSUE
             // General Setup variables
             roundNum = 0;
-            gamesPlayed = 0;
             clear();
             System.out.println("We live in a world where everyone has the potential to be a hacker");
             System.out
@@ -202,40 +148,14 @@ public class Main {
         } else if (ans == 2) { // Load game (use file reading)
 
             // CURRENT; read from a file
+            File textFile = new File(fileDirectory);
+            FileReader in;
+            BufferedReader readFile;
+            String line;
             
 
-
             // Updates icons (because file reading won't support)
-            board[0][0].setLetterPos("【⏭】");
-            board[0][1].setLetterPos("【K】");
-            board[0][2].setLetterPos("【L】");
-            board[0][3].setLetterPos("【✦】");
-            board[0][4].setLetterPos("【M】");
-            board[0][5].setLetterPos("【N】");
-            board[0][6].setLetterPos("【◈】");
-
-            board[1][0].setLetterPos("【J】");
-            board[1][1].setLetterPos("【O】");
-
-            board[2][0].setLetterPos("【I】");
-            board[2][1].setLetterPos("【P】");
-
-            board[3][0].setLetterPos("【✦】");
-            board[3][1].setLetterPos("【✦】");
-
-            board[4][0].setLetterPos("【H】");
-            board[4][1].setLetterPos("【Q】");
-
-            board[5][0].setLetterPos("【G】");
-            board[5][1].setLetterPos("【R】");
-
-            board[6][0].setLetterPos("【F】");
-            board[6][1].setLetterPos("【E】");
-            board[6][2].setLetterPos("【D】");
-            board[6][3].setLetterPos("【✦】");
-            board[6][4].setLetterPos("【C】");
-            board[6][5].setLetterPos("【B】");
-            board[6][6].setLetterPos("【▶】");
+            setup(2, board);
         }
 
         // For loop runs for n turns per number of players
@@ -249,28 +169,28 @@ public class Main {
                 if (playersAvailable != 1) {
                     displayBoard(board, p1);
                     playersAvailable = playTurn(p1, board, p2, p3, p4, chanceArr, playersAvailable, fileDirectory,
-                            numOfPlayers, roundNum, gamesPlayed);
+                            numOfPlayers, roundNum);
                     p1.sortOwnedSpace(p1.getOwnedSpace(), p1.getOwnedSpace().length); // Sort requires player's array
                                                                                       // and array size
                 }
                 if (playersAvailable != 1) {
                     displayBoard(board, p2);
                     playersAvailable = playTurn(p2, board, p1, p3, p4, chanceArr, playersAvailable, fileDirectory,
-                            numOfPlayers, roundNum, gamesPlayed);
+                            numOfPlayers, roundNum);
                     p2.sortOwnedSpace(p2.getOwnedSpace(), p2.getOwnedSpace().length);
                 }
                 if (numOfPlayers >= 3) {
                     if (playersAvailable != 1) {
                         displayBoard(board, p3);
                         playersAvailable = playTurn(p3, board, p1, p2, p4, chanceArr, playersAvailable, fileDirectory,
-                                numOfPlayers, roundNum, gamesPlayed);
+                                numOfPlayers, roundNum);
                         p3.sortOwnedSpace(p3.getOwnedSpace(), p3.getOwnedSpace().length);
                     }
                     if (numOfPlayers >= 4) {
                         if (playersAvailable != 1) {
                             displayBoard(board, p4);
                             playersAvailable = playTurn(p4, board, p1, p2, p3, chanceArr, playersAvailable,
-                                    fileDirectory, numOfPlayers, roundNum, gamesPlayed);
+                                    fileDirectory, numOfPlayers, roundNum);
                             p4.sortOwnedSpace(p4.getOwnedSpace(), p4.getOwnedSpace().length);
                         }
                     }
@@ -369,6 +289,12 @@ public class Main {
             }
         }
         slowText("\n\n");
+
+        // Could make this entire larger thing a do-while with the last menu at the
+        // bottom of play again or quit
+        // if play again, cycles to the top
+
+        // END
     }
 
     /*
@@ -523,8 +449,7 @@ public class Main {
      * Desc: Takes the player at hand and allows them to start their turn
      */
     public static int playTurn(Player player, boardSpace[][] board, Player playerA, Player playerB, Player playerC,
-            Queue chanceArr, int playersAvailable, String fileDirectory, int numOfPlayers, int roundNum,
-            int gamesPlayed) {
+            Queue chanceArr, int playersAvailable, String fileDirectory, int numOfPlayers, int roundNum) {
         int num = rollDice();
         boolean invalidInput;
         int numAns;
@@ -985,8 +910,8 @@ public class Main {
                         FileWriter writer = new FileWriter(dataFile);
                         BufferedWriter fileWriter = new BufferedWriter(writer);
 
-                        // General: Num of players, players available, roundNum, gamesPlayed
-                        fileWriter.write(numOfPlayers + "," + playersAvailable + "," + roundNum + "," + gamesPlayed);
+                        // General: Num of players, players available, roundNum
+                        fileWriter.write(numOfPlayers + "," + playersAvailable + "," + roundNum);
 
                         // General: Chance card array
                         fileWriter.write("\n" + chanceArr.CSVtoString());
@@ -1281,6 +1206,90 @@ public class Main {
                 + "\t\t|\t(17) " + board[5][1].getLetterPos() + " : " + board[5][1].getName());
         System.out.println("\t(9) " + board[1][0].getLetterPos() + " : " + board[1][0].getName());
 
+    }
+
+    /*
+     * Pre: Requires int
+     * Post: Returns nothing to main
+     * Desc: Takes the setup number and performs the setup of it
+     */
+    public static void setup(int n, boardSpace[][] board) {
+        switch (n) {
+            case 0:
+                board[0] = new boardSpace[7];
+                board[1] = new boardSpace[2];
+                board[2] = new boardSpace[2];
+                board[3] = new boardSpace[2];
+                board[4] = new boardSpace[2];
+                board[5] = new boardSpace[2];
+                board[6] = new boardSpace[7];
+                break;
+            case 1:
+                board[0][0].setInfo("", "【⏭】", 0, 0, 0, 0, 0, 0);
+                board[0][1].setInfo("Mesla", "【K】", 1, 3, 0, 180, 90, 90);
+                board[0][2].setInfo("Macrotough", "【L】", 2, 3, 0, 190, 95, 95);
+                board[0][3].setInfo("", "【✦】", 3, 0, 0, 0, 0, 0);
+                board[0][4].setInfo("Waterfox", "【M】", 4, 3, 0, 200, 100, 100);
+                board[0][5].setInfo("NoFlix", "【N】", 5, 3, 0, 210, 105, 110);
+                board[0][6].setInfo("", "【◈】", 6, 0, 0, 0, 0, 0);
+
+                board[1][0].setInfo("Samysung", "【J】", 7, 2, 0, 120, 60, 70);
+                board[1][1].setInfo("Joogle", "【O】", 8, 4, 0, 280, 140, 120);
+
+                board[2][0].setInfo("Bisco", "【I】", 9, 2, 0, 110, 55, 60);
+                board[2][1].setInfo("Pear", "【P】", 10, 4, 0, 290, 145, 140);
+
+                board[3][0].setInfo("", "【✦】", 11, 0, 0, 0, 0, 0);
+                board[3][1].setInfo("", "【✦】", 12, 0, 0, 0, 0, 0);
+
+                board[4][0].setInfo("Hoom", "【H】", 13, 2, 0, 100, 50, 40);
+                board[4][1].setInfo("River of Amazon", "【Q】", 14, 5, 0, 340, 170, 180);
+
+                board[5][0].setInfo("Bazer", "【G】", 15, 2, 0, 90, 45, 30);
+                board[5][1].setInfo("Armbook", "【R】", 16, 5, 0, 350, 175, 200);
+
+                board[6][0].setInfo("Byzen", "【F】", 17, 2, 0, 80, 45, 25);
+                board[6][1].setInfo("Crintel", "【E】", 18, 1, 0, 70, 35, 20);
+                board[6][2].setInfo("Pacer", "【D】", 19, 1, 0, 60, 30, 15);
+                board[6][3].setInfo("", "【✦】", 20, 0, 0, 0, 0, 0);
+                board[6][4].setInfo("Esus", "【C】", 21, 1, 0, 60, 30, 15);
+                board[6][5].setInfo("Bogitek", "【B】", 22, 1, 0, 30, 15, 5);
+                board[6][6].setInfo("", "【▶】", 23, 0, 0, 0, 0, 0);
+
+                break;
+            case 2:
+                board[0][0].setLetterPos("【⏭】");
+                board[0][1].setLetterPos("【K】");
+                board[0][2].setLetterPos("【L】");
+                board[0][3].setLetterPos("【✦】");
+                board[0][4].setLetterPos("【M】");
+                board[0][5].setLetterPos("【N】");
+                board[0][6].setLetterPos("【◈】");
+
+                board[1][0].setLetterPos("【J】");
+                board[1][1].setLetterPos("【O】");
+
+                board[2][0].setLetterPos("【I】");
+                board[2][1].setLetterPos("【P】");
+
+                board[3][0].setLetterPos("【✦】");
+                board[3][1].setLetterPos("【✦】");
+
+                board[4][0].setLetterPos("【H】");
+                board[4][1].setLetterPos("【Q】");
+
+                board[5][0].setLetterPos("【G】");
+                board[5][1].setLetterPos("【R】");
+
+                board[6][0].setLetterPos("【F】");
+                board[6][1].setLetterPos("【E】");
+                board[6][2].setLetterPos("【D】");
+                board[6][3].setLetterPos("【✦】");
+                board[6][4].setLetterPos("【C】");
+                board[6][5].setLetterPos("【B】");
+                board[6][6].setLetterPos("【▶】");
+                break;
+        }
     }
 
 }
