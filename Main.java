@@ -27,6 +27,7 @@ public class Main {
         int numOfPlayers = 0;
         int roundNum = 0;
         Player playerTurn = new Player();
+        boolean existingLoad = true; // Only becomes false on a new load game
         // Supports up to 4 players,
         Player p1 = new Player();
         Player p2 = new Player();
@@ -147,7 +148,7 @@ public class Main {
                 chanceArr.enqueue(chanceArrFill[i]);
             }
         } else if (ans == 2) { // Load game (use file reading)
-
+            existingLoad = false;
             File textFile = new File(fileDirectory);
             FileReader in;
             BufferedReader readFile;
@@ -174,9 +175,8 @@ public class Main {
                         for (int i = 0; i < values.length; i++) {
                             chanceArr.enqueue(Integer.parseInt(values[i]));
                         }
-                        count ++;
+                        count++;
                     } else if (count == 2) {
-                        // CURRENT; read from a file
                         // All board information for all spaces
                         if (line.equals("") == false) {
                             String[] values = line.split(",");
@@ -185,7 +185,7 @@ public class Main {
                                 for (int j = 0; j < board[i].length; j++) {
                                     // Sets info at board space
                                     board[i][j].setOwnedStatus(Integer.parseInt(values[commaCount]));
-                                    commaCount ++; //Goes through each known
+                                    commaCount++; // Goes through each known
                                 }
                             }
 
@@ -194,72 +194,72 @@ public class Main {
                     } else if (count == 3) { // Player 1 - Assigns all existing variables
                         if (line.equals("") == false) {
                             String[] variables = line.split("/");
-                            
+
                             String[] arrString = variables[1].split(",");
-                            int [] arrInt = new int[17];
-                            for (int i = 0; i < arrInt.length; i ++){
+                            int[] arrInt = new int[17];
+                            for (int i = 0; i < arrInt.length; i++) {
                                 arrInt[i] = Integer.parseInt(arrString[i]);
-                            }   
+                            }
 
                             String[] values = variables[0].split(",");
                             p1.setInfo(values[0], Integer.parseInt(values[1]),
-                            Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                            Integer.parseInt(values[4]), Integer.parseInt(values[5]),
-                            Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+                                    Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                                    Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                                    Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
 
                             count++; // Moves to next line
                         }
                     } else if (count == 4) { // Player 2 - Assigns all existing variables
                         if (line.equals("") == false) {
                             String[] variables = line.split("/");
-                            
+
                             String[] arrString = variables[1].split(",");
-                            int [] arrInt = new int[17];
-                            for (int i = 0; i < arrInt.length; i ++){
+                            int[] arrInt = new int[17];
+                            for (int i = 0; i < arrInt.length; i++) {
                                 arrInt[i] = Integer.parseInt(arrString[i]);
-                            }   
+                            }
 
                             String[] values = variables[0].split(",");
                             p2.setInfo(values[0], Integer.parseInt(values[1]),
-                            Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                            Integer.parseInt(values[4]), Integer.parseInt(values[5]),
-                            Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+                                    Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                                    Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                                    Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
 
                             count++; // Moves to next line
                         }
                     } else if (count == 5) { // Player 3 - Assigns all existing variables
                         if (line.equals("") == false) {
                             String[] variables = line.split("/");
-                            
+
                             String[] arrString = variables[1].split(",");
-                            int [] arrInt = new int[17];
-                            for (int i = 0; i < arrInt.length; i ++){
+                            int[] arrInt = new int[17];
+                            for (int i = 0; i < arrInt.length; i++) {
                                 arrInt[i] = Integer.parseInt(arrString[i]);
-                            }   
+                            }
 
                             String[] values = variables[0].split(",");
                             p3.setInfo(values[0], Integer.parseInt(values[1]),
-                            Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                            Integer.parseInt(values[4]), Integer.parseInt(values[5]),
-                            Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+                                    Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                                    Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                                    Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
 
                             count++; // Moves to next line
                         }
                     } else if (count == 6) { // Player 4 - Assigns all existing variables
                         if (line.equals("") == false) {
                             String[] variables = line.split("/");
-                            
+
                             String[] arrString = variables[1].split(",");
-                            int [] arrInt = new int[17];
-                            for (int i = 0; i < arrInt.length; i ++){
+                            int[] arrInt = new int[17];
+                            for (int i = 0; i < arrInt.length; i++) {
                                 arrInt[i] = Integer.parseInt(arrString[i]);
-                            }   
+                            }
 
                             String[] values = variables[0].split(",");
                             p4.setInfo(values[0], Integer.parseInt(values[1]),
-                            Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                            Integer.parseInt(values[4]), Integer.parseInt(values[5]),
-                            Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+                                    Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                                    Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                                    Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
 
                             count++; // Moves to next line
                         }
@@ -293,28 +293,29 @@ public class Main {
                 if (playersAvailable != 1) {
                     displayBoard(board, p1);
                     playersAvailable = playTurn(p1, board, p2, p3, p4, chanceArr, playersAvailable, fileDirectory,
-                            numOfPlayers, roundNum);
+                            numOfPlayers, roundNum, existingLoad);
                     p1.sortOwnedSpace(p1.getOwnedSpace(), p1.getOwnedSpace().length); // Sort requires player's array
                                                                                       // and array size
+                    existingLoad = true;
                 }
                 if (playersAvailable != 1) {
                     displayBoard(board, p2);
                     playersAvailable = playTurn(p2, board, p1, p3, p4, chanceArr, playersAvailable, fileDirectory,
-                            numOfPlayers, roundNum);
+                            numOfPlayers, roundNum, existingLoad);
                     p2.sortOwnedSpace(p2.getOwnedSpace(), p2.getOwnedSpace().length);
                 }
                 if (numOfPlayers >= 3) {
                     if (playersAvailable != 1) {
                         displayBoard(board, p3);
                         playersAvailable = playTurn(p3, board, p1, p2, p4, chanceArr, playersAvailable, fileDirectory,
-                                numOfPlayers, roundNum);
+                                numOfPlayers, roundNum, existingLoad);
                         p3.sortOwnedSpace(p3.getOwnedSpace(), p3.getOwnedSpace().length);
                     }
                     if (numOfPlayers >= 4) {
                         if (playersAvailable != 1) {
                             displayBoard(board, p4);
                             playersAvailable = playTurn(p4, board, p1, p2, p3, chanceArr, playersAvailable,
-                                    fileDirectory, numOfPlayers, roundNum);
+                                    fileDirectory, numOfPlayers, roundNum, existingLoad);
                             p4.sortOwnedSpace(p4.getOwnedSpace(), p4.getOwnedSpace().length);
                         }
                     }
@@ -573,7 +574,8 @@ public class Main {
      * Desc: Takes the player at hand and allows them to start their turn
      */
     public static int playTurn(Player player, boardSpace[][] board, Player playerA, Player playerB, Player playerC,
-            Queue chanceArr, int playersAvailable, String fileDirectory, int numOfPlayers, int roundNum) {
+            Queue chanceArr, int playersAvailable, String fileDirectory, int numOfPlayers, int roundNum,
+            boolean existingLoad) {
         int num = rollDice();
         boolean invalidInput;
         int numAns;
@@ -581,280 +583,342 @@ public class Main {
         Random rand = new Random();
 
         if (player.getInGame()) { // If in game, continue
-            System.out.println(player.getName() + " is at: " + player.getPosition());
+            if (existingLoad) { // As long as it's a normal
+                System.out.println(player.getName() + " is at: " + player.getPosition());
 
-            // Jail (blackmail) check
-            if (player.getJail() >= 1) { // If they are in jail...
+                // Jail (blackmail) check
+                if (player.getJail() >= 1) { // If they are in jail...
 
-                // Decision to roll or pay to get out of jail
-                invalidInput = false;
-                do {
-                    displayMenu(4, invalidInput);
-                    numAns = input.nextInt();
-                    input.nextLine();
-                    if (numAns != 1 || numAns != 2) {
-                        invalidInput = true;
-                    }
-                } while (numAns != 1 && numAns != 2);
+                    // Decision to roll or pay to get out of jail
+                    invalidInput = false;
+                    do {
+                        displayMenu(4, invalidInput);
+                        numAns = input.nextInt();
+                        input.nextLine();
+                        if (numAns != 1 || numAns != 2) {
+                            invalidInput = true;
+                        }
+                    } while (numAns != 1 && numAns != 2);
 
-                if (numAns == 1) { // Roll dice
-                    // Dice rolling must equate to the perfect number.
-                    int randNum = rand.nextInt(5) + 1; // 1-6
-                    num = rollDice();
-                    if (randNum == num) { // If same
-                        System.out.println(
-                                "Dice matched! You were able to contact customer support and get your account back.");
-                        player.setJail(0); // Jail is set to 0
-                    } else { // Did not succeed in dice roll
-                        System.out.println("Bummer. Everything you did, and you still can't get your account.");
-                        player.setJail(player.getJail() + 1); // Adds a turn spent in jail
-                    }
-                } else if (numAns == 2) { // Pay to get out of jail
-                    // Checks if player can afford the $300
-                    if (player.getBalance() >= 300) {
-                        player.modifyBalance(-300); // Deducts 300
-                        System.out.println(
-                                "After paying them back, they gave your login back to you. Better change your password now!");
-                        player.setJail(0); // Jail is set to 0
-                    } else {
-                        System.out.println(
-                                "You don't have enough funds to pay them! Wait why are they robbing you then?");
-                        player.setJail(player.getJail() + 1); // Adds a turn spent in jail
-                    }
-                }
-
-                if (player.getJail() == 3) { // If they have waited their two turns and should be released next turn
-                    System.out.println(
-                            "You have waited two turns and the hackers must have gotten bored. You will recieve your login next turn.");
-                    player.setJail(0); // Adds a turn spent in jail
-                }
-            } else {
-
-                System.out.println(" > Roll Dice");
-                pause();
-                clear();
-                movePlayer(player, board, num);
-                displayBoard(board, player);
-
-                // Find corresponding board space (by searching thru)
-                for (int i = 0; i < board.length; i++) {
-                    for (int j = 0; j < board[i].length; j++) {
-                        if (player.getPosition() == board[i][j].getPosition()) {
-                            System.out.println(player.getName() + " rolled a " + num + " and is now at: "
-                                    + board[i][j].getLetterPos());
+                    if (numAns == 1) { // Roll dice
+                        // Dice rolling must equate to the perfect number.
+                        int randNum = rand.nextInt(5) + 1; // 1-6
+                        num = rollDice();
+                        if (randNum == num) { // If same
+                            System.out.println(
+                                    "Dice matched! You were able to contact customer support and get your account back.");
+                            player.setJail(0); // Jail is set to 0
+                        } else { // Did not succeed in dice roll
+                            System.out.println("Bummer. Everything you did, and you still can't get your account.");
+                            player.setJail(player.getJail() + 1); // Adds a turn spent in jail
+                        }
+                    } else if (numAns == 2) { // Pay to get out of jail
+                        // Checks if player can afford the $300
+                        if (player.getBalance() >= 300) {
+                            player.modifyBalance(-300); // Deducts 300
+                            System.out.println(
+                                    "After paying them back, they gave your login back to you. Better change your password now!");
+                            player.setJail(0); // Jail is set to 0
+                        } else {
+                            System.out.println(
+                                    "You don't have enough funds to pay them! Wait why are they robbing you then?");
+                            player.setJail(player.getJail() + 1); // Adds a turn spent in jail
                         }
                     }
-                }
 
-                if (player.getPosition() == 0) { // Send to jail (location 6)
-                    System.out.println(
-                            "Uh Oh! You clicked on a suspicious email link and have become victim to phishing!");
-                    System.out.println("You have now been blackmailed for two turns.");
-                    player.setPosition(6); // Moves to jail space of 0
-                    player.setJail(player.getJail() + 1); // Adds one day to jail
-                } else if (player.getPosition() == 3 || player.getPosition() == 11 || player.getPosition() == 12
-                        || player.getPosition() == 20) { // If player lands on a chance space (11, 12, 20, 3), then pull
-                                                         // a
-                                                         // chance card
-                    System.out.println("Chance Space!");
-                    System.out.println("\nYou pull a chance card and you got...");
+                    if (player.getJail() == 3) { // If they have waited their two turns and should be released next turn
+                        System.out.println(
+                                "You have waited two turns and the hackers must have gotten bored. You will recieve your login next turn.");
+                        player.setJail(0); // Adds a turn spent in jail
+                    }
+                } else {
+
+                    System.out.println(" > Roll Dice");
                     pause();
                     clear();
-                    System.out.println("____________________________________________________________________\n");
+                    movePlayer(player, board, num);
+                    displayBoard(board, player);
 
-                    // Pulls number from front, uses it for switch, then dequeues array before
-                    // enqueue the num to the back
-                    num = chanceArr.front();
-                    // System.out.println(chanceArr.toString());//USE THIS FOR TESTING QUEUE
-                    // validity
-
-                    // Pull a random chance card of 12 (obj) - name (entity), money effect, or
-                    // player location effect (jail, collect 200)
-                    switch (num) {
-                        case 0:
-                            System.out.println("\t\t\t< Chance Card 1 >");
-                            System.out
-                                    .println(
-                                            "You found a cute rainbow USB on the ground and plugged it into your laptop.");
-                            System.out.println(
-                                    "UH OH!!! All your login information has been compromised through a virus (don't do this again).");
-                            System.out.println("Now they're blackmailing you for it back");
-                            player.setPosition(6);
-                            player.setJail(player.getJail() + 1); // Adds one day to jail
-                            break;
-                        case 1:
-                            System.out.println("\t\t\t< Chance Card 2 >");
-                            System.out.println("You just bought downloadable RAM off the internet!! What a deal!");
-                            System.out.println("Wait nevermind. You just put your credit card into a scam. ");
-                            System.out.println("[You lost $200]");
-                            player.modifyBalance(-200);
-                            break;
-                        case 2:
-                            System.out.println("\t\t\t< Chance Card 3 >");
-                            System.out.println(
-                                    "You have learned how to execute a cloud-based cyberattack, what do you do?");
-
-                            invalidInput = false;
-                            do {
-                                displayMenu(5, invalidInput);
-                                numAns = input.nextInt();
-                                input.nextLine();
-                                if (numAns != 1 || numAns != 2) {
-                                    invalidInput = true;
-                                }
-                            } while (numAns != 1 && numAns != 2);
-
-                            if (numAns == 1) { // Hack for money
-                                player.modifyBalance(400);
-                                System.out.println(
-                                        "You got $300 dollars from the attack! A lot less than you expected...");
-                                player.modifyEthicalRating(-30);
-                            } else if (numAns == 2) { // Not hack for money, boosts ethic standing
-                                player.modifyEthicalRating(80);
-                                System.out.println("You left the note...You feel good about yourself");
+                    // Find corresponding board space (by searching thru)
+                    for (int i = 0; i < board.length; i++) {
+                        for (int j = 0; j < board[i].length; j++) {
+                            if (player.getPosition() == board[i][j].getPosition()) {
+                                System.out.println(player.getName() + " rolled a " + num + " and is now at: "
+                                        + board[i][j].getLetterPos());
                             }
-                            break;
-                        case 3:
-                            System.out.println("\t\t\t< Chance Card 4 >");
-                            System.out.println(
-                                    "Your data got leaked in a data leak from an online store you love shopping at!");
-                            System.out.println(
-                                    "Looks like you're a victim of \"Credential Reuse\" and a hacker realized you re-use passwords!");
-                            System.out.println("You lost $150 (use different and secure passwords!)");
-                            player.modifyBalance(-150);
-                            break;
-                        case 4:
-                            System.out.println("\t\t\t< Chance Card 5 >");
-                            System.out.println(
-                                    "When testing out your hacking skills for fun, you end up with stolen data after a long session...");
-
-                            invalidInput = false;
-                            do {
-                                displayMenu(6, invalidInput);
-                                numAns = input.nextInt();
-                                input.nextLine();
-                                if (numAns != 1 || numAns != 2) {
-                                    invalidInput = true;
-                                }
-                            } while (numAns != 1 && numAns != 2);
-
-                            if (numAns == 1) { // Hack for money
-                                player.modifyBalance(400);
-                                System.out.println("You got $400 dollars for the stolen data!");
-                                player.modifyEthicalRating(-40);
-                            } else if (numAns == 2) { // Not hack for money, boosts ethic standing
-                                player.modifyEthicalRating(85);
-                                System.out.println("You deleted the copies...CLICK! Maybe that was the right move?");
-                            }
-
-                            break;
-                        case 5:
-                            System.out.println("\t\t\t< Chance Card 6 >");
-                            System.out.println(
-                                    "You learned how to remotely infect other computers with malware and make them mine crypto!");
-                            System.out.println("You also learn it is illegal. What should we do now?");
-
-                            invalidInput = false;
-                            do {
-                                displayMenu(7, invalidInput);
-                                numAns = input.nextInt();
-                                input.nextLine();
-                                if (numAns != 1 || numAns != 2) {
-                                    invalidInput = true;
-                                }
-                            } while (numAns != 1 && numAns != 2);
-
-                            if (numAns == 1) { // Hack for money
-                                player.modifyBalance(400);
-                                System.out.println("You have a crypto machine making you $50 a turn! (stackable)");
-                                player.modifyEthicalRating(-50);
-                            } else if (numAns == 2) { // Not hack for money, boosts ethic standing
-                                player.modifyEthicalRating(110);
-                                System.out.println(
-                                        "You chose not to do that. Good on you, you're you'll find another way to find money.");
-                            }
-
-                            break;
-                        case 6:
-                            System.out.println("\t\t\t< Chance Card 7 >");
-                            System.out.println("You visited a funny looking link someone random sent you.");
-                            System.out.println(
-                                    "Ooops. Looks like the website link started with \"HTTP://\" instead of \"HTTPS://\"");
-                            System.out.println(
-                                    "There was no secure socket layer, and your cookies (login information) have been\nused for fradulent purchases.");
-                            System.out.println("[You lost $200]");
-                            player.modifyBalance(-200);
-                            break;
-                        case 7:
-                            System.out.println("\t\t\t< Chance Card 8 >");
-                            System.out.println(
-                                    "You connected to \"Pearson Airport's Free Wifi\" and notice you data has been compromised, almost....");
-                            System.out.println(
-                                    "Good thing you had NordVPN and got two free months on a one year subscription");
-                            System.out.println("using code \"IHOPEYOUENJOYEDTHISCODE\"!");
-                            break;
+                        }
                     }
-                    pause();
-                    chanceArr.dequeue();
-                    chanceArr.enqueue(num);
-                } else { // Normal Properties
-                    if (player.getPosition() != 6 && player.getPosition() != 23) { // Lands on the jail but not in jail
-                                                                                   // AND
-                                                                                   // not on collect 200
-                        System.out.print("\n\t    < Scam Website");
-                        // Find corresponding board space (by searching thru)
-                        for (int i = 0; i < board.length; i++) {
-                            for (int j = 0; j < board[i].length; j++) {
-                                if (player.getPosition() == board[i][j].getPosition()
-                                        && board[i][j].getName().equals("") == false) {
 
-                                    // Checks if someone owns it
-                                    if (player.getPlayerNum() == board[i][j].getOwnedStatus()) { // The player owns it
-                                        System.out.println(" seems to be yours >");
-                                    } else if (board[i][j].getOwnedStatus() != 0) { // Owned (0 means no owner)
-                                        System.out.println(" has stolen your money >");
-                                    } else { // Not owned
-                                        System.out.println(
-                                                " available for purchase (Balance: $" + player.getBalance() + ") >");
-                                    }
+                    if (player.getPosition() == 0) { // Send to jail (location 6)
+                        System.out.println(
+                                "Uh Oh! You clicked on a suspicious email link and have become victim to phishing!");
+                        System.out.println("You have now been blackmailed for two turns.");
+                        player.setPosition(6); // Moves to jail space of 0
+                        player.setJail(player.getJail() + 1); // Adds one day to jail
+                    } else if (player.getPosition() == 3 || player.getPosition() == 11 || player.getPosition() == 12
+                            || player.getPosition() == 20) { // If player lands on a chance space (11, 12, 20, 3), then
+                                                             // pull
+                                                             // a
+                                                             // chance card
+                        System.out.println("Chance Space!");
+                        System.out.println("\nYou pull a chance card and you got...");
+                        pause();
+                        clear();
+                        System.out.println("____________________________________________________________________\n");
 
-                                    // Displays the website details
-                                    System.out.println("\"Company\" Name: " + board[i][j].getName());
-                                    System.out.print("Virus Type: ");
-                                    if (board[i][j].getVirusType() == 1) { // File-Infecting Virus
-                                        System.out.println("File-Infecting Virus");
-                                        System.out.println(
-                                                " > Attaches itself to executable programs (.exe) present on your\n   website and overwrites host files");
-                                    } else if (board[i][j].getVirusType() == 2) { // Web Scripting Virus
-                                        System.out.println("Web Scripting Virus");
-                                        System.out.println(
-                                                " > Disguises itself as images, links, and other media to trick\n   users into downloading malicious files");
-                                    } else if (board[i][j].getVirusType() == 3) { // Ransomware
-                                        System.out.println("Ransomware");
-                                        System.out.println(" > Blocks computer access of the user until money is paid");
-                                    } else if (board[i][j].getVirusType() == 4) { // Resident Virus
-                                        System.out.println("Resident Virus");
-                                        System.out.println(
-                                                " > Stores itself onto computer’s memory and interupts operating\n   system to cause program coruption");
-                                    } else { // Metamorphic Virus
-                                        System.out.println("Metamorphic Virus");
-                                        System.out.println(
-                                                " > Repeatedly rewrites its appearance and code with each iteration\n   whilst developing itself to reduce detectibility");
-                                    }
-                                    if (board[i][j].getOwnedStatus() == 0) { // If not owned, will display purchasing
-                                                                             // info
-                                        System.out.println("   ○ Buy Cost: $" + board[i][j].getBuyValue());
-                                        System.out.println("   ○ Sell Price: $" + board[i][j].getSellValue());
-                                        System.out.println("   ○ Income from Scams: $" + board[i][j].getRentValue());
-                                    }
+                        // Pulls number from front, uses it for switch, then dequeues array before
+                        // enqueue the num to the back
+                        num = chanceArr.front();
+                        // System.out.println(chanceArr.toString());//USE THIS FOR TESTING QUEUE
+                        // validity
 
-                                    // Action Menu
-                                    if (board[i][j].getOwnedStatus() != 0) { // Owned
-                                        // If player owns the property themself
-                                        if (player.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                        // Pull a random chance card of 12 (obj) - name (entity), money effect, or
+                        // player location effect (jail, collect 200)
+                        switch (num) {
+                            case 0:
+                                System.out.println("\t\t\t< Chance Card 1 >");
+                                System.out
+                                        .println(
+                                                "You found a cute rainbow USB on the ground and plugged it into your laptop.");
+                                System.out.println(
+                                        "UH OH!!! All your login information has been compromised through a virus (don't do this again).");
+                                System.out.println("Now they're blackmailing you for it back");
+                                player.setPosition(6);
+                                player.setJail(player.getJail() + 1); // Adds one day to jail
+                                break;
+                            case 1:
+                                System.out.println("\t\t\t< Chance Card 2 >");
+                                System.out.println("You just bought downloadable RAM off the internet!! What a deal!");
+                                System.out.println("Wait nevermind. You just put your credit card into a scam. ");
+                                System.out.println("[You lost $200]");
+                                player.modifyBalance(-200);
+                                break;
+                            case 2:
+                                System.out.println("\t\t\t< Chance Card 3 >");
+                                System.out.println(
+                                        "You have learned how to execute a cloud-based cyberattack, what do you do?");
+
+                                invalidInput = false;
+                                do {
+                                    displayMenu(5, invalidInput);
+                                    numAns = input.nextInt();
+                                    input.nextLine();
+                                    if (numAns != 1 || numAns != 2) {
+                                        invalidInput = true;
+                                    }
+                                } while (numAns != 1 && numAns != 2);
+
+                                if (numAns == 1) { // Hack for money
+                                    player.modifyBalance(400);
+                                    System.out.println(
+                                            "You got $300 dollars from the attack! A lot less than you expected...");
+                                    player.modifyEthicalRating(-30);
+                                } else if (numAns == 2) { // Not hack for money, boosts ethic standing
+                                    player.modifyEthicalRating(80);
+                                    System.out.println("You left the note...You feel good about yourself");
+                                }
+                                break;
+                            case 3:
+                                System.out.println("\t\t\t< Chance Card 4 >");
+                                System.out.println(
+                                        "Your data got leaked in a data leak from an online store you love shopping at!");
+                                System.out.println(
+                                        "Looks like you're a victim of \"Credential Reuse\" and a hacker realized you re-use passwords!");
+                                System.out.println("You lost $150 (use different and secure passwords!)");
+                                player.modifyBalance(-150);
+                                break;
+                            case 4:
+                                System.out.println("\t\t\t< Chance Card 5 >");
+                                System.out.println(
+                                        "When testing out your hacking skills for fun, you end up with stolen data after a long session...");
+
+                                invalidInput = false;
+                                do {
+                                    displayMenu(6, invalidInput);
+                                    numAns = input.nextInt();
+                                    input.nextLine();
+                                    if (numAns != 1 || numAns != 2) {
+                                        invalidInput = true;
+                                    }
+                                } while (numAns != 1 && numAns != 2);
+
+                                if (numAns == 1) { // Hack for money
+                                    player.modifyBalance(400);
+                                    System.out.println("You got $400 dollars for the stolen data!");
+                                    player.modifyEthicalRating(-40);
+                                } else if (numAns == 2) { // Not hack for money, boosts ethic standing
+                                    player.modifyEthicalRating(85);
+                                    System.out
+                                            .println("You deleted the copies...CLICK! Maybe that was the right move?");
+                                }
+
+                                break;
+                            case 5:
+                                System.out.println("\t\t\t< Chance Card 6 >");
+                                System.out.println(
+                                        "You learned how to remotely infect other computers with malware and make them mine crypto!");
+                                System.out.println("You also learn it is illegal. What should we do now?");
+
+                                invalidInput = false;
+                                do {
+                                    displayMenu(7, invalidInput);
+                                    numAns = input.nextInt();
+                                    input.nextLine();
+                                    if (numAns != 1 || numAns != 2) {
+                                        invalidInput = true;
+                                    }
+                                } while (numAns != 1 && numAns != 2);
+
+                                if (numAns == 1) { // Hack for money
+                                    player.modifyBalance(400);
+                                    System.out.println("You have a crypto machine making you $50 a turn! (stackable)");
+                                    player.modifyEthicalRating(-50);
+                                } else if (numAns == 2) { // Not hack for money, boosts ethic standing
+                                    player.modifyEthicalRating(110);
+                                    System.out.println(
+                                            "You chose not to do that. Good on you, you're you'll find another way to find money.");
+                                }
+
+                                break;
+                            case 6:
+                                System.out.println("\t\t\t< Chance Card 7 >");
+                                System.out.println("You visited a funny looking link someone random sent you.");
+                                System.out.println(
+                                        "Ooops. Looks like the website link started with \"HTTP://\" instead of \"HTTPS://\"");
+                                System.out.println(
+                                        "There was no secure socket layer, and your cookies (login information) have been\nused for fradulent purchases.");
+                                System.out.println("[You lost $200]");
+                                player.modifyBalance(-200);
+                                break;
+                            case 7:
+                                System.out.println("\t\t\t< Chance Card 8 >");
+                                System.out.println(
+                                        "You connected to \"Pearson Airport's Free Wifi\" and notice you data has been compromised, almost....");
+                                System.out.println(
+                                        "Good thing you had NordVPN and got two free months on a one year subscription");
+                                System.out.println("using code \"IHOPEYOUENJOYEDTHISCODE\"!");
+                                break;
+                        }
+                        pause();
+                        chanceArr.dequeue();
+                        chanceArr.enqueue(num);
+                    } else { // Normal Properties
+                        if (player.getPosition() != 6 && player.getPosition() != 23) { // Lands on the jail but not in
+                                                                                       // jail
+                                                                                       // AND
+                                                                                       // not on collect 200
+                            System.out.print("\n\t    < Scam Website");
+                            // Find corresponding board space (by searching thru)
+                            for (int i = 0; i < board.length; i++) {
+                                for (int j = 0; j < board[i].length; j++) {
+                                    if (player.getPosition() == board[i][j].getPosition()
+                                            && board[i][j].getName().equals("") == false) {
+
+                                        // Checks if someone owns it
+                                        if (player.getPlayerNum() == board[i][j].getOwnedStatus()) { // The player owns
+                                                                                                     // it
+                                            System.out.println(" seems to be yours >");
+                                        } else if (board[i][j].getOwnedStatus() != 0) { // Owned (0 means no owner)
+                                            System.out.println(" has stolen your money >");
+                                        } else { // Not owned
+                                            System.out.println(
+                                                    " available for purchase (Balance: $" + player.getBalance()
+                                                            + ") >");
+                                        }
+
+                                        // Displays the website details
+                                        System.out.println("\"Company\" Name: " + board[i][j].getName());
+                                        System.out.print("Virus Type: ");
+                                        if (board[i][j].getVirusType() == 1) { // File-Infecting Virus
+                                            System.out.println("File-Infecting Virus");
+                                            System.out.println(
+                                                    " > Attaches itself to executable programs (.exe) present on your\n   website and overwrites host files");
+                                        } else if (board[i][j].getVirusType() == 2) { // Web Scripting Virus
+                                            System.out.println("Web Scripting Virus");
+                                            System.out.println(
+                                                    " > Disguises itself as images, links, and other media to trick\n   users into downloading malicious files");
+                                        } else if (board[i][j].getVirusType() == 3) { // Ransomware
+                                            System.out.println("Ransomware");
+                                            System.out.println(
+                                                    " > Blocks computer access of the user until money is paid");
+                                        } else if (board[i][j].getVirusType() == 4) { // Resident Virus
+                                            System.out.println("Resident Virus");
+                                            System.out.println(
+                                                    " > Stores itself onto computer’s memory and interupts operating\n   system to cause program coruption");
+                                        } else { // Metamorphic Virus
+                                            System.out.println("Metamorphic Virus");
+                                            System.out.println(
+                                                    " > Repeatedly rewrites its appearance and code with each iteration\n   whilst developing itself to reduce detectibility");
+                                        }
+                                        if (board[i][j].getOwnedStatus() == 0) { // If not owned, will display
+                                                                                 // purchasing
+                                                                                 // info
+                                            System.out.println("   ○ Buy Cost: $" + board[i][j].getBuyValue());
+                                            System.out.println("   ○ Sell Price: $" + board[i][j].getSellValue());
+                                            System.out
+                                                    .println("   ○ Income from Scams: $" + board[i][j].getRentValue());
+                                        }
+
+                                        // Action Menu
+                                        if (board[i][j].getOwnedStatus() != 0) { // Owned
+                                            // If player owns the property themself
+                                            if (player.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                                invalidInput = false;
+                                                do {
+                                                    displayMenu(9, invalidInput);
+                                                    numAns = input.nextInt();
+                                                    input.nextLine();
+                                                    if (numAns != 1 || numAns != 2) {
+                                                        invalidInput = true;
+                                                    }
+                                                } while (numAns != 1 && numAns != 2);
+
+                                                if (numAns == 1) { // sell website
+                                                    System.out.println(
+                                                            board[i][j].getName()
+                                                                    + " has been sold. You have regained $"
+                                                                    + board[i][j].getSellValue());
+                                                    player.modifyBalance(board[i][j].getSellValue()); // Awards money to
+                                                                                                      // person
+                                                    player.removeOwnedSpace(board[i][j].getPosition()); // The player
+                                                                                                        // will
+                                                                                                        // lose
+                                                                                                        // the marker
+                                                                                                        // from
+                                                                                                        // inventory
+                                                    board[i][j].setOwnedStatus(0);
+                                                } else { // option 2: pass
+                                                    System.out.println(
+                                                            "The website has not been sold and remains yours.");
+                                                }
+
+                                            } else { // If player does not own property themself
+                                                System.out.println("$" + board[i][j].getRentValue()
+                                                        + " has been stolen from visiting the malicious site.");
+                                                player.modifyBalance(-1 * board[i][j].getRentValue());
+
+                                                // Finds who it belongs to and awards the money
+                                                if (playerA.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                                    playerA.modifyBalance(board[i][j].getRentValue());
+                                                    System.out.println(playerA.getName() + " has been awarded $"
+                                                            + board[i][j].getRentValue() + ".");
+                                                } else if (playerB.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                                    playerB.modifyBalance(board[i][j].getRentValue());
+                                                    System.out.println(playerB.getName() + " has been awarded $"
+                                                            + board[i][j].getRentValue() + ".");
+                                                } else if (playerC.getPlayerNum() == board[i][j].getOwnedStatus()) {
+                                                    playerC.modifyBalance(board[i][j].getRentValue());
+                                                    System.out.println(playerC.getName() + " has been awarded $"
+                                                            + board[i][j].getRentValue() + ".");
+                                                }
+                                                board[i][j].setOwnedStatus(player.getPlayerNum());
+                                            }
+
+                                        } else { // Not owned
+
                                             invalidInput = false;
                                             do {
-                                                displayMenu(9, invalidInput);
+                                                displayMenu(8, invalidInput);
                                                 numAns = input.nextInt();
                                                 input.nextLine();
                                                 if (numAns != 1 || numAns != 2) {
@@ -862,98 +926,55 @@ public class Main {
                                                 }
                                             } while (numAns != 1 && numAns != 2);
 
-                                            if (numAns == 1) { // sell website
+                                            if (numAns == 1 && player.getBalance() >= board[i][j].getBuyValue()) { // Want
+                                                                                                                   // to
+                                                                                                                   // buy
+                                                                                                                   // and
+                                                                                                                   // can
+                                                                                                                   // afford
                                                 System.out.println(
-                                                        board[i][j].getName() + " has been sold. You have regained $"
-                                                                + board[i][j].getSellValue());
-                                                player.modifyBalance(board[i][j].getSellValue()); // Awards money to
-                                                                                                  // person
-                                                player.removeOwnedSpace(board[i][j].getPosition()); // The player will
-                                                                                                    // lose
-                                                                                                    // the marker from
-                                                                                                    // inventory
-                                                board[i][j].setOwnedStatus(0);
-                                            } else { // option 2: pass
-                                                System.out.println("The website has not been sold and remains yours.");
-                                            }
-
-                                        } else { // If player does not own property themself
-                                            System.out.println("$" + board[i][j].getRentValue()
-                                                    + " has been stolen from visiting the malicious site.");
-                                            player.modifyBalance(-1 * board[i][j].getRentValue());
-
-                                            // Finds who it belongs to and awards the money
-                                            if (playerA.getPlayerNum() == board[i][j].getOwnedStatus()) {
-                                                playerA.modifyBalance(board[i][j].getRentValue());
-                                                System.out.println(playerA.getName() + " has been awarded $"
-                                                        + board[i][j].getRentValue() + ".");
-                                            } else if (playerB.getPlayerNum() == board[i][j].getOwnedStatus()) {
-                                                playerB.modifyBalance(board[i][j].getRentValue());
-                                                System.out.println(playerB.getName() + " has been awarded $"
-                                                        + board[i][j].getRentValue() + ".");
-                                            } else if (playerC.getPlayerNum() == board[i][j].getOwnedStatus()) {
-                                                playerC.modifyBalance(board[i][j].getRentValue());
-                                                System.out.println(playerC.getName() + " has been awarded $"
-                                                        + board[i][j].getRentValue() + ".");
-                                            }
-                                            board[i][j].setOwnedStatus(player.getPlayerNum());
-                                        }
-
-                                    } else { // Not owned
-
-                                        invalidInput = false;
-                                        do {
-                                            displayMenu(8, invalidInput);
-                                            numAns = input.nextInt();
-                                            input.nextLine();
-                                            if (numAns != 1 || numAns != 2) {
-                                                invalidInput = true;
-                                            }
-                                        } while (numAns != 1 && numAns != 2);
-
-                                        if (numAns == 1 && player.getBalance() >= board[i][j].getBuyValue()) { // Want
-                                                                                                               // to
-                                                                                                               // buy
-                                                                                                               // and
-                                                                                                               // can
-                                                                                                               // afford
-                                            System.out.println(
-                                                    "You have sucessfully bought and now run " + board[i][j].getName()
-                                                            + ".");
-                                            player.modifyBalance(-1 * board[i][j].getBuyValue()); // Deducts money
-                                            board[i][j].setOwnedStatus(player.getPlayerNum()); // Sets property
-                                                                                               // ownership to
-                                                                                               // player
-                                            player.addOwnedSpace(board[i][j].getPosition()); // Gives player the owned
-                                                                                             // status
-                                            player.modifyEthicalRating(-30);
-                                        } else { // Pass (clicking option 2, or clicking 1 but not being able to afford)
-                                            if (player.getBalance() >= board[i][j].getBuyValue() == false) {
-                                                System.out
-                                                        .print("You were unable to afford it and passed on the offer ");
-                                            } else {
-                                                System.out.println("You passed on the offer");
+                                                        "You have sucessfully bought and now run "
+                                                                + board[i][j].getName()
+                                                                + ".");
+                                                player.modifyBalance(-1 * board[i][j].getBuyValue()); // Deducts money
+                                                board[i][j].setOwnedStatus(player.getPlayerNum()); // Sets property
+                                                                                                   // ownership to
+                                                                                                   // player
+                                                player.addOwnedSpace(board[i][j].getPosition()); // Gives player the
+                                                                                                 // owned
+                                                                                                 // status
+                                                player.modifyEthicalRating(-30);
+                                            } else { // Pass (clicking option 2, or clicking 1 but not being able to
+                                                     // afford)
+                                                if (player.getBalance() >= board[i][j].getBuyValue() == false) {
+                                                    System.out
+                                                            .print("You were unable to afford it and passed on the offer ");
+                                                } else {
+                                                    System.out.println("You passed on the offer");
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
+                        } else if (player.getPosition() == 6) {
+                            System.out.println("\n\t\t\t< You visited the jail, say \"Hi\" to your friends! >\n");
+                        } else { // Collect 200 on 23
+                            System.out.println("\n\t\t\t< You received $200 from your day job. >");
                         }
-                    } else if (player.getPosition() == 6) {
-                        System.out.println("\n\t\t\t< You visited the jail, say \"Hi\" to your friends! >\n");
-                    } else { // Collect 200 on 23
-                        System.out.println("\n\t\t\t< You received $200 from your day job. >");
                     }
                 }
-            }
 
-            player.modifyBalance(player.getCryptoBot() * 50); // $50 per cryptobot user has
+                player.modifyBalance(player.getCryptoBot() * 50); // $50 per cryptobot user has
 
-            System.out.println("\nBalance: $" + player.getBalance());
-            System.out.println("_______________________________________");
+                System.out.println("\nBalance: $" + player.getBalance());
+                System.out.println("_______________________________________");
+                pause();
+                clear();
+
+            } // Continues with other menu
+
             invalidInput = false;
-            pause();
-            clear();
             do {
                 displayBoard(board, player);
                 System.out.println(
@@ -1038,7 +1059,7 @@ public class Main {
                         fileWriter.write(numOfPlayers + "," + playersAvailable + "," + roundNum);
 
                         // General: Chance card array
-                        fileWriter.write("\n" + chanceArr.CSVtoString()+"\n");
+                        fileWriter.write("\n" + chanceArr.CSVtoString() + "\n");
 
                         // Writes into file all board information for all spaces
                         for (int i = 0; i < board.length; i++) {
@@ -1079,10 +1100,11 @@ public class Main {
                     System.out.println("# of players: " + playersAvailable);
                 }
             }
-
         } else { // If not in game, autoskips
         }
         clear();
+        // End of turn ensure we're on existing save
+        existingLoad = true;
         return playersAvailable;
     }
 
