@@ -310,4 +310,25 @@ public class Player extends Entity {
         return info;
     }
 
+    /*
+     * Pre: Requires nothing
+     * Post: Returns nothing
+     * Desc: Resets player
+     */
+    public void reset(){
+        name = "";
+        position = 23; // Starting point for all
+        balance = 1500;
+        jailStatus = 0;
+        cryptoBot = 0;
+        playerNum = 0;
+        ethicalRating = 0;
+        inGame = true;
+
+        // Presets all spaces to -1 (means non existent)
+        for (int i = 0; i < ownedSpace.length; i++) {
+            ownedSpace[i] = -1;
+        }
+    }
+
 }

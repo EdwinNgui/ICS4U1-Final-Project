@@ -24,6 +24,7 @@ public class Main {
         int ans;
         String stringAns; // For names
         int num = 0;
+        int numAns;
         int numOfPlayers = 0;
         int roundNum = 0;
         Player playerTurn = new Player();
@@ -52,6 +53,10 @@ public class Main {
             }
         }
 
+
+        //CURRENT
+        invalidInput = false;
+        do {
         setup(1, board);
         // Introduction
         clear();
@@ -287,7 +292,7 @@ public class Main {
         clear();
         // Allows player to use the turn-based cycle of the game
 
-        for (; roundNum < 10; roundNum++) { // 15 rounds (from left off)
+        for (; roundNum < 1; roundNum++) { // 15 rounds (from left off)
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 if (playersAvailable != 1) {
@@ -414,7 +419,32 @@ public class Main {
             }
         }
         slowText("\n\n");
-        System.out.println("\t\tTo play again, relaunch the code.");
+
+        // CURRENT:
+        
+            displayMenu(14, invalidInput);
+            numAns = input.nextInt();
+            input.nextLine();
+            if (numAns != 1 || numAns != 2) {
+                invalidInput = true;
+            }
+
+            if (numAns == 1){ //Restart game
+                for (int i = 0; i < 8; i ++){
+                    chanceArr.dequeue();
+                }
+                //Reset all players
+                p1.reset();
+                p2.reset();
+                p3.reset();
+                p4.reset();
+            }
+
+
+
+        } while (numAns != 2);
+        clear();
+        slowText("\n\n\t\t\tHave a great day!\n\n\n\n");
 
         // Could make this entire larger thing a do-while with the last menu at the
         // bottom of play again or quit
@@ -518,6 +548,9 @@ public class Main {
         } else if (menuNum == 13) {
             System.out.println("(#) Sell the corresponding website");
             System.out.println("(0) Exit (WARNING: If you exit with negative balance here, you will FORFEIT)");
+        }else if (menuNum == 14) {
+            System.out.println("(1) Play Again");
+            System.out.println("(2) Exit");
         }
 
         // If invalid input previously
