@@ -60,6 +60,23 @@ public class Player extends Entity {
         ownedSpace = newOwnedSpace;
     }
 
+         /*
+     * Pre: Requires all variables of user
+     * Post: Returns nothing
+     * Desc: Newly sets the info of a player
+     */
+    public void setInfo(String newName, int newPosition, int newBalance, int newJailStatus, int newCryptoBot, int newPlayerNum, int newEthicalRating, boolean newInGame, int [] newOwnedSpace) {
+        name = newName;
+        position = newPosition;
+        balance = newBalance;
+        jailStatus = newJailStatus;
+        cryptoBot = newCryptoBot;
+        playerNum = newPlayerNum;
+        ethicalRating = newEthicalRating;
+        inGame = newInGame;
+        ownedSpace = newOwnedSpace;
+    }
+
     /*
      * Pre: Requires new positions
      * Post: Returns nothing
@@ -284,7 +301,7 @@ public class Player extends Entity {
      */
     public String toString(){
         String info = "";
-        info += (name + "," + position + "," + jailStatus + "," + cryptoBot + "," + playerNum + "," + ethicalRating + "," + inGame + "/");
+        info += (name + "," + position + "," + balance+ "," + jailStatus + "," + cryptoBot + "," + playerNum + "," + ethicalRating + "," + inGame + "/");
         
         for (int i = 0; i < ownedSpace.length; i ++){
             info += (ownedSpace[i] + ",");

@@ -24,8 +24,8 @@ public class Main {
         int ans;
         String stringAns; // For names
         int num = 0;
-        int numOfPlayers;
-        int roundNum;
+        int numOfPlayers = 0;
+        int roundNum = 0;
         Player playerTurn = new Player();
         // Supports up to 4 players,
         Player p1 = new Player();
@@ -33,22 +33,10 @@ public class Main {
         Player p3 = new Player();
         Player p4 = new Player();
         int sleepTimer = 150;
+        int playersAvailable = 0;
 
         // Chance Cards
         Queue chanceArr = new Queue(8); // Array with 8 values
-        int[] chanceArrFill = { 0, 1, 2, 3, 4, 5, 6, 7 };
-
-        // Shuffles order using random in preparation for queue usage
-        for (int i = 0; i < chanceArrFill.length; i++) {
-            // swap two numbers (i marker and random)
-            int pick = rand.nextInt(8); // Picks random point to swap with
-            int temp = chanceArrFill[pick]; // Temp variable holds random number from array
-            chanceArrFill[pick] = chanceArrFill[i];
-            chanceArrFill[i] = temp;
-        }
-        for (int i = 0; i < chanceArrFill.length; i++) {
-            chanceArr.enqueue(chanceArrFill[i]);
-        }
 
         // 7 by 7 board, 2 layers, the top (1) is the player movement, the bottom (2) is
         // where the properties are held
@@ -120,7 +108,7 @@ public class Main {
                 }
             } while (numOfPlayers != 2 && numOfPlayers != 3 && numOfPlayers != 4);
 
-            int playersAvailable = numOfPlayers;
+            playersAvailable = numOfPlayers;
 
             if (numOfPlayers >= 2) {
                 System.out.print("Enter name of Player 1: ");
@@ -145,17 +133,153 @@ public class Main {
                 }
             }
 
+            // Chance Cards - Array
+            int[] chanceArrFill = { 0, 1, 2, 3, 4, 5, 6, 7 };
+            // Shuffles order using random in preparation for queue usage
+            for (int i = 0; i < chanceArrFill.length; i++) {
+                // swap two numbers (i marker and random)
+                int pick = rand.nextInt(8); // Picks random point to swap with
+                int temp = chanceArrFill[pick]; // Temp variable holds random number from array
+                chanceArrFill[pick] = chanceArrFill[i];
+                chanceArrFill[i] = temp;
+            }
+            for (int i = 0; i < chanceArrFill.length; i++) {
+                chanceArr.enqueue(chanceArrFill[i]);
+            }
         } else if (ans == 2) { // Load game (use file reading)
 
-            // CURRENT; read from a file
             File textFile = new File(fileDirectory);
             FileReader in;
             BufferedReader readFile;
             String line;
-            
+
+            try {
+                in = new FileReader(fileDirectory);
+                readFile = new BufferedReader(in);
+                int count = 0;
+                // Goes through all lines until no more
+                while ((line = readFile.readLine()) != null) {
+
+                    if (count == 0) {
+                        // General: Num of players, players available, roundNum
+                        String[] values = line.split(","); // Splits after comma
+                        numOfPlayers = Integer.parseInt(values[0]);
+                        playersAvailable = Integer.parseInt(values[1]);
+                        roundNum = Integer.parseInt(values[2]);
+
+                        count++; // Moves to next line
+                    } else if (count == 1) {
+                        // General: Chance card array
+                        String[] values = line.split(",");
+                        for (int i = 0; i < values.length; i++) {
+                            chanceArr.enqueue(Integer.parseInt(values[i]));
+                        }
+                        count ++;
+                    } else if (count == 2) {
+                        // CURRENT; read from a file
+                        // All board information for all spaces
+                        if (line.equals("") == false) {
+                            String[] values = line.split(",");
+                            int commaCount = 0;
+                            for (int i = 0; i < board.length; i++) { // 24 Available spaces
+                                for (int j = 0; j < board[i].length; j++) {
+                                    // Sets info at board space
+                                    board[i][j].setOwnedStatus(Integer.parseInt(values[commaCount]));
+                                    commaCount ++; //Goes through each known
+                                }
+                            }
+
+                            count++; // Moves to next line
+                        }
+                    } else if (count == 3) { // Player 1 - Assigns all existing variables
+                        if (line.equals("") == false) {
+                            String[] variables = line.split("/");
+                            
+                            String[] arrString = variables[1].split(",");
+                            int [] arrInt = new int[17];
+                            for (int i = 0; i < arrInt.length; i ++){
+                                arrInt[i] = Integer.parseInt(arrString[i]);
+                            }   
+
+                            String[] values = variables[0].split(",");
+                            p1.setInfo(values[0], Integer.parseInt(values[1]),
+                            Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                            Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                            Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+
+                            count++; // Moves to next line
+                        }
+                    } else if (count == 4) { // Player 2 - Assigns all existing variables
+                        if (line.equals("") == false) {
+                            String[] variables = line.split("/");
+                            
+                            String[] arrString = variables[1].split(",");
+                            int [] arrInt = new int[17];
+                            for (int i = 0; i < arrInt.length; i ++){
+                                arrInt[i] = Integer.parseInt(arrString[i]);
+                            }   
+
+                            String[] values = variables[0].split(",");
+                            p2.setInfo(values[0], Integer.parseInt(values[1]),
+                            Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                            Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                            Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+
+                            count++; // Moves to next line
+                        }
+                    } else if (count == 5) { // Player 3 - Assigns all existing variables
+                        if (line.equals("") == false) {
+                            String[] variables = line.split("/");
+                            
+                            String[] arrString = variables[1].split(",");
+                            int [] arrInt = new int[17];
+                            for (int i = 0; i < arrInt.length; i ++){
+                                arrInt[i] = Integer.parseInt(arrString[i]);
+                            }   
+
+                            String[] values = variables[0].split(",");
+                            p3.setInfo(values[0], Integer.parseInt(values[1]),
+                            Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                            Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                            Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+
+                            count++; // Moves to next line
+                        }
+                    } else if (count == 6) { // Player 4 - Assigns all existing variables
+                        if (line.equals("") == false) {
+                            String[] variables = line.split("/");
+                            
+                            String[] arrString = variables[1].split(",");
+                            int [] arrInt = new int[17];
+                            for (int i = 0; i < arrInt.length; i ++){
+                                arrInt[i] = Integer.parseInt(arrString[i]);
+                            }   
+
+                            String[] values = variables[0].split(",");
+                            p4.setInfo(values[0], Integer.parseInt(values[1]),
+                            Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                            Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                            Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+
+                            count++; // Moves to next line
+                        }
+                    }
+
+                }
+                readFile.close();
+                in.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File does not exist or could not be found");
+                System.out.println("FileNotFoundException: " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Problem reading file.");
+                System.out.println("IOException: " + e.getMessage());
+            }
 
             // Updates icons (because file reading won't support)
             setup(2, board);
+            System.out.println("Loading Complete!");
+            pause();
         }
 
         // For loop runs for n turns per number of players
@@ -914,19 +1038,19 @@ public class Main {
                         fileWriter.write(numOfPlayers + "," + playersAvailable + "," + roundNum);
 
                         // General: Chance card array
-                        fileWriter.write("\n" + chanceArr.CSVtoString());
+                        fileWriter.write("\n" + chanceArr.CSVtoString()+"\n");
 
                         // Writes into file all board information for all spaces
                         for (int i = 0; i < board.length; i++) {
                             for (int j = 0; j < board[i].length; j++) {
-                                fileWriter.write("\n" + board[i][j].toString());
+                                fileWriter.write(board[i][j].getOwnedStatus() + ",");
                             }
                         }
 
                         // Writes into player information (1 line for each player)
                         fileWriter.write("\n" + player.toString());
                         fileWriter.write("\n" + playerA.toString());
-                        if (numOfPlayers == 3) {
+                        if (numOfPlayers >= 3) {
                             fileWriter.write("\n" + playerB.toString());
                         }
                         if (numOfPlayers == 4) {
@@ -1225,13 +1349,13 @@ public class Main {
                 board[6] = new boardSpace[7];
                 break;
             case 1:
-                board[0][0].setInfo("", "【⏭】", 0, 0, 0, 0, 0, 0);
+                board[0][0].setInfo("_", "【⏭】", 0, 0, 0, 0, 0, 0);
                 board[0][1].setInfo("Mesla", "【K】", 1, 3, 0, 180, 90, 90);
                 board[0][2].setInfo("Macrotough", "【L】", 2, 3, 0, 190, 95, 95);
-                board[0][3].setInfo("", "【✦】", 3, 0, 0, 0, 0, 0);
+                board[0][3].setInfo("_", "【✦】", 3, 0, 0, 0, 0, 0);
                 board[0][4].setInfo("Waterfox", "【M】", 4, 3, 0, 200, 100, 100);
                 board[0][5].setInfo("NoFlix", "【N】", 5, 3, 0, 210, 105, 110);
-                board[0][6].setInfo("", "【◈】", 6, 0, 0, 0, 0, 0);
+                board[0][6].setInfo("_", "【◈】", 6, 0, 0, 0, 0, 0);
 
                 board[1][0].setInfo("Samysung", "【J】", 7, 2, 0, 120, 60, 70);
                 board[1][1].setInfo("Joogle", "【O】", 8, 4, 0, 280, 140, 120);
@@ -1239,8 +1363,8 @@ public class Main {
                 board[2][0].setInfo("Bisco", "【I】", 9, 2, 0, 110, 55, 60);
                 board[2][1].setInfo("Pear", "【P】", 10, 4, 0, 290, 145, 140);
 
-                board[3][0].setInfo("", "【✦】", 11, 0, 0, 0, 0, 0);
-                board[3][1].setInfo("", "【✦】", 12, 0, 0, 0, 0, 0);
+                board[3][0].setInfo("_", "【✦】", 11, 0, 0, 0, 0, 0);
+                board[3][1].setInfo("_", "【✦】", 12, 0, 0, 0, 0, 0);
 
                 board[4][0].setInfo("Hoom", "【H】", 13, 2, 0, 100, 50, 40);
                 board[4][1].setInfo("River of Amazon", "【Q】", 14, 5, 0, 340, 170, 180);
@@ -1251,10 +1375,10 @@ public class Main {
                 board[6][0].setInfo("Byzen", "【F】", 17, 2, 0, 80, 45, 25);
                 board[6][1].setInfo("Crintel", "【E】", 18, 1, 0, 70, 35, 20);
                 board[6][2].setInfo("Pacer", "【D】", 19, 1, 0, 60, 30, 15);
-                board[6][3].setInfo("", "【✦】", 20, 0, 0, 0, 0, 0);
+                board[6][3].setInfo("_", "【✦】", 20, 0, 0, 0, 0, 0);
                 board[6][4].setInfo("Esus", "【C】", 21, 1, 0, 60, 30, 15);
                 board[6][5].setInfo("Bogitek", "【B】", 22, 1, 0, 30, 15, 5);
-                board[6][6].setInfo("", "【▶】", 23, 0, 0, 0, 0, 0);
+                board[6][6].setInfo("_", "【▶】", 23, 0, 0, 0, 0, 0);
 
                 break;
             case 2:

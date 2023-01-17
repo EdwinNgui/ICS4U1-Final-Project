@@ -71,7 +71,12 @@ public class Queue {
 		String fullArr = "";
 		
 		for (int i = 0; i < back; i ++) {
-			fullArr += (data[i]+",");
+			if (i+1 != back){
+                fullArr += (data[i]+",");
+            }else{
+                fullArr += (data[i]);
+            }
+            
 		}
 		
 		return fullArr;
