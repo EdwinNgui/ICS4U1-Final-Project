@@ -62,5 +62,20 @@ public class Queue {
 		
 	}
 
+        /*
+     * Pre: Requires nothing
+     * Post: Returns String
+     * Desc: Returns the entire array for viewing (mainly for testing)
+     */
+    public String CSVtoString() {
+		String fullArr = "";
+		
+		for (int i = 0; i < back; i ++) {
+			fullArr += (data[i]+",");
+		}
+		
+		return fullArr;
+		
+	}
 
 }

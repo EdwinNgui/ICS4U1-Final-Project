@@ -179,4 +179,13 @@ public class boardSpace extends Entity {
         return virusType;
     }
 
+    /*
+     * Pre: Requires all object variables
+     * Post: Returns int value
+     * Desc: Turns entire space into string, excludes letter icon for formatting issues (reassigned later)
+     */
+    public String toString() {
+        return (name + "," + position + "," + virusType + "," + ownedStatus + "," + buyValue + "," + sellValue + "," + rentValue);
+    }
+
 }

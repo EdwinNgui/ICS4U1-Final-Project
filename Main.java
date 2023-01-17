@@ -15,7 +15,8 @@ public class Main {
         // Setup
         // Type "chcp 65001" if the characters appear as question marks
         // For ReadWrite
-        String fileDirectory = "C:\\Users\\moonb\\VSCode\\ICS4U1-FINAL-PROJECT\\GameSave.txt"; //CHANGE THIS for each new PC
+        String fileDirectory = "C:\\Users\\moonb\\VSCode\\ICS4U1-FINAL-PROJECT\\GameSave.txt"; // CHANGE THIS for each
+                                                                                               // new PC
         File textFile = new File(fileDirectory);
         FileReader in;
         BufferedReader readFile;
@@ -143,66 +144,99 @@ public class Main {
         } while (ans != 1 && ans != 2);
 
         // New or load
-        // if (ans == 1) { // New game: Setup variables intialized here //ISSUE
-        // General Setup variables
-        roundNum = 0;
-        gamesPlayed = 0;
-        clear();
-        System.out.println("We live in a world where everyone has the potential to be a hacker");
-        System.out
-                .println(
-                        "for good and bad. Or perhaps you won't do anything? Yet we continue to\nlive in aworld where we need money...");
-        pause();
-        clear();
-        System.out.println(
-                "Each square may contain a purchasable scam website (generates income),");
-        System.out.println(
-                "chance card, or action space. The game ends when all players are out of money\nor the fixed number of turns finish and the game ends on its own.");
-        System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\"");
-        System.out.println("\t  < You will make choices. Your choices will impact your end result >");
-        pause();
-        clear();
-        // Sets number of players
-        invalidInput = false;
-        do {
-            displayMenu(3, invalidInput);
-            numOfPlayers = input.nextInt();
-            input.nextLine();
-            if (ans != 2 || ans != 3 || ans != 4) {
-                invalidInput = true;
-            }
-        } while (numOfPlayers != 2 && numOfPlayers != 3 && numOfPlayers != 4);
+        if (ans == 1) { // New game: Setup variables intialized here //ISSUE
+            // General Setup variables
+            roundNum = 0;
+            gamesPlayed = 0;
+            clear();
+            System.out.println("We live in a world where everyone has the potential to be a hacker");
+            System.out
+                    .println(
+                            "for good and bad. Or perhaps you won't do anything? Yet we continue to\nlive in aworld where we need money...");
+            pause();
+            clear();
+            System.out.println(
+                    "Each square may contain a purchasable scam website (generates income),");
+            System.out.println(
+                    "chance card, or action space. The game ends when all players are out of money\nor the fixed number of turns finish and the game ends on its own.");
+            System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\"");
+            System.out.println("\t  < You will make choices. Your choices will impact your end result >");
+            pause();
+            clear();
+            // Sets number of players
+            invalidInput = false;
+            do {
+                displayMenu(3, invalidInput);
+                numOfPlayers = input.nextInt();
+                input.nextLine();
+                if (ans != 2 || ans != 3 || ans != 4) {
+                    invalidInput = true;
+                }
+            } while (numOfPlayers != 2 && numOfPlayers != 3 && numOfPlayers != 4);
 
-        int playersAvailable = numOfPlayers;
+            int playersAvailable = numOfPlayers;
 
-        if (numOfPlayers >= 2) {
-            System.out.print("Enter name of Player 1: ");
-            stringAns = input.nextLine();
-            p1.setName(stringAns);
-            p1.setPlayerNum(1);
-            System.out.print("Enter name of Player 2: ");
-            stringAns = input.nextLine();
-            p2.setName(stringAns);
-            p2.setPlayerNum(2);
-            if (numOfPlayers >= 3) {
-                System.out.print("Enter name of Player 3: ");
+            if (numOfPlayers >= 2) {
+                System.out.print("Enter name of Player 1: ");
                 stringAns = input.nextLine();
-                p3.setName(stringAns);
-                p3.setPlayerNum(3);
-                if (numOfPlayers >= 4) {
-                    System.out.print("Enter name of Player 4: ");
+                p1.setName(stringAns);
+                p1.setPlayerNum(1);
+                System.out.print("Enter name of Player 2: ");
+                stringAns = input.nextLine();
+                p2.setName(stringAns);
+                p2.setPlayerNum(2);
+                if (numOfPlayers >= 3) {
+                    System.out.print("Enter name of Player 3: ");
                     stringAns = input.nextLine();
-                    p4.setName(stringAns);
-                    p4.setPlayerNum(4);
+                    p3.setName(stringAns);
+                    p3.setPlayerNum(3);
+                    if (numOfPlayers >= 4) {
+                        System.out.print("Enter name of Player 4: ");
+                        stringAns = input.nextLine();
+                        p4.setName(stringAns);
+                        p4.setPlayerNum(4);
+                    }
                 }
             }
+
+        } else if (ans == 2) { // Load game (use file reading)
+
+            // CURRENT; read from a file
+            
+
+
+            // Updates icons (because file reading won't support)
+            board[0][0].setLetterPos("【⏭】");
+            board[0][1].setLetterPos("【K】");
+            board[0][2].setLetterPos("【L】");
+            board[0][3].setLetterPos("【✦】");
+            board[0][4].setLetterPos("【M】");
+            board[0][5].setLetterPos("【N】");
+            board[0][6].setLetterPos("【◈】");
+
+            board[1][0].setLetterPos("【J】");
+            board[1][1].setLetterPos("【O】");
+
+            board[2][0].setLetterPos("【I】");
+            board[2][1].setLetterPos("【P】");
+
+            board[3][0].setLetterPos("【✦】");
+            board[3][1].setLetterPos("【✦】");
+
+            board[4][0].setLetterPos("【H】");
+            board[4][1].setLetterPos("【Q】");
+
+            board[5][0].setLetterPos("【G】");
+            board[5][1].setLetterPos("【R】");
+
+            board[6][0].setLetterPos("【F】");
+            board[6][1].setLetterPos("【E】");
+            board[6][2].setLetterPos("【D】");
+            board[6][3].setLetterPos("【✦】");
+            board[6][4].setLetterPos("【C】");
+            board[6][5].setLetterPos("【B】");
+            board[6][6].setLetterPos("【▶】");
         }
-
-        // } else if (ans == 2) { // Load game (use file reading)
-
-        // CURRENT; read from a file
-
-        // }
 
         // For loop runs for n turns per number of players
         playerTurn = p1; // Starts first move
@@ -214,25 +248,29 @@ public class Main {
             if (numOfPlayers >= 2) {
                 if (playersAvailable != 1) {
                     displayBoard(board, p1);
-                    playersAvailable = playTurn(p1, board, p2, p3, p4, chanceArr, playersAvailable, fileDirectory, numOfPlayers, roundNum, gamesPlayed);
+                    playersAvailable = playTurn(p1, board, p2, p3, p4, chanceArr, playersAvailable, fileDirectory,
+                            numOfPlayers, roundNum, gamesPlayed);
                     p1.sortOwnedSpace(p1.getOwnedSpace(), p1.getOwnedSpace().length); // Sort requires player's array
                                                                                       // and array size
                 }
                 if (playersAvailable != 1) {
                     displayBoard(board, p2);
-                    playersAvailable = playTurn(p2, board, p1, p3, p4, chanceArr, playersAvailable, fileDirectory, numOfPlayers, roundNum, gamesPlayed);
+                    playersAvailable = playTurn(p2, board, p1, p3, p4, chanceArr, playersAvailable, fileDirectory,
+                            numOfPlayers, roundNum, gamesPlayed);
                     p2.sortOwnedSpace(p2.getOwnedSpace(), p2.getOwnedSpace().length);
                 }
                 if (numOfPlayers >= 3) {
                     if (playersAvailable != 1) {
                         displayBoard(board, p3);
-                        playersAvailable = playTurn(p3, board, p1, p2, p4, chanceArr, playersAvailable, fileDirectory, numOfPlayers, roundNum, gamesPlayed);
+                        playersAvailable = playTurn(p3, board, p1, p2, p4, chanceArr, playersAvailable, fileDirectory,
+                                numOfPlayers, roundNum, gamesPlayed);
                         p3.sortOwnedSpace(p3.getOwnedSpace(), p3.getOwnedSpace().length);
                     }
                     if (numOfPlayers >= 4) {
                         if (playersAvailable != 1) {
                             displayBoard(board, p4);
-                            playersAvailable = playTurn(p4, board, p1, p2, p3, chanceArr, playersAvailable, fileDirectory, numOfPlayers, roundNum, gamesPlayed);
+                            playersAvailable = playTurn(p4, board, p1, p2, p3, chanceArr, playersAvailable,
+                                    fileDirectory, numOfPlayers, roundNum, gamesPlayed);
                             p4.sortOwnedSpace(p4.getOwnedSpace(), p4.getOwnedSpace().length);
                         }
                     }
@@ -485,7 +523,8 @@ public class Main {
      * Desc: Takes the player at hand and allows them to start their turn
      */
     public static int playTurn(Player player, boardSpace[][] board, Player playerA, Player playerB, Player playerC,
-            Queue chanceArr, int playersAvailable, String fileDirectory, int numOfPlayers, int roundNum, int gamesPlayed) {
+            Queue chanceArr, int playersAvailable, String fileDirectory, int numOfPlayers, int roundNum,
+            int gamesPlayed) {
         int num = rollDice();
         boolean invalidInput;
         int numAns;
@@ -927,12 +966,8 @@ public class Main {
                     // Display all properties and give menu to sell a property
                     invalidInput = false;
                     sellProperty(board, player, 12);
-                } else if (numAns == 4) { // Saves file
-                    
-                    // CURRENT: Saving
-                    System.out.println("STRATING THE SAVING PROCESS HERE YAYAYA");
-
-                    //Checks to make new file or not
+                } else if (numAns == 4) { // Saves to file
+                    // Checks to make new file or not
                     File dataFile = new File(fileDirectory);
                     if (dataFile.exists()) {
                         System.out.println("Data File Located!");
@@ -946,37 +981,41 @@ public class Main {
                         }
                     }
 
-                    // General: Num of players, players available, roundNum, gamesPlayed
-                    // General: Chance card array
-                    // Writes into file all board information
-                    
                     try {
                         FileWriter writer = new FileWriter(dataFile);
                         BufferedWriter fileWriter = new BufferedWriter(writer);
-                        
-                        // General: Num of players, players available, roundNum, gamesPlayed
-                        fileWriter.write("\n" + numOfPlayers + "," + playersAvailable + "," + roundNum + "," + gamesPlayed);
 
-                        
+                        // General: Num of players, players available, roundNum, gamesPlayed
+                        fileWriter.write(numOfPlayers + "," + playersAvailable + "," + roundNum + "," + gamesPlayed);
+
+                        // General: Chance card array
+                        fileWriter.write("\n" + chanceArr.CSVtoString());
+
+                        // Writes into file all board information for all spaces
+                        for (int i = 0; i < board.length; i++) {
+                            for (int j = 0; j < board[i].length; j++) {
+                                fileWriter.write("\n" + board[i][j].toString());
+                            }
+                        }
 
                         // Writes into player information (1 line for each player)
                         fileWriter.write("\n" + player.toString());
                         fileWriter.write("\n" + playerA.toString());
-                        if (numOfPlayers == 3){
+                        if (numOfPlayers == 3) {
                             fileWriter.write("\n" + playerB.toString());
                         }
-                        if(numOfPlayers == 4){
+                        if (numOfPlayers == 4) {
                             fileWriter.write("\n" + playerC.toString());
                         }
-                        
+
                         fileWriter.close();
-                        System.out.println("Game Data Saved Sucessfully!");
+                        System.out.println("Game Data Saved Successfully!");
                     } catch (IOException e) {
-                        System.out.println("An error had occured.");
+                        System.out.println("An error had occurred.");
                         e.printStackTrace();
                     }
-
-
+                    pause();
+                    clear();
                 }
             } while (numAns != 5); // 5 is pass
 
