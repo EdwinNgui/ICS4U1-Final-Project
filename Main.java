@@ -282,7 +282,7 @@ public class Main {
             pause();
         }
 
-        // For loop runs for n turns per number of players
+        // For loop runs for n turns per number of player
         playerTurn = p1; // Starts first move
         clear();
         // Allows player to use the turn-based cycle of the game
