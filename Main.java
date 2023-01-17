@@ -292,7 +292,7 @@ public class Main {
         clear();
         // Allows player to use the turn-based cycle of the game
 
-        for (; roundNum < 1; roundNum++) { // 15 rounds (from left off)
+        for (; roundNum < 10; roundNum++) { // 15 rounds (from left off)
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
                 if (playersAvailable != 1) {
