@@ -92,7 +92,7 @@ public class Main {
             System.out.println("We live in a world where everyone has the potential to be a hacker");
             System.out
                     .println(
-                            "for good and bad. Or perhaps you won't do anything? Yet we continue to\nlive in aworld where we need money...");
+                            "for good and bad. Or perhaps you won't do anything? Yet we continue to\nlive in a world where we need money...");
             pause();
             clear();
             System.out.println(
@@ -506,7 +506,11 @@ public class Main {
     public static void displayMenu(int menuNum, boolean invalidInput) {
         if (menuNum == 1) {
             clear();
-            System.out.println("\t...Main Menu...");
+            System.out.println("\t __  __      _        __  __             ");
+            System.out.println("\t|  \\/  |__ _(_)_ _   |  \\/  |___ _ _ _  _ ");
+            System.out.println("\t| |\\/| / _` | | ' \\  | |\\/| / -_) ' \\ || |");
+            System.out.println("\t|_|  |_\\__,_|_|_||_| |_|  |_\\___|_||_\\_,_|");
+            System.out.println("_______________________________________________________\n");
             System.out.println("(1) New Game");
             System.out.println("(2) Load Game");
         } else if (menuNum == 2) { // Yes-No Prompt
