@@ -294,30 +294,10 @@ public class Main {
             clear();
             // Allows player to use the turn-based cycle of the game
 
-<<<<<<< Updated upstream
-        for (; roundNum < 10; roundNum++) { // 15 rounds (from left off)
-            // Allow the turns to continue and move through
-            if (numOfPlayers >= 2) {
-                if (playersAvailable != 1) {
-                    displayBoard(board, p1);
-                    playersAvailable = playTurn(p1, board, p2, p3, p4, chanceArr, playersAvailable, fileDirectory,
-                            numOfPlayers, roundNum, existingLoad);
-                    p1.sortOwnedSpace(p1.getOwnedSpace(), p1.getOwnedSpace().length); // Sort requires player's array
-                                                                                      // and array size
-                    existingLoad = true;
-                }
-                if (playersAvailable != 1) {
-                    displayBoard(board, p2);
-                    playersAvailable = playTurn(p2, board, p1, p3, p4, chanceArr, playersAvailable, fileDirectory,
-                            numOfPlayers, roundNum, existingLoad);
-                    p2.sortOwnedSpace(p2.getOwnedSpace(), p2.getOwnedSpace().length);
-                }
-                if (numOfPlayers >= 3) {
-=======
+
             for (; roundNum < 12; roundNum++) { // 12 rounds (from left off)
                 // Allow the turns to continue and move through
                 if (numOfPlayers >= 2) {
->>>>>>> Stashed changes
                     if (playersAvailable != 1) {
                         displayBoard(board, p1);
                         playersAvailable = playTurn(p1, board, p2, p3, p4, chanceArr, playersAvailable, fileDirectory,
