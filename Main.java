@@ -53,245 +53,248 @@ public class Main {
             }
         }
 
-
-        //CURRENT
         invalidInput = false;
         do {
-        setup(1, board);
-        // Introduction
-        clear();
-        System.out.println(
-                "__________________________________________________________________________________________\n\n\n\n\n\n");
-        System.out.println("Welcome to...\n\n\n\n");
-        slowText("\t█░█ ▄▀█ █▀▀ █▄▀ █▀▀ █▀█ ▀ █▀   █░█░█ █▀█ █▀█ █░░ █▀▄\n");
-        slowText("\t█▀█ █▀█ █▄▄ █░█ ██▄ █▀▄ ░ ▄█   ▀▄▀▄▀ █▄█ █▀▄ █▄▄ █▄▀");
-        System.out.println(
-                "\n\n\n\n\n\nExpand the console until you can see both horizontal lines above and below the start menu");
-        System.out.println("When you see <continue> click \"enter\" to continue");
-        System.out
-                .println("__________________________________________________________________________________________");
-        pause();
-        clear();
-
-        // Displays new or load game
-        invalidInput = false;
-        do {
-            displayMenu(1, invalidInput);
-            ans = input.nextInt();
-            input.nextLine();
-            if (ans != 1 || ans != 2) {
-                invalidInput = true;
-            }
-        } while (ans != 1 && ans != 2);
-
-        // New or load
-        if (ans == 1) { // New game: Setup variables intialized here
-            // General Setup variables
-            roundNum = 0;
+            setup(1, board);
+            // Introduction
             clear();
-            System.out.println("We live in a world where everyone has the potential to be a hacker");
+            System.out.println(
+                    "__________________________________________________________________________________________\n\n\n\n\n\n");
+            System.out.println("Welcome to...\n\n\n\n\n\n\n\n\n\n\n");
+            slowText("\t\t█░█ ▄▀█ █▀▀ █▄▀ █▀▀ █▀█ ▀ █▀   █░█░█ █▀█ █▀█ █░░ █▀▄\n");
+            slowText("\t\t█▀█ █▀█ █▄▄ █░█ ██▄ █▀▄ ░ ▄█   ▀▄▀▄▀ █▄█ █▀▄ █▄▄ █▄▀");
+            System.out.println(
+                    "\n\n\n\n\n\n\n\n\n\n\n\n\nExpand the console until you can see both horizontal lines above and below the start menu");
+            System.out.println("When you see <continue> click \"enter\" to continue\n");
             System.out
                     .println(
-                            "for good and bad. Or perhaps you won't do anything? Yet we continue to\nlive in a world where we need money...");
+                            "__________________________________________________________________________________________\n");
             pause();
             clear();
-            System.out.println(
-                    "Each square may contain a purchasable scam website (generates income),");
-            System.out.println(
-                    "chance card, or action space. The game ends when all players are out of money\nor the fixed number of turns finish and the game ends on its own.");
-            System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\"");
-            System.out.println("\t  < You will make choices. Your choices will impact your end result >");
-            pause();
-            clear();
-            // Sets number of players
+
+            // Displays new or load game
             invalidInput = false;
             do {
-                displayMenu(3, invalidInput);
-                numOfPlayers = input.nextInt();
+                displayMenu(1, invalidInput);
+                ans = input.nextInt();
                 input.nextLine();
-                if (ans != 2 || ans != 3 || ans != 4) {
+                if (ans != 1 || ans != 2) {
                     invalidInput = true;
                 }
-            } while (numOfPlayers != 2 && numOfPlayers != 3 && numOfPlayers != 4);
+            } while (ans != 1 && ans != 2);
 
-            playersAvailable = numOfPlayers;
+            // New or load
+            if (ans == 1) { // New game: Setup variables intialized here
+                // General Setup variables
+                roundNum = 0;
+                clear();
+                System.out.println("We live in a world where everyone has the potential to be a hacker");
+                System.out
+                        .println(
+                                "for good and bad. Or perhaps you won't do anything? Yet we continue to\nlive in a world where we need money...");
+                pause();
+                clear();
+                System.out.println(
+                        "Each square may contain a purchasable scam website (generates income),");
+                System.out.println(
+                        "chance card, or action space. The game ends when all players are out of money\nor the fixed number of turns finish and the game ends on its own.");
+                System.out.println("\nTo win; 1) All players except one must be bankrupt, or 2) Play out the 12 rounds");
+                        pause();
+                clear();
+                System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\"");
+                System.out.println("\t  < You will make choices. Your choices will impact your end result >");
+                pause();
+                clear();
+                // Sets number of players
+                invalidInput = false;
+                do {
+                    displayMenu(3, invalidInput);
+                    numOfPlayers = input.nextInt();
+                    input.nextLine();
+                    if (ans != 2 || ans != 3 || ans != 4) {
+                        invalidInput = true;
+                    }
+                } while (numOfPlayers != 2 && numOfPlayers != 3 && numOfPlayers != 4);
 
-            if (numOfPlayers >= 2) {
-                System.out.print("Enter name of Player 1: ");
-                stringAns = input.nextLine();
-                p1.setName(stringAns);
-                p1.setPlayerNum(1);
-                System.out.print("Enter name of Player 2: ");
-                stringAns = input.nextLine();
-                p2.setName(stringAns);
-                p2.setPlayerNum(2);
-                if (numOfPlayers >= 3) {
-                    System.out.print("Enter name of Player 3: ");
+                playersAvailable = numOfPlayers;
+
+                if (numOfPlayers >= 2) {
+                    System.out.print("Enter name of Player 1: ");
                     stringAns = input.nextLine();
-                    p3.setName(stringAns);
-                    p3.setPlayerNum(3);
-                    if (numOfPlayers >= 4) {
-                        System.out.print("Enter name of Player 4: ");
+                    p1.setName(stringAns);
+                    p1.setPlayerNum(1);
+                    System.out.print("Enter name of Player 2: ");
+                    stringAns = input.nextLine();
+                    p2.setName(stringAns);
+                    p2.setPlayerNum(2);
+                    if (numOfPlayers >= 3) {
+                        System.out.print("Enter name of Player 3: ");
                         stringAns = input.nextLine();
-                        p4.setName(stringAns);
-                        p4.setPlayerNum(4);
+                        p3.setName(stringAns);
+                        p3.setPlayerNum(3);
+                        if (numOfPlayers >= 4) {
+                            System.out.print("Enter name of Player 4: ");
+                            stringAns = input.nextLine();
+                            p4.setName(stringAns);
+                            p4.setPlayerNum(4);
+                        }
                     }
                 }
-            }
 
-            // Chance Cards - Array
-            int[] chanceArrFill = { 0, 1, 2, 3, 4, 5, 6, 7 };
-            // Shuffles order using random in preparation for queue usage
-            for (int i = 0; i < chanceArrFill.length; i++) {
-                // swap two numbers (i marker and random)
-                int pick = rand.nextInt(8); // Picks random point to swap with
-                int temp = chanceArrFill[pick]; // Temp variable holds random number from array
-                chanceArrFill[pick] = chanceArrFill[i];
-                chanceArrFill[i] = temp;
-            }
-            for (int i = 0; i < chanceArrFill.length; i++) {
-                chanceArr.enqueue(chanceArrFill[i]);
-            }
-        } else if (ans == 2) { // Load game (use file reading)
-            existingLoad = false;
-            File textFile = new File(fileDirectory);
-            FileReader in;
-            BufferedReader readFile;
-            String line;
+                // Chance Cards - Array
+                int[] chanceArrFill = { 0, 1, 2, 3, 4, 5, 6, 7 };
+                // Shuffles order using random in preparation for queue usage
+                for (int i = 0; i < chanceArrFill.length; i++) {
+                    // swap two numbers (i marker and random)
+                    int pick = rand.nextInt(8); // Picks random point to swap with
+                    int temp = chanceArrFill[pick]; // Temp variable holds random number from array
+                    chanceArrFill[pick] = chanceArrFill[i];
+                    chanceArrFill[i] = temp;
+                }
+                for (int i = 0; i < chanceArrFill.length; i++) {
+                    chanceArr.enqueue(chanceArrFill[i]);
+                }
+            } else if (ans == 2) { // Load game (use file reading)
+                existingLoad = false;
+                File textFile = new File(fileDirectory);
+                FileReader in;
+                BufferedReader readFile;
+                String line;
 
-            try {
-                in = new FileReader(fileDirectory);
-                readFile = new BufferedReader(in);
-                int count = 0;
-                // Goes through all lines until no more
-                while ((line = readFile.readLine()) != null) {
+                try {
+                    in = new FileReader(fileDirectory);
+                    readFile = new BufferedReader(in);
+                    int count = 0;
+                    // Goes through all lines until no more
+                    while ((line = readFile.readLine()) != null) {
 
-                    if (count == 0) {
-                        // General: Num of players, players available, roundNum
-                        String[] values = line.split(","); // Splits after comma
-                        numOfPlayers = Integer.parseInt(values[0]);
-                        playersAvailable = Integer.parseInt(values[1]);
-                        roundNum = Integer.parseInt(values[2]);
+                        if (count == 0) {
+                            // General: Num of players, players available, roundNum
+                            String[] values = line.split(","); // Splits after comma
+                            numOfPlayers = Integer.parseInt(values[0]);
+                            playersAvailable = Integer.parseInt(values[1]);
+                            roundNum = Integer.parseInt(values[2]);
 
-                        count++; // Moves to next line
-                    } else if (count == 1) {
-                        // General: Chance card array
-                        String[] values = line.split(",");
-                        for (int i = 0; i < values.length; i++) {
-                            chanceArr.enqueue(Integer.parseInt(values[i]));
-                        }
-                        count++;
-                    } else if (count == 2) {
-                        // All board information for all spaces
-                        if (line.equals("") == false) {
+                            count++; // Moves to next line
+                        } else if (count == 1) {
+                            // General: Chance card array
                             String[] values = line.split(",");
-                            int commaCount = 0;
-                            for (int i = 0; i < board.length; i++) { // 24 Available spaces
-                                for (int j = 0; j < board[i].length; j++) {
-                                    // Sets info at board space
-                                    board[i][j].setOwnedStatus(Integer.parseInt(values[commaCount]));
-                                    commaCount++; // Goes through each known
+                            for (int i = 0; i < values.length; i++) {
+                                chanceArr.enqueue(Integer.parseInt(values[i]));
+                            }
+                            count++;
+                        } else if (count == 2) {
+                            // All board information for all spaces
+                            if (line.equals("") == false) {
+                                String[] values = line.split(",");
+                                int commaCount = 0;
+                                for (int i = 0; i < board.length; i++) { // 24 Available spaces
+                                    for (int j = 0; j < board[i].length; j++) {
+                                        // Sets info at board space
+                                        board[i][j].setOwnedStatus(Integer.parseInt(values[commaCount]));
+                                        commaCount++; // Goes through each known
+                                    }
                                 }
+
+                                count++; // Moves to next line
                             }
+                        } else if (count == 3) { // Player 1 - Assigns all existing variables
+                            if (line.equals("") == false) {
+                                String[] variables = line.split("/");
 
-                            count++; // Moves to next line
-                        }
-                    } else if (count == 3) { // Player 1 - Assigns all existing variables
-                        if (line.equals("") == false) {
-                            String[] variables = line.split("/");
+                                String[] arrString = variables[1].split(",");
+                                int[] arrInt = new int[17];
+                                for (int i = 0; i < arrInt.length; i++) {
+                                    arrInt[i] = Integer.parseInt(arrString[i]);
+                                }
 
-                            String[] arrString = variables[1].split(",");
-                            int[] arrInt = new int[17];
-                            for (int i = 0; i < arrInt.length; i++) {
-                                arrInt[i] = Integer.parseInt(arrString[i]);
+                                String[] values = variables[0].split(",");
+                                p1.setInfo(values[0], Integer.parseInt(values[1]),
+                                        Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                                        Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                                        Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+
+                                count++; // Moves to next line
                             }
+                        } else if (count == 4) { // Player 2 - Assigns all existing variables
+                            if (line.equals("") == false) {
+                                String[] variables = line.split("/");
 
-                            String[] values = variables[0].split(",");
-                            p1.setInfo(values[0], Integer.parseInt(values[1]),
-                                    Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                                    Integer.parseInt(values[4]), Integer.parseInt(values[5]),
-                                    Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+                                String[] arrString = variables[1].split(",");
+                                int[] arrInt = new int[17];
+                                for (int i = 0; i < arrInt.length; i++) {
+                                    arrInt[i] = Integer.parseInt(arrString[i]);
+                                }
 
-                            count++; // Moves to next line
-                        }
-                    } else if (count == 4) { // Player 2 - Assigns all existing variables
-                        if (line.equals("") == false) {
-                            String[] variables = line.split("/");
+                                String[] values = variables[0].split(",");
+                                p2.setInfo(values[0], Integer.parseInt(values[1]),
+                                        Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                                        Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                                        Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
 
-                            String[] arrString = variables[1].split(",");
-                            int[] arrInt = new int[17];
-                            for (int i = 0; i < arrInt.length; i++) {
-                                arrInt[i] = Integer.parseInt(arrString[i]);
+                                count++; // Moves to next line
                             }
+                        } else if (count == 5) { // Player 3 - Assigns all existing variables
+                            if (line.equals("") == false) {
+                                String[] variables = line.split("/");
 
-                            String[] values = variables[0].split(",");
-                            p2.setInfo(values[0], Integer.parseInt(values[1]),
-                                    Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                                    Integer.parseInt(values[4]), Integer.parseInt(values[5]),
-                                    Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+                                String[] arrString = variables[1].split(",");
+                                int[] arrInt = new int[17];
+                                for (int i = 0; i < arrInt.length; i++) {
+                                    arrInt[i] = Integer.parseInt(arrString[i]);
+                                }
 
-                            count++; // Moves to next line
-                        }
-                    } else if (count == 5) { // Player 3 - Assigns all existing variables
-                        if (line.equals("") == false) {
-                            String[] variables = line.split("/");
+                                String[] values = variables[0].split(",");
+                                p3.setInfo(values[0], Integer.parseInt(values[1]),
+                                        Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                                        Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                                        Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
 
-                            String[] arrString = variables[1].split(",");
-                            int[] arrInt = new int[17];
-                            for (int i = 0; i < arrInt.length; i++) {
-                                arrInt[i] = Integer.parseInt(arrString[i]);
+                                count++; // Moves to next line
                             }
+                        } else if (count == 6) { // Player 4 - Assigns all existing variables
+                            if (line.equals("") == false) {
+                                String[] variables = line.split("/");
 
-                            String[] values = variables[0].split(",");
-                            p3.setInfo(values[0], Integer.parseInt(values[1]),
-                                    Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                                    Integer.parseInt(values[4]), Integer.parseInt(values[5]),
-                                    Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
+                                String[] arrString = variables[1].split(",");
+                                int[] arrInt = new int[17];
+                                for (int i = 0; i < arrInt.length; i++) {
+                                    arrInt[i] = Integer.parseInt(arrString[i]);
+                                }
 
-                            count++; // Moves to next line
-                        }
-                    } else if (count == 6) { // Player 4 - Assigns all existing variables
-                        if (line.equals("") == false) {
-                            String[] variables = line.split("/");
+                                String[] values = variables[0].split(",");
+                                p4.setInfo(values[0], Integer.parseInt(values[1]),
+                                        Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                                        Integer.parseInt(values[4]), Integer.parseInt(values[5]),
+                                        Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
 
-                            String[] arrString = variables[1].split(",");
-                            int[] arrInt = new int[17];
-                            for (int i = 0; i < arrInt.length; i++) {
-                                arrInt[i] = Integer.parseInt(arrString[i]);
+                                count++; // Moves to next line
                             }
-
-                            String[] values = variables[0].split(",");
-                            p4.setInfo(values[0], Integer.parseInt(values[1]),
-                                    Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                                    Integer.parseInt(values[4]), Integer.parseInt(values[5]),
-                                    Integer.parseInt(values[6]), Boolean.parseBoolean(values[7]), arrInt);
-
-                            count++; // Moves to next line
                         }
+
                     }
-
+                    readFile.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    System.out.println("File does not exist or could not be found");
+                    System.out.println("FileNotFoundException: " + e.getMessage());
+                } catch (IOException e) {
+                    System.out.println("Problem reading file.");
+                    System.out.println("IOException: " + e.getMessage());
                 }
-                readFile.close();
-                in.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("File does not exist or could not be found");
-                System.out.println("FileNotFoundException: " + e.getMessage());
-            } catch (IOException e) {
-                System.out.println("Problem reading file.");
-                System.out.println("IOException: " + e.getMessage());
+
+                // Updates icons (because file reading won't support)
+                setup(2, board);
+                System.out.println("Loading Complete!");
+                pause();
             }
 
-            // Updates icons (because file reading won't support)
-            setup(2, board);
-            System.out.println("Loading Complete!");
-            pause();
-        }
+            // For loop runs for n turns per number of player
+            playerTurn = p1; // Starts first move
+            clear();
+            // Allows player to use the turn-based cycle of the game
 
-        // For loop runs for n turns per number of player
-        playerTurn = p1; // Starts first move
-        clear();
-        // Allows player to use the turn-based cycle of the game
-
+<<<<<<< Updated upstream
         for (; roundNum < 10; roundNum++) { // 15 rounds (from left off)
             // Allow the turns to continue and move through
             if (numOfPlayers >= 2) {
@@ -310,118 +313,145 @@ public class Main {
                     p2.sortOwnedSpace(p2.getOwnedSpace(), p2.getOwnedSpace().length);
                 }
                 if (numOfPlayers >= 3) {
+=======
+            for (; roundNum < 12; roundNum++) { // 12 rounds (from left off)
+                // Allow the turns to continue and move through
+                if (numOfPlayers >= 2) {
+>>>>>>> Stashed changes
                     if (playersAvailable != 1) {
-                        displayBoard(board, p3);
-                        playersAvailable = playTurn(p3, board, p1, p2, p4, chanceArr, playersAvailable, fileDirectory,
+                        displayBoard(board, p1);
+                        playersAvailable = playTurn(p1, board, p2, p3, p4, chanceArr, playersAvailable, fileDirectory,
                                 numOfPlayers, roundNum, existingLoad);
-                        p3.sortOwnedSpace(p3.getOwnedSpace(), p3.getOwnedSpace().length);
+                        p1.sortOwnedSpace(p1.getOwnedSpace(), p1.getOwnedSpace().length); // Sort requires player's
+                                                                                          // array
+                                                                                          // and array size
+                        existingLoad = true;
                     }
-                    if (numOfPlayers >= 4) {
+                    if (playersAvailable != 1) {
+                        displayBoard(board, p2);
+                        playersAvailable = playTurn(p2, board, p1, p3, p4, chanceArr, playersAvailable, fileDirectory,
+                                numOfPlayers, roundNum, existingLoad);
+                        p2.sortOwnedSpace(p2.getOwnedSpace(), p2.getOwnedSpace().length);
+                    }
+                    if (numOfPlayers >= 3) {
                         if (playersAvailable != 1) {
-                            displayBoard(board, p4);
-                            playersAvailable = playTurn(p4, board, p1, p2, p3, chanceArr, playersAvailable,
-                                    fileDirectory, numOfPlayers, roundNum, existingLoad);
-                            p4.sortOwnedSpace(p4.getOwnedSpace(), p4.getOwnedSpace().length);
+                            displayBoard(board, p3);
+                            playersAvailable = playTurn(p3, board, p1, p2, p4, chanceArr, playersAvailable,
+                                    fileDirectory,
+                                    numOfPlayers, roundNum, existingLoad);
+                            p3.sortOwnedSpace(p3.getOwnedSpace(), p3.getOwnedSpace().length);
+                        }
+                        if (numOfPlayers >= 4) {
+                            if (playersAvailable != 1) {
+                                displayBoard(board, p4);
+                                playersAvailable = playTurn(p4, board, p1, p2, p3, chanceArr, playersAvailable,
+                                        fileDirectory, numOfPlayers, roundNum, existingLoad);
+                                p4.sortOwnedSpace(p4.getOwnedSpace(), p4.getOwnedSpace().length);
+                            }
                         }
                     }
                 }
             }
-        }
 
-        // Game Ending...
-        clear();
-        System.out.println("_______________________________________________________________________________");
+            // Game Ending...
+            clear();
+            System.out.println("_______________________________________________________________________________");
 
-        // Sells all properties
-        if (numOfPlayers >= 2) {
-            sellAll(board, p1);
-            sellAll(board, p2);
-            if (numOfPlayers >= 3) {
-                sellAll(board, p3);
-                if (numOfPlayers >= 4) {
-                    sellAll(board, p4);
+            // Sells all properties
+            if (numOfPlayers >= 2) {
+                sellAll(board, p1);
+                sellAll(board, p2);
+                if (numOfPlayers >= 3) {
+                    sellAll(board, p3);
+                    if (numOfPlayers >= 4) {
+                        sellAll(board, p4);
+                    }
                 }
             }
-        }
 
-        // Left-Right, is loser to winner
-        Player[] moneyStandings = new Player[numOfPlayers];
-        Player[] ethicalStandings = new Player[numOfPlayers];
+            // Left-Right, is loser to winner
+            Player[] moneyStandings = new Player[numOfPlayers];
+            Player[] ethicalStandings = new Player[numOfPlayers];
 
-        // Fills both arrays with the players
-        if (numOfPlayers >= 2) {
-            moneyStandings[0] = p1;
-            moneyStandings[1] = p2;
-            ethicalStandings[0] = p1;
-            ethicalStandings[1] = p2;
-            if (numOfPlayers >= 3) {
-                moneyStandings[2] = p3;
-                ethicalStandings[2] = p3;
-                if (numOfPlayers >= 4) {
-                    moneyStandings[3] = p4;
-                    ethicalStandings[3] = p4;
+            // Fills both arrays with the players
+            if (numOfPlayers >= 2) {
+                moneyStandings[0] = p1;
+                moneyStandings[1] = p2;
+                ethicalStandings[0] = p1;
+                ethicalStandings[1] = p2;
+                if (numOfPlayers >= 3) {
+                    moneyStandings[2] = p3;
+                    ethicalStandings[2] = p3;
+                    if (numOfPlayers >= 4) {
+                        moneyStandings[3] = p4;
+                        ethicalStandings[3] = p4;
+                    }
                 }
             }
-        }
 
-        // Sorts money array
-        num = moneyStandings.length;
-        for (int i = 0; i < (num - 1); i++) { // Anchors at start
-            for (int j = 0; j < (num - i - 1); j++) { // The running sort
-                if (moneyStandings[j].getBalance() < moneyStandings[j + 1].getBalance()) { // If left player has greater
-                                                                                           // balance, swap
-                    Player temp = moneyStandings[j];
-                    moneyStandings[j] = moneyStandings[j + 1];
-                    moneyStandings[j + 1] = temp;
+            // Sorts money array
+            num = moneyStandings.length;
+            for (int i = 0; i < (num - 1); i++) { // Anchors at start
+                for (int j = 0; j < (num - i - 1); j++) { // The running sort
+                    if (moneyStandings[j].getBalance() < moneyStandings[j + 1].getBalance()) { // If left player has
+                                                                                               // greater
+                                                                                               // balance, swap
+                        Player temp = moneyStandings[j];
+                        moneyStandings[j] = moneyStandings[j + 1];
+                        moneyStandings[j + 1] = temp;
+                    }
                 }
             }
-        }
 
-        // Sorts ethical array
-        num = ethicalStandings.length;
-        for (int i = 0; i < (num - 1); i++) { // Anchors at start
-            for (int j = 0; j < (num - i - 1); j++) { // The running sort
-                if (ethicalStandings[j].getEthicalRating() < ethicalStandings[j + 1].getEthicalRating()) { // If left
-                                                                                                           // player has
-                                                                                                           // greater
-                                                                                                           // rating,
-                                                                                                           // swap
-                    Player temp = ethicalStandings[j];
-                    ethicalStandings[j] = ethicalStandings[j + 1];
-                    ethicalStandings[j + 1] = temp;
+            // Sorts ethical array
+            num = ethicalStandings.length;
+            for (int i = 0; i < (num - 1); i++) { // Anchors at start
+                for (int j = 0; j < (num - i - 1); j++) { // The running sort
+                    if (ethicalStandings[j].getEthicalRating() < ethicalStandings[j + 1].getEthicalRating()) { // If
+                                                                                                               // left
+                                                                                                               // player
+                                                                                                               // has
+                                                                                                               // greater
+                                                                                                               // rating,
+                                                                                                               // swap
+                        Player temp = ethicalStandings[j];
+                        ethicalStandings[j] = ethicalStandings[j + 1];
+                        ethicalStandings[j + 1] = temp;
+                    }
                 }
             }
-        }
 
-        // Prints results
-        slowText("\n\t\t\t\t   < Results >\n");
-        sleep(sleepTimer);
-        System.out.println("\tMost Money: " + moneyStandings[0].getName() + " ($" + moneyStandings[0].getBalance() + ")"
-                + "\t\t|\t Highest Ethical Standing: " + ethicalStandings[0].getName() + " ("
-                + ethicalStandings[0].getEthicalRating() + ")");
-
-        if (numOfPlayers >= 2) {
+            // Prints results
+            slowText("\n\t\t\t\t   < Results >\n");
             sleep(sleepTimer);
-            System.out.println("\t(2nd) " + moneyStandings[1].getName() + " ($" + moneyStandings[1].getBalance() + ")"
-                    + "\t\t|\t (2nd) " + ethicalStandings[1].getName() + " (" + ethicalStandings[1].getEthicalRating()
-                    + ")");
-            if (numOfPlayers >= 3) {
+            System.out.println(
+                    "\tMost Money: " + moneyStandings[0].getName() + " ($" + moneyStandings[0].getBalance() + ")"
+                            + "\t\t|\t Highest Ethical Standing: " + ethicalStandings[0].getName() + " ("
+                            + ethicalStandings[0].getEthicalRating() + ")");
+
+            if (numOfPlayers >= 2) {
                 sleep(sleepTimer);
-                System.out.println("\t(3rd) " + moneyStandings[2].getName() + " ($" + moneyStandings[2].getBalance()
-                        + ")" + "\t\t|\t (3rd) " + ethicalStandings[2].getName() + " ("
-                        + ethicalStandings[2].getEthicalRating() + ")");
-                if (numOfPlayers >= 4) {
+                System.out
+                        .println("\t(2nd) " + moneyStandings[1].getName() + " ($" + moneyStandings[1].getBalance() + ")"
+                                + "\t\t|\t (2nd) " + ethicalStandings[1].getName() + " ("
+                                + ethicalStandings[1].getEthicalRating()
+                                + ")");
+                if (numOfPlayers >= 3) {
                     sleep(sleepTimer);
-                    System.out.println("\t(4th) " + moneyStandings[3].getName() + " ($" + moneyStandings[3].getBalance()
-                            + ")" + "\t\t|\t (4th) " + ethicalStandings[3].getName() + " ("
-                            + ethicalStandings[3].getEthicalRating() + ")");
+                    System.out.println("\t(3rd) " + moneyStandings[2].getName() + " ($" + moneyStandings[2].getBalance()
+                            + ")" + "\t\t|\t (3rd) " + ethicalStandings[2].getName() + " ("
+                            + ethicalStandings[2].getEthicalRating() + ")");
+                    if (numOfPlayers >= 4) {
+                        sleep(sleepTimer);
+                        System.out.println(
+                                "\t(4th) " + moneyStandings[3].getName() + " ($" + moneyStandings[3].getBalance()
+                                        + ")" + "\t\t|\t (4th) " + ethicalStandings[3].getName() + " ("
+                                        + ethicalStandings[3].getEthicalRating() + ")");
+                    }
                 }
             }
-        }
-        slowText("\n\n");
+            slowText("\n\n");
 
-        // CURRENT:
-        
             displayMenu(14, invalidInput);
             numAns = input.nextInt();
             input.nextLine();
@@ -429,18 +459,16 @@ public class Main {
                 invalidInput = true;
             }
 
-            if (numAns == 1){ //Restart game
-                for (int i = 0; i < 8; i ++){
+            if (numAns == 1) { // Restart game
+                for (int i = 0; i < 8; i++) {
                     chanceArr.dequeue();
                 }
-                //Reset all players
+                // Reset all players
                 p1.reset();
                 p2.reset();
                 p3.reset();
                 p4.reset();
             }
-
-
 
         } while (numAns != 2);
         clear();
@@ -552,7 +580,7 @@ public class Main {
         } else if (menuNum == 13) {
             System.out.println("(#) Sell the corresponding website");
             System.out.println("(0) Exit (WARNING: If you exit with negative balance here, you will FORFEIT)");
-        }else if (menuNum == 14) {
+        } else if (menuNum == 14) {
             System.out.println("(1) Play Again");
             System.out.println("(2) Exit");
         }
