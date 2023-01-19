@@ -76,15 +76,14 @@ public class Main {
             invalidInput = false;
             do {
                 displayMenu(1, invalidInput);
-                ans = input.nextInt();
-                input.nextLine();
-                if (ans != 1 || ans != 2) {
+                stringAns = input.nextLine();
+                if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
                     invalidInput = true;
                 }
-            } while (ans != 1 && ans != 2);
+            } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
 
             // New or load
-            if (ans == 1) { // New game: Setup variables intialized here
+            if (stringAns.equals("1")) { // New game: Setup variables intialized here
                 // General Setup variables
                 roundNum = 0;
                 clear();
@@ -109,12 +108,13 @@ public class Main {
                 invalidInput = false;
                 do {
                     displayMenu(3, invalidInput);
-                    numOfPlayers = input.nextInt();
-                    input.nextLine();
-                    if (ans != 2 || ans != 3 || ans != 4) {
+                    stringAns = input.nextLine();
+                    if (stringAns.equals("2") == false || stringAns.equals("3") == false || stringAns.equals("4") == false) {
                         invalidInput = true;
                     }
-                } while (numOfPlayers != 2 && numOfPlayers != 3 && numOfPlayers != 4);
+                } while (stringAns.equals("2") == false && stringAns.equals("3") == false && stringAns.equals("4") == false);
+
+                numOfPlayers = Integer.parseInt(stringAns);
 
                 playersAvailable = numOfPlayers;
 
@@ -154,7 +154,7 @@ public class Main {
                 for (int i = 0; i < chanceArrFill.length; i++) {
                     chanceArr.enqueue(chanceArrFill[i]);
                 }
-            } else if (ans == 2) { // Load game (use file reading)
+            } else if (stringAns.equals("2")) { // Load game (use file reading)
                 existingLoad = false;
                 File textFile = new File(fileDirectory);
                 FileReader in;
@@ -430,16 +430,17 @@ public class Main {
                     }
                 }
             }
-            slowText("\n\n");
+            slowText("\n");
 
+            invalidInput = false;
+            do{
             displayMenu(14, invalidInput);
-            numAns = input.nextInt();
-            input.nextLine();
-            if (numAns != 1 || numAns != 2) {
+            stringAns = input.nextLine();
+            if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
                 invalidInput = true;
             }
 
-            if (numAns == 1) { // Restart game
+            if (stringAns.equals("1")) { // Restart game
                 for (int i = 0; i < 8; i++) {
                     chanceArr.dequeue();
                 }
@@ -449,8 +450,9 @@ public class Main {
                 p3.reset();
                 p4.reset();
             }
+        }while(stringAns.equals("1") == false && stringAns.equals("2") == false);
 
-        } while (numAns != 2);
+        } while (stringAns.equals("2") == false);
         clear();
         slowText("\n\n\t\t\tHave a great day!\n\n\n\n");
 
@@ -531,13 +533,13 @@ public class Main {
             System.out.println("(1) Roll Dice");
             System.out.println("(2) Pay $300 to get out");
         } else if (menuNum == 5) {
-            System.out.println("(1) Execute a cloud-based cyberattack on a bank for money");
+            System.out.println("\n(1) Execute a cloud-based cyberattack on a bank for money");
             System.out.println("(2) Leave an anonymous note about their vulnerabilities");
         } else if (menuNum == 6) {
-            System.out.println("(1) Sell the stolen data on the black market");
+            System.out.println("\n(1) Sell the stolen data on the black market");
             System.out.println("(2) Delete all copies of it from your system and forget about it");
         } else if (menuNum == 7) {
-            System.out.println("(1) Infect tons of computers for cryptobots to mine for money!");
+            System.out.println("\n(1) Infect tons of computers for cryptobots to mine for money!");
             System.out.println("(2) Don't do it for now");
         } else if (menuNum == 8) {
             System.out.println("(1) Purchase");
@@ -561,7 +563,7 @@ public class Main {
             System.out.println("(#) Sell the corresponding website");
             System.out.println("(0) Exit (WARNING: If you exit with negative balance here, you will FORFEIT)");
         } else if (menuNum == 14) {
-            System.out.println("(1) Play Again");
+            System.out.println("\n(1) Play Again");
             System.out.println("(2) Exit");
         }
 
@@ -625,6 +627,7 @@ public class Main {
         int num = rollDice();
         boolean invalidInput;
         int numAns;
+        String stringAns;
         Scanner input = new Scanner(System.in);
         Random rand = new Random();
 
@@ -639,12 +642,12 @@ public class Main {
                     invalidInput = false;
                     do {
                         displayMenu(4, invalidInput);
-                        numAns = input.nextInt();
-                        input.nextLine();
-                        if (numAns != 1 || numAns != 2) {
+                        stringAns = input.nextLine();
+                        if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
                             invalidInput = true;
                         }
-                    } while (numAns != 1 && numAns != 2);
+                    } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
+                    numAns = Integer.parseInt(stringAns); //Converts
 
                     if (numAns == 1) { // Roll dice
                         // Dice rolling must equate to the perfect number.
@@ -747,12 +750,12 @@ public class Main {
                                 invalidInput = false;
                                 do {
                                     displayMenu(5, invalidInput);
-                                    numAns = input.nextInt();
-                                    input.nextLine();
-                                    if (numAns != 1 || numAns != 2) {
+                                    stringAns = input.nextLine();
+                                    if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
                                         invalidInput = true;
                                     }
-                                } while (numAns != 1 && numAns != 2);
+                                } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
+                                numAns = Integer.parseInt(stringAns);
 
                                 if (numAns == 1) { // Hack for money
                                     player.modifyBalance(400);
@@ -781,48 +784,46 @@ public class Main {
                                 invalidInput = false;
                                 do {
                                     displayMenu(6, invalidInput);
-                                    numAns = input.nextInt();
-                                    input.nextLine();
-                                    if (numAns != 1 || numAns != 2) {
+                                    stringAns = input.nextLine();
+                                    if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
                                         invalidInput = true;
                                     }
-                                } while (numAns != 1 && numAns != 2);
-
+                                } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
+                                numAns = Integer.parseInt(stringAns);
                                 if (numAns == 1) { // Hack for money
                                     player.modifyBalance(400);
-                                    System.out.println("You got $400 dollars for the stolen data!");
+                                    System.out.println("\nYou got $400 dollars for the stolen data!");
                                     player.modifyEthicalRating(-40);
                                 } else if (numAns == 2) { // Not hack for money, boosts ethic standing
                                     player.modifyEthicalRating(85);
                                     System.out
-                                            .println("You deleted the copies...CLICK! Maybe that was the right move?");
+                                            .println("\nYou deleted the copies...CLICK! Maybe that was the right move?");
                                 }
 
                                 break;
                             case 5:
                                 System.out.println("\t\t\t< Chance Card 6 >");
                                 System.out.println(
-                                        "You learned how to remotely infect other computers with malware and make them mine crypto!");
-                                System.out.println("You also learn it is illegal. What should we do now?");
+                                        "\nYou learned how to remotely infect other computers with malware and make them mine crypto!");
+                                System.out.println("\nYou also learn it is illegal. What should we do now?");
 
                                 invalidInput = false;
                                 do {
                                     displayMenu(7, invalidInput);
-                                    numAns = input.nextInt();
-                                    input.nextLine();
-                                    if (numAns != 1 || numAns != 2) {
+                                    stringAns = input.nextLine();
+                                    if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
                                         invalidInput = true;
                                     }
-                                } while (numAns != 1 && numAns != 2);
-
+                                } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
+                                numAns = Integer.parseInt(stringAns);
                                 if (numAns == 1) { // Hack for money
                                     player.modifyBalance(400);
-                                    System.out.println("You have a crypto machine making you $50 a turn! (stackable)");
+                                    System.out.println("\nYou have a crypto machine making you $50 a turn! (stackable)");
                                     player.modifyEthicalRating(-50);
                                 } else if (numAns == 2) { // Not hack for money, boosts ethic standing
                                     player.modifyEthicalRating(110);
                                     System.out.println(
-                                            "You chose not to do that. Good on you, you're you'll find another way to find money.");
+                                            "\nYou chose not to do that. Good on you, you're you'll find another way to find money.");
                                 }
 
                                 break;
@@ -912,13 +913,12 @@ public class Main {
                                                 invalidInput = false;
                                                 do {
                                                     displayMenu(9, invalidInput);
-                                                    numAns = input.nextInt();
-                                                    input.nextLine();
-                                                    if (numAns != 1 || numAns != 2) {
+                                                    stringAns = input.nextLine();
+                                                    if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
                                                         invalidInput = true;
                                                     }
-                                                } while (numAns != 1 && numAns != 2);
-
+                                                } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
+                                                numAns = Integer.parseInt(stringAns);
                                                 if (numAns == 1) { // sell website
                                                     System.out.println(
                                                             board[i][j].getName()
@@ -965,13 +965,12 @@ public class Main {
                                             invalidInput = false;
                                             do {
                                                 displayMenu(8, invalidInput);
-                                                numAns = input.nextInt();
-                                                input.nextLine();
-                                                if (numAns != 1 || numAns != 2) {
+                                                stringAns = input.nextLine();
+                                                if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
                                                     invalidInput = true;
                                                 }
-                                            } while (numAns != 1 && numAns != 2);
-
+                                            } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
+                                            numAns = Integer.parseInt(stringAns);
                                             if (numAns == 1 && player.getBalance() >= board[i][j].getBuyValue()) { // Want
                                                                                                                    // to
                                                                                                                    // buy
@@ -979,9 +978,9 @@ public class Main {
                                                                                                                    // can
                                                                                                                    // afford
                                                 System.out.println(
-                                                        "You have sucessfully bought and now run "
+                                                        "\n\t< You have successfully bought and now run "
                                                                 + board[i][j].getName()
-                                                                + ".");
+                                                                + " >.");
                                                 player.modifyBalance(-1 * board[i][j].getBuyValue()); // Deducts money
                                                 board[i][j].setOwnedStatus(player.getPlayerNum()); // Sets property
                                                                                                    // ownership to
@@ -1026,32 +1025,31 @@ public class Main {
                 System.out.println(
                         player.getName() + "'s Post-Roll Actions Menu\t| (Balance: $" + player.getBalance() + ")");
                 displayMenu(10, invalidInput);
-                numAns = input.nextInt();
-                input.nextLine();
-                if (numAns != 1 && numAns != 2 && numAns != 3 && numAns != 4 && numAns != 5) {
+                stringAns = input.nextLine();
+                if (stringAns.equals("1") == false && stringAns.equals("2") == false && stringAns.equals("3") == false && stringAns.equals("4") == false && stringAns.equals("5") == false) {
                     invalidInput = true;
                 }
 
-                if (numAns == 1) { // See own inventory
+                if (stringAns.equals("1")) { // See own inventory
                     clear();
                     viewInventory(board, player);
                     pause();
                     clear();
-                } else if (numAns == 2) { // Search for a specific property
+                    invalidInput = false;
+                } else if (stringAns.equals("2")) { // Search for a specific property
                     clear();
                     invalidInput = false;
                     do {
-
                         displayBoard(board, player);
                         displayDirectory(board);
 
                         displayMenu(11, invalidInput);
-                        numAns = input.nextInt();
-                        input.nextLine();
-                        if (numAns < 0 || numAns > 18) { // Checks if it's invalid number
+                        stringAns = input.nextLine();
+                        // Checks if it's invalid number (valid inclusive: 1-17)
+                        if (stringAns.equals("1") == false && stringAns.equals("2") == false && stringAns.equals("3") == false && stringAns.equals("4") == false && stringAns.equals("5") == false && stringAns.equals("6") == false && stringAns.equals("7") == false && stringAns.equals("8") == false && stringAns.equals("9") == false && stringAns.equals("10") == false && stringAns.equals("11") == false && stringAns.equals("12") == false && stringAns.equals("13") == false && stringAns.equals("14") == false && stringAns.equals("15") == false && stringAns.equals("16") == false && stringAns.equals("17") == false) { 
                             invalidInput = true;
-                        } else if (numAns != 0) { // Valid num and not -1; search players
-
+                        } else if (stringAns.equals("0") == false) { // Valid num and not -1; search players
+                            numAns = Integer.parseInt(stringAns);
                             // Reassigns numbering locations to match; since the legend and the board spaces
                             // have inconsistent numberings (since board used irregular array and this
                             // counts by alphabet)
@@ -1076,13 +1074,15 @@ public class Main {
 
                         }
 
-                    } while (numAns != 0);
+                    } while (stringAns.equals("0") == false);
                     clear();
-                } else if (numAns == 3) { // Sell a property
+                    invalidInput = false;
+                } else if (stringAns.equals("3")) { // Sell a property
                     // Display all properties and give menu to sell a property
                     invalidInput = false;
                     sellProperty(board, player, 12);
-                } else if (numAns == 4) { // Saves to file
+                    invalidInput = false;
+                } else if (stringAns.equals("4")) { // Saves to file
                     // Checks to make new file or not
                     File dataFile = new File(fileDirectory);
                     if (dataFile.exists()) {
@@ -1132,8 +1132,9 @@ public class Main {
                     }
                     pause();
                     clear();
+                    invalidInput = false;
                 }
-            } while (numAns != 5); // 5 is pass
+            } while (stringAns.equals("5") == false); // 5 is pass
 
             // If balance below 0; must sell properties or forfeit
             if (player.getBalance() <= 0) {
@@ -1244,6 +1245,7 @@ public class Main {
      */
     public static void sellProperty(boardSpace[][] board, Player player, int menuNum) {
         int numAns;
+        String stringAns;
         Scanner input = new Scanner(System.in);
         boolean invalidInput = false;
         do {
@@ -1253,11 +1255,11 @@ public class Main {
                 System.out.println("\t\t\t< DETECTED AS BROKE >");
             }
             displayMenu(menuNum, invalidInput);
-            numAns = input.nextInt();
-            input.nextLine();
-            if (numAns < 0 || numAns > 23) {
+            stringAns = input.nextLine();
+            if (stringAns.equals("1") == false && stringAns.equals("2") == false && stringAns.equals("3") == false && stringAns.equals("4") == false && stringAns.equals("5") == false && stringAns.equals("6") == false && stringAns.equals("7") == false && stringAns.equals("8") == false && stringAns.equals("9") == false && stringAns.equals("10") == false && stringAns.equals("11") == false && stringAns.equals("12") == false && stringAns.equals("13") == false && stringAns.equals("14") == false && stringAns.equals("15") == false && stringAns.equals("16") == false && stringAns.equals("17") == false && stringAns.equals("18") == false && stringAns.equals("19") == false && stringAns.equals("20") == false && stringAns.equals("21") == false && stringAns.equals("22") == false) { 
                 invalidInput = true;
-            } else if (numAns != 0) {
+            } else if (stringAns.equals("0") == false) { //valid non-zero numbers make it here
+                numAns = Integer.parseInt(stringAns);
                 if (player.searchOwnedSpace(numAns, 0)) { // Owns it and will sell right now
                     // Searches thru the map
                     for (int i = 0; i < board.length; i++) {
@@ -1278,7 +1280,7 @@ public class Main {
                     pause();
                 }
             }
-        } while (numAns != 0);
+        } while (stringAns.equals("0") == false);
     }
 
     /*
