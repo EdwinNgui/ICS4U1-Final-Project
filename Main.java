@@ -536,13 +536,13 @@ public class Main {
             System.out.println("(2) Pay $300 to get out");
         } else if (menuNum == 5) {
             System.out.println("\n(1) Execute a cloud-based cyberattack on a bank for money");
-            System.out.println("(2) Leave an anonymous note about their vulnerabilities");
+            System.out.println("(2) Leave an anonymous note about their vulnerabilities\n");
         } else if (menuNum == 6) {
             System.out.println("\n(1) Sell the stolen data on the black market");
-            System.out.println("(2) Delete all copies of it from your system and forget about it");
+            System.out.println("(2) Delete all copies of it from your system and forget about it\n");
         } else if (menuNum == 7) {
             System.out.println("\n(1) Infect tons of computers for cryptobots to mine for money!");
-            System.out.println("(2) Don't do it for now");
+            System.out.println("(2) Don't do it for now\n");
         } else if (menuNum == 8) {
             System.out.println("(1) Purchase");
             System.out.println("(2) Pass");
@@ -764,26 +764,26 @@ public class Main {
                                 if (numAns == 1) { // Hack for money
                                     player.modifyBalance(400);
                                     System.out.println(
-                                            "You got $300 dollars from the attack! A lot less than you expected...");
+                                            "\nYou got $300 dollars from the attack! A lot less than you expected...");
                                     player.modifyEthicalRating(-30);
                                 } else if (numAns == 2) { // Not hack for money, boosts ethic standing
                                     player.modifyEthicalRating(80);
-                                    System.out.println("You left the note...You feel good about yourself");
+                                    System.out.println("\nYou left the note...You feel good about yourself");
                                 }
                                 break;
                             case 3:
                                 System.out.println("\t\t\t< Chance Card 4 >");
                                 System.out.println(
-                                        "Your data got leaked in a data leak from an online store you love shopping at!");
+                                        "\nYour data got leaked in a data leak from an online store you love shopping at!");
                                 System.out.println(
                                         "Looks like you're a victim of \"Credential Reuse\" and a hacker realized you re-use passwords!");
-                                System.out.println("You lost $150 (use different and secure passwords!)");
+                                System.out.println("\nYou lost $150 (use different and secure passwords!)");
                                 player.modifyBalance(-150);
                                 break;
                             case 4:
                                 System.out.println("\t\t\t< Chance Card 5 >");
                                 System.out.println(
-                                        "When testing out your hacking skills for fun, you end up with stolen data after a long session...");
+                                        "\nWhen testing out your hacking skills for fun, you end up with stolen data after a long session...");
 
                                 invalidInput = false;
                                 do {
