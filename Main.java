@@ -59,12 +59,12 @@ public class Main {
             // Introduction
             clear();
             System.out.println(
-                    "__________________________________________________________________________________________\n\n\n\n\n\n\n\n\n");
+                    "__________________________________________________________________________________________\n\n\n\n\n\n");
             System.out.println("Welcome to...\n\n\n\n\n\n\n\n\n\n\n");
             slowText("\t\t█░█ ▄▀█ █▀▀ █▄▀ █▀▀ █▀█ ▀ █▀   █░█░█ █▀█ █▀█ █░░ █▀▄\n");
             slowText("\t\t█▀█ █▀█ █▄▄ █░█ ██▄ █▀▄ ░ ▄█   ▀▄▀▄▀ █▄█ █▀▄ █▄▄ █▄▀");
             System.out.println(
-                    "\n\n\n\n\n\n\n\n\n\n\n\nExpand the console until you can see both horizontal lines above and below the start menu");
+                    "\n\n\n\n\n\n\n\n\n\n\nExpand the console until you can see both horizontal lines above and below the start menu");
             System.out.println("When you see <continue> click \"enter\" to continue\n");
             System.out
                     .println(
