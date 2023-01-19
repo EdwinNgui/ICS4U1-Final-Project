@@ -685,42 +685,7 @@ public class Main {
                 } else {
 
                     System.out.println(" > Roll Dice");
-                    pause();
-
-                    clear();
-                    System.out.println("                  #                   ");
-                    System.out.println("                # # #                ");
-                    System.out.println("             #    #     #             ");
-                    System.out.println("          #       #        #          ");
-                    System.out.println("       #     O    #          #        ");
-                    System.out.println("     #  O         #       O     #       ");
-                    System.out.println("     #     O    ####            #      ");
-                    System.out.println("     #        #        ##       #      ");
-                    System.out.println("     #    ##      O       #     #      ");
-                    System.out.println("     #  #                       #     ");
-                    System.out.println("     ##      O           O    #     ");
-                    System.out.println("          ##      O        #          ");
-                    System.out.println("               ##     ##               ");
-                    System.out.println("                   #               ");
-
-                    sleep(400);
-                    clear();
-                    System.out.println("                   #                               ");
-                    System.out.println("              ##      ###                               ");
-                    System.out.println("        ##       O   O        #                         ");
-                    System.out.println("        #  #       O     ##   #                     ");
-                    System.out.println("        #     ##        ##    #                         ");
-                    System.out.println("        #         # #    O    #                         ");
-                    System.out.println("        #       O  #  O       #                             ");
-                    System.out.println("        # O        #      O   #                          ");
-                    System.out.println("        #          #   O      #          ");
-                    System.out.println("           #       #       #                          ");
-                    System.out.println("                #  #   #                     ");
-                    System.out.println("                   #                     ");
-
-                    sleep(400);
-                    clear();
-
+                    animateDice(0, 0);
                     movePlayer(player, board, num);
                     displayBoard(board, player);
 
@@ -734,83 +699,8 @@ public class Main {
                             }
                         }
                     }
-                    // CURRENT
-//╔╗╚╝═║
                     // Dice Roll Visual 1-6
-                    switch (num) {
-                        case 1:
-                            System.out.println("\n\t\t           ╔═════════════════════╗                            ");
-                            System.out.println("\t\t           ║                     ║                         ");
-                            System.out.println("\t\t           ║                     ║                     ");
-                            System.out.println("\t\t           ║                     ║                         ");
-                            System.out.println("\t\t           ║         ⚪          ║                         ");
-                            System.out.println("\t\t           ║                     ║                             ");
-                            System.out.println("\t\t           ║                     ║                          ");
-                            System.out.println("\t\t           ║                     ║          ");
-                            System.out.println("\t\t           ║                     ║          ");
-                            System.out.println("\t\t           ╚═════════════════════╝                            ");
-                            break;
-                        case 2:
-                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║               ⚪    ║                     ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║                     ║                             ");
-                        System.out.println("\t\t           ║     ⚪              ║                          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ╚═════════════════════╝                            ");
-                            break;
-                        case 3:
-                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║          ⚪         ║                     ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║                     ║                             ");
-                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ╚═════════════════════╝                            ");
-                            break;
-                        case 4:
-                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║                     ║                             ");
-                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ╚═════════════════════╝                            ");
-                            break;
-                        case 5:
-                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║         ⚪          ║                         ");
-                        System.out.println("\t\t           ║                     ║                             ");
-                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ╚═════════════════════╝                            ");
-                            break;
-                        case 6:
-                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
-                        System.out.println("\t\t           ║                     ║                         ");
-                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
-                        System.out.println("\t\t           ║                     ║                             ");
-                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ║                     ║          ");
-                        System.out.println("\t\t           ╚═════════════════════╝                            ");
-                            break;
-                    }
+                    animateDice(1, num);
 
                     if (player.getPosition() == 0) { // Send to jail (location 6)
                         System.out.println(
@@ -1622,6 +1512,118 @@ public class Main {
                 board[6][6].setLetterPos("【▶】");
                 break;
         }
+    }
+
+    /*
+     * Pre: Requires int to see which type of animation, then for a certain path it uses which animation of the 6
+     * Post: Returns nothing to main
+     * Desc: Displays the dice icon
+     */
+    public static void animateDice(int path, int num) {
+        switch (path) {
+            case 0:
+                pause();
+                clear();
+                System.out.println("\t\t                  #                   ");
+                System.out.println("\t\t                # # #                ");
+                System.out.println("\t\t             #    #     #             ");
+                System.out.println("\t\t          #       #        #          ");
+                System.out.println("\t\t       #     O    #          #        ");
+                System.out.println("\t\t     #  O         #       O     #       ");
+                System.out.println("\t\t     #     O    ####            #      ");
+                System.out.println("\t\t     #        #        ##       #      ");
+                System.out.println("\t\t     #    ##      O       #     #      ");
+                System.out.println("\t\t     #  #                       #     ");
+                System.out.println("\t\t     ##      O           O    #     ");
+                System.out.println("\t\t          ##      O        #          ");
+                System.out.println("\t\t               ##     ##               ");
+                System.out.println("\t\t                   #               \n\n\n\n\n\n\n\n");
+
+                sleep(400);
+                clear();
+                System.out.println("\t\t                   #                               ");
+                System.out.println("\t\t              ##      ###                               ");
+                System.out.println("\t\t        ##       O   O        #                         ");
+                System.out.println("\t\t        #  #       O     ##   #                     ");
+                System.out.println("\t\t        #     ##        ##    #                         ");
+                System.out.println("\t\t        #         # #    O    #                         ");
+                System.out.println("\t\t        #       O  #  O       #                             ");
+                System.out.println("\t\t        # O        #      O   #                          ");
+                System.out.println("\t\t        #          #   O      #          ");
+                System.out.println("\t\t           #       #       #                          ");
+                System.out.println("\t\t                #  #   #                     ");
+                System.out.println("\t\t                   #                     \n\n\n\n\n\n\n\n");
+
+                sleep(400);
+                clear();
+                break;
+            case 1:
+                switch (num) {
+                    case 1:
+                        System.out.println("\n\t\t              ╔════════════════╗                            ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║       ⚪       ║                         ");
+                        System.out.println("\t\t              ║                ║                             ");
+                        System.out.println("\t\t              ║                ║                          ");
+                        System.out.println("\t\t              ║                ║          ");
+                        System.out.println("\t\t              ╚════════════════╝                            ");
+                        break;
+                    case 2:
+                        System.out.println("\n\t\t              ╔════════════════╗                            ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║            ⚪  ║                         ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║                ║                             ");
+                        System.out.println("\t\t              ║   ⚪           ║                          ");
+                        System.out.println("\t\t              ║                ║          ");
+                        System.out.println("\t\t              ╚════════════════╝                            ");
+                        break;
+                    case 3:
+                        System.out.println("\n\t\t              ╔════════════════╗                            ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║       ⚪       ║                         ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║                ║                             ");
+                        System.out.println("\t\t              ║   ⚪      ⚪   ║                          ");
+                        System.out.println("\t\t              ║                ║          ");
+                        System.out.println("\t\t              ╚════════════════╝                            ");
+                        break;
+                    case 4:
+                        System.out.println("\n\t\t              ╔════════════════╗                            ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║   ⚪      ⚪   ║                          ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║                ║                             ");
+                        System.out.println("\t\t              ║   ⚪      ⚪   ║                          ");
+                        System.out.println("\t\t              ║                ║          ");
+                        System.out.println("\t\t              ╚════════════════╝                            ");
+                        break;
+                    case 5:
+                        System.out.println("\n\t\t              ╔════════════════╗                            ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║   ⚪      ⚪   ║                          ");
+                        System.out.println("\t\t              ║       ⚪       ║                         ");
+                        System.out.println("\t\t              ║                ║                             ");
+                        System.out.println("\t\t              ║   ⚪      ⚪   ║                          ");
+                        System.out.println("\t\t              ║                ║          ");
+                        System.out.println("\t\t              ╚════════════════╝                            ");
+                        break;
+                    case 6:
+                        System.out.println("\n\t\t              ╔════════════════╗                            ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║   ⚪      ⚪   ║                          ");
+                        System.out.println("\t\t              ║                ║                         ");
+                        System.out.println("\t\t              ║   ⚪      ⚪   ║                          ");
+                        System.out.println("\t\t              ║                ║                             ");
+                        System.out.println("\t\t              ║   ⚪      ⚪   ║                          ");
+                        System.out.println("\t\t              ║                ║          ");
+                        System.out.println("\t\t              ╚════════════════╝                            ");
+                        break;
+                }
+                break;
+        }
+
     }
 
 }
