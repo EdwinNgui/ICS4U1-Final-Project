@@ -59,12 +59,12 @@ public class Main {
             // Introduction
             clear();
             System.out.println(
-                    "__________________________________________________________________________________________\n\n\n\n\n\n");
+                    "__________________________________________________________________________________________\n\n\n\n\n\n\n\n\n");
             System.out.println("Welcome to...\n\n\n\n\n\n\n\n\n\n\n");
             slowText("\t\t█░█ ▄▀█ █▀▀ █▄▀ █▀▀ █▀█ ▀ █▀   █░█░█ █▀█ █▀█ █░░ █▀▄\n");
             slowText("\t\t█▀█ █▀█ █▄▄ █░█ ██▄ █▀▄ ░ ▄█   ▀▄▀▄▀ █▄█ █▀▄ █▄▄ █▄▀");
             System.out.println(
-                    "\n\n\n\n\n\n\n\n\n\n\n\n\nExpand the console until you can see both horizontal lines above and below the start menu");
+                    "\n\n\n\n\n\n\n\n\n\n\n\nExpand the console until you can see both horizontal lines above and below the start menu");
             System.out.println("When you see <continue> click \"enter\" to continue\n");
             System.out
                     .println(
@@ -97,8 +97,9 @@ public class Main {
                         "Each square may contain a purchasable scam website (generates income),");
                 System.out.println(
                         "chance card, or action space. The game ends when all players are out of money\nor the fixed number of turns finish and the game ends on its own.");
-                System.out.println("\nTo win; 1) All players except one must be bankrupt, or 2) Play out the 12 rounds");
-                        pause();
+                System.out
+                        .println("\nTo win; 1) All players except one must be bankrupt, or 2) Play out the 12 rounds");
+                pause();
                 clear();
                 System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\"");
                 System.out.println("\t  < You will make choices. Your choices will impact your end result >");
@@ -109,10 +110,12 @@ public class Main {
                 do {
                     displayMenu(3, invalidInput);
                     stringAns = input.nextLine();
-                    if (stringAns.equals("2") == false || stringAns.equals("3") == false || stringAns.equals("4") == false) {
+                    if (stringAns.equals("2") == false || stringAns.equals("3") == false
+                            || stringAns.equals("4") == false) {
                         invalidInput = true;
                     }
-                } while (stringAns.equals("2") == false && stringAns.equals("3") == false && stringAns.equals("4") == false);
+                } while (stringAns.equals("2") == false && stringAns.equals("3") == false
+                        && stringAns.equals("4") == false);
 
                 numOfPlayers = Integer.parseInt(stringAns);
 
@@ -294,7 +297,6 @@ public class Main {
             clear();
             // Allows player to use the turn-based cycle of the game
 
-
             for (; roundNum < 12; roundNum++) { // 12 rounds (from left off)
                 // Allow the turns to continue and move through
                 if (numOfPlayers >= 2) {
@@ -433,24 +435,24 @@ public class Main {
             slowText("\n");
 
             invalidInput = false;
-            do{
-            displayMenu(14, invalidInput);
-            stringAns = input.nextLine();
-            if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
-                invalidInput = true;
-            }
-
-            if (stringAns.equals("1")) { // Restart game
-                for (int i = 0; i < 8; i++) {
-                    chanceArr.dequeue();
+            do {
+                displayMenu(14, invalidInput);
+                stringAns = input.nextLine();
+                if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
+                    invalidInput = true;
                 }
-                // Reset all players
-                p1.reset();
-                p2.reset();
-                p3.reset();
-                p4.reset();
-            }
-        }while(stringAns.equals("1") == false && stringAns.equals("2") == false);
+
+                if (stringAns.equals("1")) { // Restart game
+                    for (int i = 0; i < 8; i++) {
+                        chanceArr.dequeue();
+                    }
+                    // Reset all players
+                    p1.reset();
+                    p2.reset();
+                    p3.reset();
+                    p4.reset();
+                }
+            } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
 
         } while (stringAns.equals("2") == false);
         clear();
@@ -647,11 +649,11 @@ public class Main {
                             invalidInput = true;
                         }
                     } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
-                    numAns = Integer.parseInt(stringAns); //Converts
+                    numAns = Integer.parseInt(stringAns); // Converts
 
                     if (numAns == 1) { // Roll dice
                         // Dice rolling must equate to the perfect number.
-                        int randNum = rand.nextInt(5) + 1; // 1-6
+                        int randNum = rand.nextInt(6) + 1; // 1-6
                         num = rollDice();
                         if (randNum == num) { // If same
                             System.out.println(
@@ -684,7 +686,41 @@ public class Main {
 
                     System.out.println(" > Roll Dice");
                     pause();
+
                     clear();
+                    System.out.println("                  #                   ");
+                    System.out.println("                # # #                ");
+                    System.out.println("             #    #     #             ");
+                    System.out.println("          #       #        #          ");
+                    System.out.println("       #     O    #          #        ");
+                    System.out.println("     #  O         #       O     #       ");
+                    System.out.println("     #     O    ####            #      ");
+                    System.out.println("     #        #        ##       #      ");
+                    System.out.println("     #    ##      O       #     #      ");
+                    System.out.println("     #  #                       #     ");
+                    System.out.println("     ##      O           O    #     ");
+                    System.out.println("          ##      O        #          ");
+                    System.out.println("               ##     ##               ");
+                    System.out.println("                   #               ");
+
+                    sleep(400);
+                    clear();
+                    System.out.println("                   #                               ");
+                    System.out.println("              ##      ###                               ");
+                    System.out.println("        ##       O   O        #                         ");
+                    System.out.println("        #  #       O     ##   #                     ");
+                    System.out.println("        #     ##        ##    #                         ");
+                    System.out.println("        #         # #    O    #                         ");
+                    System.out.println("        #       O  #  O       #                             ");
+                    System.out.println("        # O        #      O   #                          ");
+                    System.out.println("        #          #   O      #          ");
+                    System.out.println("           #       #       #                          ");
+                    System.out.println("                #  #   #                     ");
+                    System.out.println("                   #                     ");
+
+                    sleep(400);
+                    clear();
+
                     movePlayer(player, board, num);
                     displayBoard(board, player);
 
@@ -692,10 +728,88 @@ public class Main {
                     for (int i = 0; i < board.length; i++) {
                         for (int j = 0; j < board[i].length; j++) {
                             if (player.getPosition() == board[i][j].getPosition()) {
-                                System.out.println(player.getName() + " rolled a " + num + " and is now at: "
-                                        + board[i][j].getLetterPos());
+                                System.out.println(
+                                        "\t\t     " + player.getName() + " rolled a " + num + " and is now at: "
+                                                + board[i][j].getLetterPos());
                             }
                         }
+                    }
+                    // CURRENT
+//╔╗╚╝═║
+                    // Dice Roll Visual 1-6
+                    switch (num) {
+                        case 1:
+                            System.out.println("\n\t\t           ╔═════════════════════╗                            ");
+                            System.out.println("\t\t           ║                     ║                         ");
+                            System.out.println("\t\t           ║                     ║                     ");
+                            System.out.println("\t\t           ║                     ║                         ");
+                            System.out.println("\t\t           ║         ⚪          ║                         ");
+                            System.out.println("\t\t           ║                     ║                             ");
+                            System.out.println("\t\t           ║                     ║                          ");
+                            System.out.println("\t\t           ║                     ║          ");
+                            System.out.println("\t\t           ║                     ║          ");
+                            System.out.println("\t\t           ╚═════════════════════╝                            ");
+                            break;
+                        case 2:
+                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║               ⚪    ║                     ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║                     ║                             ");
+                        System.out.println("\t\t           ║     ⚪              ║                          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ╚═════════════════════╝                            ");
+                            break;
+                        case 3:
+                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║          ⚪         ║                     ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║                     ║                             ");
+                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ╚═════════════════════╝                            ");
+                            break;
+                        case 4:
+                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║                     ║                             ");
+                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ╚═════════════════════╝                            ");
+                            break;
+                        case 5:
+                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║         ⚪          ║                         ");
+                        System.out.println("\t\t           ║                     ║                             ");
+                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ╚═════════════════════╝                            ");
+                            break;
+                        case 6:
+                        System.out.println("\n\t\t           ╔═════════════════════╗                            ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
+                        System.out.println("\t\t           ║                     ║                         ");
+                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
+                        System.out.println("\t\t           ║                     ║                             ");
+                        System.out.println("\t\t           ║    ⚪         ⚪    ║                          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ║                     ║          ");
+                        System.out.println("\t\t           ╚═════════════════════╝                            ");
+                            break;
                     }
 
                     if (player.getPosition() == 0) { // Send to jail (location 6)
@@ -797,7 +911,8 @@ public class Main {
                                 } else if (numAns == 2) { // Not hack for money, boosts ethic standing
                                     player.modifyEthicalRating(85);
                                     System.out
-                                            .println("\nYou deleted the copies...CLICK! Maybe that was the right move?");
+                                            .println(
+                                                    "\nYou deleted the copies...CLICK! Maybe that was the right move?");
                                 }
 
                                 break;
@@ -818,7 +933,8 @@ public class Main {
                                 numAns = Integer.parseInt(stringAns);
                                 if (numAns == 1) { // Hack for money
                                     player.modifyBalance(400);
-                                    System.out.println("\nYou have a crypto machine making you $50 a turn! (stackable)");
+                                    System.out
+                                            .println("\nYou have a crypto machine making you $50 a turn! (stackable)");
                                     player.modifyEthicalRating(-50);
                                 } else if (numAns == 2) { // Not hack for money, boosts ethic standing
                                     player.modifyEthicalRating(110);
@@ -874,7 +990,7 @@ public class Main {
                                         }
 
                                         // Displays the website details
-                                        System.out.println("\"Company\" Name: " + board[i][j].getName());
+                                        System.out.println("\n\"Company\" Name: " + board[i][j].getName());
                                         System.out.print("Virus Type: ");
                                         if (board[i][j].getVirusType() == 1) { // File-Infecting Virus
                                             System.out.println("File-Infecting Virus");
@@ -903,7 +1019,8 @@ public class Main {
                                             System.out.println("   ○ Buy Cost: $" + board[i][j].getBuyValue());
                                             System.out.println("   ○ Sell Price: $" + board[i][j].getSellValue());
                                             System.out
-                                                    .println("   ○ Income from Scams: $" + board[i][j].getRentValue());
+                                                    .println("   ○ Income from Scams: $" + board[i][j].getRentValue()
+                                                            + "\n");
                                         }
 
                                         // Action Menu
@@ -914,10 +1031,12 @@ public class Main {
                                                 do {
                                                     displayMenu(9, invalidInput);
                                                     stringAns = input.nextLine();
-                                                    if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
+                                                    if (stringAns.equals("1") == false
+                                                            || stringAns.equals("2") == false) {
                                                         invalidInput = true;
                                                     }
-                                                } while (stringAns.equals("1") == false && stringAns.equals("2") == false);
+                                                } while (stringAns.equals("1") == false
+                                                        && stringAns.equals("2") == false);
                                                 numAns = Integer.parseInt(stringAns);
                                                 if (numAns == 1) { // sell website
                                                     System.out.println(
@@ -1022,11 +1141,12 @@ public class Main {
             invalidInput = false;
             do {
                 displayBoard(board, player);
-                System.out.println(
+                System.out.println("\n" +
                         player.getName() + "'s Post-Roll Actions Menu\t| (Balance: $" + player.getBalance() + ")");
                 displayMenu(10, invalidInput);
                 stringAns = input.nextLine();
-                if (stringAns.equals("1") == false && stringAns.equals("2") == false && stringAns.equals("3") == false && stringAns.equals("4") == false && stringAns.equals("5") == false) {
+                if (stringAns.equals("1") == false && stringAns.equals("2") == false && stringAns.equals("3") == false
+                        && stringAns.equals("4") == false && stringAns.equals("5") == false) {
                     invalidInput = true;
                 }
 
@@ -1046,7 +1166,15 @@ public class Main {
                         displayMenu(11, invalidInput);
                         stringAns = input.nextLine();
                         // Checks if it's invalid number (valid inclusive: 1-17)
-                        if (stringAns.equals("1") == false && stringAns.equals("2") == false && stringAns.equals("3") == false && stringAns.equals("4") == false && stringAns.equals("5") == false && stringAns.equals("6") == false && stringAns.equals("7") == false && stringAns.equals("8") == false && stringAns.equals("9") == false && stringAns.equals("10") == false && stringAns.equals("11") == false && stringAns.equals("12") == false && stringAns.equals("13") == false && stringAns.equals("14") == false && stringAns.equals("15") == false && stringAns.equals("16") == false && stringAns.equals("17") == false) { 
+                        if (stringAns.equals("1") == false && stringAns.equals("2") == false
+                                && stringAns.equals("3") == false && stringAns.equals("4") == false
+                                && stringAns.equals("5") == false && stringAns.equals("6") == false
+                                && stringAns.equals("7") == false && stringAns.equals("8") == false
+                                && stringAns.equals("9") == false && stringAns.equals("10") == false
+                                && stringAns.equals("11") == false && stringAns.equals("12") == false
+                                && stringAns.equals("13") == false && stringAns.equals("14") == false
+                                && stringAns.equals("15") == false && stringAns.equals("16") == false
+                                && stringAns.equals("17") == false) {
                             invalidInput = true;
                         } else if (stringAns.equals("0") == false) { // Valid num and not -1; search players
                             numAns = Integer.parseInt(stringAns);
@@ -1163,7 +1291,7 @@ public class Main {
     public static void displayBoard(boardSpace[][] board, Player player) {
 
         String[] legend = { "\t_______________________________________", "\t|\t\t  Legend               |",
-                "\t| {Letter} - Scam Website for Income   |", "\t| ⏭ - Get Blackmailed       \t       |",
+                "\t| {Letter} - Scam Website for Income   |", "\t| ⯮ - Get Blackmailed       \t       |",
                 "\t| ◈ - Locked out of Login (Jail)       |", "\t| ▶ - Start: Collect $200              |",
                 "\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" };
 
@@ -1256,9 +1384,19 @@ public class Main {
             }
             displayMenu(menuNum, invalidInput);
             stringAns = input.nextLine();
-            if (stringAns.equals("1") == false && stringAns.equals("2") == false && stringAns.equals("3") == false && stringAns.equals("4") == false && stringAns.equals("5") == false && stringAns.equals("6") == false && stringAns.equals("7") == false && stringAns.equals("8") == false && stringAns.equals("9") == false && stringAns.equals("10") == false && stringAns.equals("11") == false && stringAns.equals("12") == false && stringAns.equals("13") == false && stringAns.equals("14") == false && stringAns.equals("15") == false && stringAns.equals("16") == false && stringAns.equals("17") == false && stringAns.equals("18") == false && stringAns.equals("19") == false && stringAns.equals("20") == false && stringAns.equals("21") == false && stringAns.equals("22") == false) { 
+            if (stringAns.equals("1") == false && stringAns.equals("2") == false && stringAns.equals("3") == false
+                    && stringAns.equals("4") == false && stringAns.equals("5") == false
+                    && stringAns.equals("6") == false && stringAns.equals("7") == false
+                    && stringAns.equals("8") == false && stringAns.equals("9") == false
+                    && stringAns.equals("10") == false && stringAns.equals("11") == false
+                    && stringAns.equals("12") == false && stringAns.equals("13") == false
+                    && stringAns.equals("14") == false && stringAns.equals("15") == false
+                    && stringAns.equals("16") == false && stringAns.equals("17") == false
+                    && stringAns.equals("18") == false && stringAns.equals("19") == false
+                    && stringAns.equals("20") == false && stringAns.equals("21") == false
+                    && stringAns.equals("22") == false) {
                 invalidInput = true;
-            } else if (stringAns.equals("0") == false) { //valid non-zero numbers make it here
+            } else if (stringAns.equals("0") == false) { // valid non-zero numbers make it here
                 numAns = Integer.parseInt(stringAns);
                 if (player.searchOwnedSpace(numAns, 0)) { // Owns it and will sell right now
                     // Searches thru the map
@@ -1419,7 +1557,7 @@ public class Main {
                 board[6] = new boardSpace[7];
                 break;
             case 1:
-                board[0][0].setInfo("_", "【⏭】", 0, 0, 0, 0, 0, 0);
+                board[0][0].setInfo("_", "【⯮】", 0, 0, 0, 0, 0, 0);
                 board[0][1].setInfo("Mesla", "【K】", 1, 3, 0, 180, 90, 90);
                 board[0][2].setInfo("Macrotough", "【L】", 2, 3, 0, 190, 95, 95);
                 board[0][3].setInfo("_", "【✦】", 3, 0, 0, 0, 0, 0);
@@ -1452,7 +1590,7 @@ public class Main {
 
                 break;
             case 2:
-                board[0][0].setLetterPos("【⏭】");
+                board[0][0].setLetterPos("【⯮】");
                 board[0][1].setLetterPos("【K】");
                 board[0][2].setLetterPos("【L】");
                 board[0][3].setLetterPos("【✦】");
