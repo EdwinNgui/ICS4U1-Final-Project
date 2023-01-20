@@ -15,7 +15,7 @@
          // Setup
          // Type "chcp 65001" if the characters appear as question marks
          // For ReadWrite
-         String fileDirectory = "C:\\Users\\edwin\\Downloads\\GameSave.txt"; // CHANGE THIS for each new PC
+         String fileDirectory = "GameSave.txt"; // CHANGE THIS for each new PC
          Scanner input = new Scanner(System.in);
          Random rand = new Random();
          boolean invalidInput = false;
