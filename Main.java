@@ -15,16 +15,12 @@ public class Main {
         // Setup
         // Type "chcp 65001" if the characters appear as question marks
         // For ReadWrite
-        String fileDirectory = "C:\\Users\\moonb\\VSCode\\ICS4U1-FINAL-PROJECT\\GameSave.txt"; // CHANGE THIS for each
-                                                                                               // new PC
-        //"C:\Users\edwin\Downloads\GameSave.txt"
+        String fileDirectory = "C:\\Users\\edwin\\Downloads\\GameSave.txt"; // CHANGE THIS for each new PC
         Scanner input = new Scanner(System.in);
         Random rand = new Random();
         boolean invalidInput = false;
-        int ans;
         String stringAns; // For names
         int num = 0;
-        int numAns;
         int numOfPlayers = 0;
         int roundNum = 0;
         Player playerTurn = new Player();
@@ -163,7 +159,26 @@ public class Main {
                 FileReader in;
                 BufferedReader readFile;
                 String line;
+                
+                // CURRENT: Give option to continue to load or add directory
+                invalidInput = false;
+                do {
+                    clear();
+                    displayMenu(15, invalidInput);
+                    stringAns = input.nextLine();
+                    if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
+                        invalidInput = true;
+                    }
 
+                    // If needing to change directory
+                    if (stringAns.equals("1")) {
+                        System.out.print("Input the new File Directory (do not include quotation marks): ");
+                        fileDirectory = input.nextLine();
+                        invalidInput = false;
+                    }
+                } while (stringAns.equals("2") == false); //Only exits loop on the exit
+
+                //On exit, it continues to load
                 try {
                     in = new FileReader(fileDirectory);
                     readFile = new BufferedReader(in);
@@ -288,7 +303,7 @@ public class Main {
 
                 // Updates icons (because file reading won't support)
                 setup(2, board);
-                System.out.println("Loading Complete!");
+                System.out.println("Executed Loading Stage..."); //More adaptable message, it's like saying "i tried"
                 pause();
             }
 
@@ -567,6 +582,9 @@ public class Main {
         } else if (menuNum == 14) {
             System.out.println("\n(1) Play Again");
             System.out.println("(2) Exit");
+        } else if (menuNum == 15) {
+            System.out.println("\n(1) Change the File Directory (Path)");
+            System.out.println("(2) Continue Loading with Current File Directory");
         }
 
         // If invalid input previously
@@ -1515,7 +1533,8 @@ public class Main {
     }
 
     /*
-     * Pre: Requires int to see which type of animation, then for a certain path it uses which animation of the 6
+     * Pre: Requires int to see which type of animation, then for a certain path it
+     * uses which animation of the 6
      * Post: Returns nothing to main
      * Desc: Displays the dice icon
      */
