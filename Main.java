@@ -553,8 +553,8 @@ public class Main {
             System.out.println("(1) View your inventory");
             System.out.println("(2) Search for website ownership");
             System.out.println("(3) Sell a website");
-            System.out.println("(4) Save");
-            System.out.println("(5) Pass");
+            System.out.println("(4) Save Game");
+            System.out.println("(5) End Turn");
         } else if (menuNum == 11) {
             System.out.println("(#) Search who owns a website");
             System.out.println("(0) Exit");
