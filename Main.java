@@ -96,6 +96,10 @@ public class Main {
                 System.out
                         .println("\nTo win; 1) All players except one must be bankrupt, or 2) Play out the 12 rounds");
                 pause();
+                System.out
+                        .println(
+                                "\nAs you move around the board you can buy Scam Websites which will inject viruses into other people's devices for\nmoney when they land on it.");
+                pause();
                 clear();
                 System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\"");
                 System.out.println("\t  < You will make choices. Your choices will impact your end result >");
@@ -159,8 +163,7 @@ public class Main {
                 FileReader in;
                 BufferedReader readFile;
                 String line;
-                
-                // CURRENT: Give option to continue to load or add directory
+
                 invalidInput = false;
                 do {
                     clear();
@@ -176,9 +179,9 @@ public class Main {
                         fileDirectory = input.nextLine();
                         invalidInput = false;
                     }
-                } while (stringAns.equals("2") == false); //Only exits loop on the exit
+                } while (stringAns.equals("2") == false); // Only exits loop on the exit
 
-                //On exit, it continues to load
+                // On exit, it continues to load
                 try {
                     in = new FileReader(fileDirectory);
                     readFile = new BufferedReader(in);
@@ -303,7 +306,7 @@ public class Main {
 
                 // Updates icons (because file reading won't support)
                 setup(2, board);
-                System.out.println("Executed Loading Stage..."); //More adaptable message, it's like saying "i tried"
+                System.out.println("Executed Loading Stage..."); // More adaptable message, it's like saying "i tried"
                 pause();
             }
 
@@ -653,7 +656,15 @@ public class Main {
 
         if (player.getInGame()) { // If in game, continue
             if (existingLoad) { // As long as it's a normal
-                System.out.println(player.getName() + " is at: " + player.getPosition());
+
+                // Find corresponding board space (by searching thru)
+                for (int i = 0; i < board.length; i++) {
+                    for (int j = 0; j < board[i].length; j++) {
+                        if (player.getPosition() == board[i][j].getPosition()) {
+                            System.out.println(player.getName() + " is at: " + board[i][j].getLetterPos());
+                        }
+                    }
+                }
 
                 // Jail (blackmail) check
                 if (player.getJail() >= 1) { // If they are in jail...
@@ -1201,7 +1212,7 @@ public class Main {
         String[] legend = { "\t_______________________________________", "\t|\t\t  Legend               |",
                 "\t| {Letter} - Scam Website for Income   |", "\t| ⯮ - Get Blackmailed       \t       |",
                 "\t| ◈ - Locked out of Login (Jail)       |", "\t| ▶ - Start: Collect $200              |",
-                "\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" };
+                "\t| # - Your Player                      |" };
 
         clear();
         // Position viewer for all spaces
@@ -1485,7 +1496,7 @@ public class Main {
                 board[4][0].setInfo("Hoom", "【H】", 13, 2, 0, 100, 50, 40);
                 board[4][1].setInfo("River of Amazon", "【Q】", 14, 5, 0, 340, 170, 180);
 
-                board[5][0].setInfo("Bazer", "【G】", 15, 2, 0, 90, 45, 30);
+                board[5][0].setInfo("Lazer", "【G】", 15, 2, 0, 90, 45, 30);
                 board[5][1].setInfo("Armbook", "【R】", 16, 5, 0, 350, 175, 200);
 
                 board[6][0].setInfo("Byzen", "【F】", 17, 2, 0, 80, 45, 25);
