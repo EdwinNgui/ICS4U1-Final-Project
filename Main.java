@@ -15,7 +15,7 @@
          // Setup
          // Type "chcp 65001" if the characters appear as question marks
          // For ReadWrite
-         String fileDirectory = "GameSave.txt"; // CHANGE THIS for each new PC
+         String fileDirectory = "GameSave.txt";
          Scanner input = new Scanner(System.in);
          Random rand = new Random();
          boolean invalidInput = false;
@@ -163,23 +163,6 @@
                  FileReader in;
                  BufferedReader readFile;
                  String line;
- 
-                 invalidInput = false;
-                 do {
-                     clear();
-                     displayMenu(15, invalidInput);
-                     stringAns = input.nextLine();
-                     if (stringAns.equals("1") == false || stringAns.equals("2") == false) {
-                         invalidInput = true;
-                     }
- 
-                     // If needing to change directory
-                     if (stringAns.equals("1")) {
-                         System.out.print("Input the new File Directory (do not include quotation marks): ");
-                         fileDirectory = input.nextLine();
-                         invalidInput = false;
-                     }
-                 } while (stringAns.equals("2") == false); // Only exits loop on the exit
  
                  // On exit, it continues to load
                  try {
@@ -585,9 +568,6 @@
          } else if (menuNum == 14) {
              System.out.println("\n(1) Play Again");
              System.out.println("(2) Exit");
-         } else if (menuNum == 15) {
-             System.out.println("\n(1) Change the File Directory (Path)");
-             System.out.println("(2) Continue Loading with Current File Directory");
          }
  
          // If invalid input previously
