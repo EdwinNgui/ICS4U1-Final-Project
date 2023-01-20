@@ -17,7 +17,7 @@ public class Main {
         // For ReadWrite
         String fileDirectory = "C:\\Users\\moonb\\VSCode\\ICS4U1-FINAL-PROJECT\\GameSave.txt"; // CHANGE THIS for each
                                                                                                // new PC
-
+        //"C:\Users\edwin\Downloads\GameSave.txt"
         Scanner input = new Scanner(System.in);
         Random rand = new Random();
         boolean invalidInput = false;
