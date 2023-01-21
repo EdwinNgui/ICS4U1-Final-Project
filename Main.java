@@ -1307,7 +1307,6 @@
                                  System.out.println("Selling " + board[i][j].getLetterPos() + " : "
                                          + board[i][j].getName());
                              }
- 
                          }
                      }
                      player.removeOwnedSpace(numAns);
