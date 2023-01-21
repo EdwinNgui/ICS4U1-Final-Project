@@ -98,7 +98,7 @@
                  pause();
                  System.out
                          .println(
-                                 "\nAs you move around the board you can buy Scam Websites which will inject viruses into other people's devices for\nmoney when they land on it.");
+                                 "\nAs you move around the board you can buy Scam Websites which will inject viruses\ninto other people's devices for money when they land on it.");
                  pause();
                  clear();
                  System.out.println("\t\"Actions which harm society will be watched. Good deeds will be seen.\"");
